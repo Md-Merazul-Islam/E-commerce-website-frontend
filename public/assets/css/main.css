@@ -923,6 +923,7 @@ ol {
 
 .breadcrumbs .breadcrumbs-content .page-title {
   font-size: 18px;
+
   color: #081828;
   font-weight: 600;
   position: relative;
@@ -974,11 +975,11 @@ ol {
 
 .breadcrumbs .breadcrumb-nav li:after {
   content: "\ea62";
-font-family: lineIcons;
-font-size: 12px;
-position: absolute;
-top: 3px;
-right: -7px;
+  font-family: lineIcons;
+  font-size: 12px;
+  position: absolute;
+  top: 3px;
+  right: -7px;
 }
 
 .breadcrumbs .breadcrumb-nav li:last-child {
@@ -1000,10 +1001,10 @@ right: -7px;
 .breadcrumbs .breadcrumb-nav li i,
 .breadcrumbs .breadcrumb-nav li a i {
   font-size: 13px;
-display: inline-block;
-margin-right: 3px;
-position: relative;
-top: -1px;
+  display: inline-block;
+  margin-right: 3px;
+  position: relative;
+  top: -1px;
 }
 
 .breadcrumbs .breadcrumb-nav li a {
@@ -1042,6 +1043,7 @@ top: -1px;
   position: relative;
   z-index: 5;
   position: relative;
+
 }
 
 .section-title h2 {
@@ -1514,6 +1516,7 @@ top: -1px;
   display: inline-block;
   margin-right: 10px;
   padding-right: 10px;
+  text-decoration: none;
 }
 
 .header .topbar .top-middle .useful-links li:last-child {
@@ -1525,6 +1528,7 @@ top: -1px;
   color: #fff;
   font-size: 14px;
   font-weight: 500;
+  text-decoration: none;
 }
 
 .header .topbar .top-middle .useful-links li a:hover {
@@ -1586,6 +1590,7 @@ top: -1px;
   font-weight: 500;
   font-size: 14px;
   white-space: nowrap;
+  text-decoration: none;
 }
 
 .header .topbar .top-end .user-login li a:hover {
@@ -1929,6 +1934,7 @@ top: -1px;
   }
 }
 
+
 .header .navbar-cart .cart-items .shopping-item .shopping-list li .content h4 a:hover {
   color: #0167F3;
 }
@@ -2101,10 +2107,12 @@ top: -1px;
 
   .header .navbar .navbar-nav .nav-item a:hover {
     color: #0167F3 !important;
+    text-decoration: none;
   }
 
   .header .navbar .navbar-nav .nav-item a.active {
     color: #0167F3 !important;
+    text-decoration: none;
   }
 
   .header .navbar-nav .nav-item {
@@ -2117,10 +2125,12 @@ top: -1px;
 
   .header .navbar-nav .nav-item a {
     padding: 12px 16px !important;
+    text-decoration: none;
   }
 
   .header .navbar-nav .nav-item a::before {
     display: none;
+    text-decoration: none;
   }
 
   .header .navbar-nav .nav-item .sub-menu {
@@ -2138,6 +2148,7 @@ top: -1px;
 
   .header .navbar-nav .nav-item .sub-menu .nav-item a {
     padding: 12px 12px;
+    text-decoration: none;
   }
 
   .header .navbar-nav .nav-item .sub-menu .nav-item a:hover {
@@ -2153,16 +2164,19 @@ top: -1px;
     -ms-flex-pack: justify;
     justify-content: space-between;
     padding: 10px 0;
+    text-decoration: none;
   }
 
   .header .navbar-nav .nav-item a::after {
     opacity: 1;
     visibility: visible;
+    text-decoration: none;
   }
 
   .header .navbar-nav .nav-item .sub-menu li.active {
     background: #fff !important;
     color: #0167F3 !important;
+    text-decoration: none;
   }
 
   .header .navbar-nav .nav-item .sub-menu .nav-item {
@@ -2171,11 +2185,13 @@ top: -1px;
 
   .header .navbar-nav .nav-item .sub-menu .nav-item a {
     padding: 10px 12px !important;
+    text-decoration: none;
   }
 
   .header .navbar-nav .nav-item .sub-menu li:hover {
     background: #fff !important;
     color: #0167F3 !important;
+    text-decoration: none;
   }
 
   .header .navbar-nav .nav-item a {
@@ -2256,6 +2272,15 @@ top: -1px;
 
   .header .navbar-nav .nav-item .sub-menu .nav-item a {
     padding: 12px 12px;
+    text-decoration: none;
+  }
+
+  .text-dec Link {
+    text-decoration: none;
+  }
+
+  .inner-sub-category.nav-item Link {
+    text-decoration: none;
   }
 
   .header .navbar-nav .nav-item .sub-menu .nav-item a:hover {
@@ -2352,10 +2377,10 @@ top: -1px;
 
 .header .mega-category-menu .cat-button i {
   display: inline-block;
-margin-right: 12px;
-font-size: 20px;
-position: relative;
-top: 2px;
+  margin-right: 12px;
+  font-size: 20px;
+  position: relative;
+  top: 2px;
 }
 
 .header .mega-category-menu:hover .sub-category {
@@ -3301,6 +3326,7 @@ top: 2px;
   transition: all 0.4s ease;
   opacity: 0;
   visibility: hidden;
+
 }
 
 .single-product .product-image .button .btn {
@@ -3312,8 +3338,8 @@ top: 2px;
 
 .single-product .product-image .button .btn i {
   font-size: 18px;
-    position: relative;
-    top: 2px;
+  position: relative;
+  top: 2px;
 }
 
 .single-product .product-image img {
@@ -3476,6 +3502,7 @@ top: 2px;
   margin-top: 10px;
   font-size: 22px;
   font-weight: 700;
+  text-decoration: none !important;
 }
 
 .single-banner .content p {
@@ -3933,10 +3960,10 @@ top: 2px;
 
 .item-details .product-info .wish-button .btn i {
   font-size: 16px;
-display: inline-block;
-margin-right: 5px;
-position: relative;
-top: 2px;
+  display: inline-block;
+  margin-right: 5px;
+  position: relative;
+  top: 2px;
 }
 
 .item-details .product-info .list-info {
@@ -3950,6 +3977,7 @@ top: 2px;
   font-weight: 500;
   display: block;
   margin-bottom: 15px;
+
 }
 
 .item-details .product-info .list-info ul li {
@@ -4745,7 +4773,7 @@ top: 2px;
   left: 20px;
   top: 50%;
   -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
+  transform: translateY(-50%);
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
@@ -4786,13 +4814,15 @@ top: 2px;
   padding: 25px 0;
 }
 
-@media only screen and (min-width: 768px) and (max-width: 991px), (max-width: 767px) {
+@media only screen and (min-width: 768px) and (max-width: 991px),
+(max-width: 767px) {
   .footer .footer-bottom .inner-content {
     text-align: center;
   }
 }
 
-@media only screen and (min-width: 768px) and (max-width: 991px), (max-width: 767px) {
+@media only screen and (min-width: 768px) and (max-width: 991px),
+(max-width: 767px) {
   .footer .footer-bottom .payment-gateway {
     margin-bottom: 12px;
   }
@@ -4820,7 +4850,8 @@ top: 2px;
   text-align: center;
 }
 
-@media only screen and (min-width: 768px) and (max-width: 991px), (max-width: 767px) {
+@media only screen and (min-width: 768px) and (max-width: 991px),
+(max-width: 767px) {
   .footer .footer-bottom .copyright {
     margin-bottom: 12px;
   }
@@ -4845,7 +4876,8 @@ top: 2px;
   float: right;
 }
 
-@media only screen and (min-width: 768px) and (max-width: 991px), (max-width: 767px) {
+@media only screen and (min-width: 768px) and (max-width: 991px),
+(max-width: 767px) {
   .footer .footer-bottom .socila {
     float: none;
     text-align: center;

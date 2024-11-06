@@ -1,0 +1,240 @@
+/*===== All Product Style 7 =====*/
+.primary-btn {
+  display: flex;
+  align-items: center;
+  background-color: #3498db;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  width: 150px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.primary-btn:hover {
+  background-color: #2980b9;
+}
+
+.primary-btn img {
+  margin-right: 8px;
+}
+
+.product-style-7 {
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: #FAFAFA;
+}
+
+@media (max-width: 767px) {
+  .product-style-7 {
+    display: block;
+  }
+}
+
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+  .product-style-7 {
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+}
+
+.product-style-7 .product-image {
+  position: relative;
+  max-width: 240px;
+  width: 100%;
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+  .product-style-7 .product-image {
+    max-width: 200px;
+  }
+}
+
+@media (max-width: 767px) {
+  .product-style-7 .product-image {
+    max-width: 100%;
+  }
+}
+
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+  .product-style-7 .product-image {
+    max-width: 240px;
+  }
+}
+
+.product-style-7 .product-image .product-active .product-item img {
+  width: 100%;
+}
+
+.product-style-7 .product-image .product-active .slick-arrow {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  -webkit-transition: all 0.3s linear;
+  transition: all 0.3s linear;
+  bottom: auto;
+  left: 4px;
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.38);
+  font-size: 32px;
+  z-index: 5;
+  cursor: pointer;
+}
+
+.product-style-7 .product-image .product-active .slick-arrow:hover {
+  color: #000;
+}
+
+.product-style-7 .product-image .product-active .slick-arrow.next {
+  right: 4px;
+  left: auto;
+}
+
+.product-style-7 .product-content {
+  position: relative;
+  z-index: 5;
+  padding: 20px 20px 25px;
+  -moz-flex: 1;
+  -ms-flex: 1;
+  -webkit-box-flex: 1;
+  flex: 1;
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+  .product-style-7 .product-content {
+    padding: 20px 15px 25px;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .product-style-7 .product-content {
+    padding: 20px 15px 25px;
+  }
+}
+
+@media (max-width: 767px) {
+  .product-style-7 .product-content {
+    padding: 20px 10px 25px;
+  }
+}
+
+.product-style-7 .product-content .product-meta li {
+  display: inline-block;
+}
+
+.product-style-7 .product-content .product-meta li+li {
+  margin-left: 16px;
+}
+
+.product-style-7 .product-content .product-meta li a {
+  color: #4C4C4C;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 22px;
+  -webkit-transition: all 0.3s linear;
+  transition: all 0.3s linear;
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+  .product-style-7 .product-content .product-meta li a {
+    font-size: 14px;
+    line-height: 20px;
+  }
+}
+
+.product-style-7 .product-content .product-meta li a:hover {
+  color: #542DED;
+}
+
+.product-style-7 .product-content .product-meta li span {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 22px;
+  color: #4C4C4C;
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+  .product-style-7 .product-content .product-meta li span {
+    font-size: 14px;
+    line-height: 20px;
+  }
+}
+
+.product-style-7 .product-content .product-meta li span i {
+  color: #FFBE27;
+  font-size: 24px;
+}
+
+.product-style-7 .product-content .title a {
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 30px;
+  text-decoration: none;
+  color: #000;
+  -webkit-transition: all 0.3s linear;
+  transition: all 0.3s linear;
+  margin-top: 8px;
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+  .product-style-7 .product-content .title a {
+    font-size: 20px;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .product-style-7 .product-content .title a {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 767px) {
+  .product-style-7 .product-content .title a {
+    font-size: 18px;
+  }
+}
+
+.product-style-7 .product-content .title a:hover {
+  color: #542DED;
+}
+
+.product-style-7 .product-content p {
+  color: rgba(0, 0, 0, 0.74);
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 400;
+  margin-top: 8px;
+}
+
+.product-style-7 .product-content .price {
+  font-weight: 500;
+  font-size: 24px;
+  color: #E14C7B;
+  line-height: 30px;
+  margin-top: 8px;
+  display: block;
+}
+
+.product-style-7 .product-content .main-btn {
+  margin-top: 16px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: capitalize;
+}

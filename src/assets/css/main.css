@@ -5,16 +5,24 @@
     Normalize CSS
 ========================================*/
 @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap");
+
 /* variables.css */
 :root {
 
-  --primary-color: #3498db;       /* Primary color */
-  --secondary-color: #2ecc71;     /* Secondary color */
-  --accent-color: #e74c3c;        /* Accent color */
-  --background-color: #f5f5f5;    /* Background color */
-  --text-color: #333333;          /* Main text color */
-  --heading-color: #2c3e50;       /* Heading text color */
-  --border-color: #cccccc;        /* Border color */
+  --primary-color: #3498db;
+  /* Primary color */
+  --secondary-color: #2ecc71;
+  /* Secondary color */
+  --accent-color: #e74c3c;
+  /* Accent color */
+  --background-color: #f5f5f5;
+  /* Background color */
+  --text-color: #333333;
+  /* Main text color */
+  --heading-color: #2c3e50;
+  /* Heading text color */
+  --border-color: #cccccc;
+  /* Border color */
 
 }
 
@@ -58,6 +66,7 @@ button:focus,
   border-color: none !important;
   -webkit-box-shadow: none !important;
   box-shadow: none !important;
+
 }
 
 .form-check-input:checked {
@@ -982,15 +991,16 @@ ol {
   padding-right: 14px;
   margin-right: 14px;
   text-transform: capitalize;
+
 }
 
 .breadcrumbs .breadcrumb-nav li:after {
   content: "\ea62";
-font-family: lineIcons;
-font-size: 12px;
-position: absolute;
-top: 3px;
-right: -7px;
+  font-family: lineIcons;
+  font-size: 12px;
+  position: absolute;
+  top: 3px;
+  right: -7px;
 }
 
 .breadcrumbs .breadcrumb-nav li:last-child {
@@ -1012,10 +1022,10 @@ right: -7px;
 .breadcrumbs .breadcrumb-nav li i,
 .breadcrumbs .breadcrumb-nav li a i {
   font-size: 13px;
-display: inline-block;
-margin-right: 3px;
-position: relative;
-top: -1px;
+  display: inline-block;
+  margin-right: 3px;
+  position: relative;
+  top: -1px;
 }
 
 .breadcrumbs .breadcrumb-nav li a {
@@ -1526,6 +1536,7 @@ top: -1px;
   display: inline-block;
   margin-right: 10px;
   padding-right: 10px;
+  text-decoration: none;
 }
 
 .header .topbar .top-middle .useful-links li:last-child {
@@ -2364,10 +2375,10 @@ top: -1px;
 
 .header .mega-category-menu .cat-button i {
   display: inline-block;
-margin-right: 12px;
-font-size: 20px;
-position: relative;
-top: 2px;
+  margin-right: 12px;
+  font-size: 20px;
+  position: relative;
+  top: 2px;
 }
 
 .header .mega-category-menu:hover .sub-category {
@@ -3324,8 +3335,8 @@ top: 2px;
 
 .single-product .product-image .button .btn i {
   font-size: 18px;
-    position: relative;
-    top: 2px;
+  position: relative;
+  top: 2px;
 }
 
 .single-product .product-image img {
@@ -3945,10 +3956,10 @@ top: 2px;
 
 .item-details .product-info .wish-button .btn i {
   font-size: 16px;
-display: inline-block;
-margin-right: 5px;
-position: relative;
-top: 2px;
+  display: inline-block;
+  margin-right: 5px;
+  position: relative;
+  top: 2px;
 }
 
 .item-details .product-info .list-info {
@@ -4757,7 +4768,7 @@ top: 2px;
   left: 20px;
   top: 50%;
   -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
+  transform: translateY(-50%);
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
@@ -4798,13 +4809,15 @@ top: 2px;
   padding: 25px 0;
 }
 
-@media only screen and (min-width: 768px) and (max-width: 991px), (max-width: 767px) {
+@media only screen and (min-width: 768px) and (max-width: 991px),
+(max-width: 767px) {
   .footer .footer-bottom .inner-content {
     text-align: center;
   }
 }
 
-@media only screen and (min-width: 768px) and (max-width: 991px), (max-width: 767px) {
+@media only screen and (min-width: 768px) and (max-width: 991px),
+(max-width: 767px) {
   .footer .footer-bottom .payment-gateway {
     margin-bottom: 12px;
   }
@@ -4832,7 +4845,8 @@ top: 2px;
   text-align: center;
 }
 
-@media only screen and (min-width: 768px) and (max-width: 991px), (max-width: 767px) {
+@media only screen and (min-width: 768px) and (max-width: 991px),
+(max-width: 767px) {
   .footer .footer-bottom .copyright {
     margin-bottom: 12px;
   }
@@ -4857,7 +4871,8 @@ top: 2px;
   float: right;
 }
 
-@media only screen and (min-width: 768px) and (max-width: 991px), (max-width: 767px) {
+@media only screen and (min-width: 768px) and (max-width: 991px),
+(max-width: 767px) {
   .footer .footer-bottom .socila {
     float: none;
     text-align: center;
