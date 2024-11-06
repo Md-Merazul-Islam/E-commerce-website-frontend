@@ -1,0 +1,98 @@
+/* Make the hero area section responsive */
+.hero-area {
+  padding: 60px 0;
+}
+
+/* Default height for carousel items */
+.hero-area .carousel-item {
+  height: 505px;
+  /* Default height */
+  background-size: cover;
+  background-position: center;
+}
+
+.hero-area .carousel-item .content {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  color: rgb(0, 0, 0);
+  max-width: 500px;
+}
+
+/* Show name, price, and button, but hide description on mobile */
+.hero-area .carousel-item .content p {
+  display: block;
+  /* By default, show description */
+}
+
+.hero-area .carousel-item .content h2,
+.hero-area .carousel-item .content h3,
+.hero-area .carousel-item .content .button {
+  display: block;
+  /* Show name, price, and button */
+}
+
+@media (max-width: 991px) {
+  .hero-area .carousel-item {
+    height: 500px;
+    /* 100px more height for large screens */
+  }
+
+  .hero-small-banner {
+    height: 150px;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero-area .carousel-item {
+    height: 250px;
+  }
+
+  .custom-padding-right {
+    margin-bottom: 12px;
+    /* width: 489px; */
+  }
+
+  .align-items-stretch {
+    padding-right: 0px;
+  }
+
+  .hero-small-banner {
+    height: 120px;
+  }
+
+  /* Hide description text on mobile screens */
+  .hero-area .carousel-item .content p {
+    display: none;
+  }
+
+  /* Reduce carousel item height further on small mobile screens */
+  .hero-area .carousel-item {
+    height: 200px;
+  }
+
+  .content.h2 {
+    font-size: 8px;
+  }
+}
+
+@media (max-width: 575px) {
+  .hero-area .carousel-item {
+    height: 200px;
+    /* Further reduce the carousel height */
+  }
+
+  .text-car {
+    font-size: 15px;
+    max-width: 200px;
+  }
+
+  .hero-small-banner {
+    height: 100px;
+  }
+
+  .hero-area .carousel-item .content {
+
+    max-width: 300px;
+  }
+}
