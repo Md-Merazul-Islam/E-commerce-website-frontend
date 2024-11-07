@@ -14,7 +14,7 @@ const Footer = () => {
                 {/* <!-- Single Widget --> */}
                 <div class="single-footer f-contact">
                   <h3>Get In Touch With Us</h3>
-                  <p class="phone">Phone: +1 (900) 33 169 7720</p>
+                  <p class="phone">Phone: +8801401734625</p>
                   <ul>
                     <li>
                       <span>Monday-Friday: </span> 9.00 am - 8.00 pm
@@ -24,8 +24,8 @@ const Footer = () => {
                     </li>
                   </ul>
                   <p class="mail">
-                    <Link href="mailto:support@shopgrids.com">
-                      support@shopgrids.com
+                    <Link className="nav-item-link" href="mdmerazul75@gmail.com">
+                      mdmerazul75@gmail.com
                     </Link>
                   </p>
                 </div>
@@ -37,14 +37,14 @@ const Footer = () => {
                   <h3>Our Mobile App</h3>
                   <ul class="app-btn">
                     <li>
-                      <Link to="#">
+                      <Link className="nav-item-link" to="#">
                         <i class="lni lni-apple"></i>
                         <span class="small-title">Download on the</span>
                         <span class="big-title">App Store</span>
                       </Link>
                     </li>
                     <li>
-                      <Link to="#">
+                      <Link className="nav-item-link" to="#">
                         <i class="lni lni-play-store"></i>
                         <span class="small-title">Download on the</span>
                         <span class="big-title">Google Play</span>
@@ -60,19 +60,19 @@ const Footer = () => {
                   <h3>Information</h3>
                   <ul>
                     <li>
-                      <Link to="#">About Us</Link>
+                      <Link className="nav-item-link" to="#">About Us</Link>
                     </li>
                     <li>
-                      <Link to="#">Contact Us</Link>
+                      <Link className="nav-item-link" to="#">Contact Us</Link>
                     </li>
                     <li>
-                      <Link to="#">Downloads</Link>
+                      <Link className="nav-item-link" to="#">Downloads</Link>
                     </li>
                     <li>
-                      <Link to="#">Sitemap</Link>
+                      <Link className="nav-item-link" to="#">Sitemap</Link>
                     </li>
                     <li>
-                      <Link to="#">FAQs Page</Link>
+                      <Link className="nav-item-link" to="#">FAQs Page</Link>
                     </li>
                   </ul>
                 </div>
@@ -84,19 +84,19 @@ const Footer = () => {
                   <h3>Shop Departments</h3>
                   <ul>
                     <li>
-                      <Link to="#">Computers & Accessories</Link>
+                      <Link className="nav-item-link" to="#">Computers & Accessories</Link>
                     </li>
                     <li>
-                      <Link to="#">Smartphones & Tablets</Link>
+                      <Link className="nav-item-link" to="#">Smartphones & Tablets</Link>
                     </li>
                     <li>
-                      <Link to="#">TV, Video & Audio</Link>
+                      <Link className="nav-item-link" to="#">TV, Video & Audio</Link>
                     </li>
                     <li>
-                      <Link to="#">Cameras, Photo & Video</Link>
+                      <Link className="nav-item-link" to="#">Cameras, Photo & Video</Link>
                     </li>
                     <li>
-                      <Link to="#">Headphones</Link>
+                      <Link className="nav-item-link" to="#">Headphones</Link>
                     </li>
                   </ul>
                 </div>
@@ -132,22 +132,22 @@ const Footer = () => {
                     <span>Follow Us On:</span>
                   </li>
                   <li>
-                    <Link to="#">
+                    <Link className="nav-item-link" to="#">
                       <i class="lni lni-facebook-filled"></i>
                     </Link>
                   </li>
                   <li>
-                    <Link to="#">
+                    <Link className="nav-item-link" to="#">
                       <i class="lni lni-twitter-original"></i>
                     </Link>
                   </li>
                   <li>
-                    <Link to="#">
+                    <Link className="nav-item-link" to="#">
                       <i class="lni lni-instagram"></i>
                     </Link>
                   </li>
                   <li>
-                    <Link to="#">
+                    <Link className="nav-item-link" to="#">
                       <i class="lni lni-google"></i>
                     </Link>
                   </li>
