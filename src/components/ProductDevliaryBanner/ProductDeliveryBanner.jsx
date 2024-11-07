@@ -1,5 +1,6 @@
 import React from 'react';
 import './ProductDeliveryBanner.css';
+import { Link } from 'react-router-dom';
 
 const ProductDeliveryBanner = () => {
   const cards = [
@@ -13,7 +14,7 @@ const ProductDeliveryBanner = () => {
     {
       icon: "mdi-message-text",
       title: "Get help buying",
-      description: "Have a question? Call a Specialist or chat online for help",
+      description: "Have Link question? Call Link Specialist or chat online for help",
       linkText: "Contact us",
       link: "contact-page.html"
     },
@@ -38,10 +39,10 @@ const ProductDeliveryBanner = () => {
                 </div>
                 <div className="content-content">
                   <h4 className="title">
-                    <a href={card.link}>{card.title}</a>
+                    <Link href={card.link}>{card.title}</Link>
                   </h4>
                   <p>{card.description}</p>
-                  <a href={card.link} className="more">{card.linkText}</a>
+                  <Link href={card.link} className="more">{card.linkText}</Link>
                 </div>
               </div>
             </div>

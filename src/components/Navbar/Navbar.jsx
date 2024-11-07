@@ -48,12 +48,12 @@ const Navbar = () => {
                       </Link>
                     </li>
                     <li>
-                      <Link className="text-decoration-none" to="about-us.html">
+                      <Link className="text-decoration-none" to="/about-us">
                         About Us
                       </Link>
                     </li>
                     <li>
-                      <Link className="text-decoration-none" to="contact.html">
+                      <Link className="text-decoration-none" to="/contact-us">
                         Contact Us
                       </Link>
                     </li>
@@ -376,7 +376,7 @@ const Navbar = () => {
                           <li className="nav-item">
                             <Link
                               className="text-decoration-none"
-                              to="about-us.html"
+                              to="/about-us"
                             >
                               About Us
                             </Link>
@@ -488,7 +488,7 @@ const Navbar = () => {
                       <li className="nav-item">
                         <Link
                           className="text-decoration-none"
-                          to="contact.html"
+                          to="/contact-us"
                           aria-label="Toggle navigation"
                         >
                           Contact Us

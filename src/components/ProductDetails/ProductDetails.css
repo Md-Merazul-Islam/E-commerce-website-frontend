@@ -1,4 +1,3 @@
-
 .item-details {
   background-color: #f9f9f9;
 }
@@ -93,7 +92,7 @@
 }
 
 .item-details .product-info .category a:hover {
-  color: #0167F3;
+  color: #F7941D;
 }
 
 .item-details .product-info .price {
@@ -161,7 +160,7 @@
 }
 
 .item-details .product-info .form-group.color-option .single-checkbox input[type="checkbox"]+label span {
-  border-color: #0167F3;
+  border-color: #F7941D;
   width: 18px;
   height: 18px;
   border-radius: 50%;
@@ -185,7 +184,7 @@
   transform: scale(0);
   font-size: 10px;
   line-height: 1.2;
-  background-color: #0167F3;
+  background-color: #F7941D;
   font-family: "Lineicons";
   content: "\ea5b";
   padding-left: 0px;
@@ -205,11 +204,11 @@
 }
 
 .item-details .product-info .form-group.color-option .single-checkbox.checkbox-style-2 input[type="checkbox"]+label span {
-  border: 2px solid #0167F3;
+  border: 2px solid #F7941D;
 }
 
 .item-details .product-info .form-group.color-option .single-checkbox.checkbox-style-2 input[type="checkbox"]+label span::before {
-  background-color: #0167F3;
+  background-color: #F7941D;
 }
 
 .item-details .product-info .form-group.color-option .single-checkbox.checkbox-style-3 input[type="checkbox"]+label span {
@@ -311,7 +310,7 @@
 }
 
 .item-details .product-info .quantity .inner-content input.button:hover {
-  background-color: #0167F3;
+  background-color: #F7941D;
   border-color: transparent;
   color: #fff;
 }
@@ -354,7 +353,7 @@
 
 .item-details .product-info .wish-button .btn:hover {
   color: #fff;
-  background-color: #0167F3;
+  background-color: #F7941D;
   border-color: transparent;
 }
 
@@ -364,10 +363,10 @@
 
 .item-details .product-info .wish-button .btn i {
   font-size: 16px;
-display: inline-block;
-margin-right: 5px;
-position: relative;
-top: 2px;
+  display: inline-block;
+  margin-right: 5px;
+  position: relative;
+  top: 2px;
 }
 
 .item-details .product-info .list-info {
@@ -458,7 +457,7 @@ top: 2px;
   border-radius: 4px;
   border: 1px solid #eee;
   background-color: #fff;
-  color: #0167F3;
+  color: #F7941D;
   line-height: 30px;
   font-size: 12px;
 }
@@ -553,7 +552,7 @@ top: 2px;
   top: 8px;
   height: 6px;
   width: 6px;
-  background-color: #0167F3;
+  background-color: #F7941D;
   border-radius: 6px;
 }
 

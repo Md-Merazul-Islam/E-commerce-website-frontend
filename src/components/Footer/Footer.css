@@ -215,7 +215,7 @@ a {
 }
 
 .footer .footer-middle .newsletter-form .button .btn:hover {
-  background-color: #0167F3;
+  background-color: #F7941D;
   color: #fff;
 }
 
@@ -252,7 +252,7 @@ a {
   left: 0;
   width: 40px;
   height: 3px;
-  background-color: #0167F3;
+  background-color: #F7941D;
   content: '';
 }
 
@@ -282,7 +282,7 @@ a {
 
 .footer .single-footer.f-link ul li a:hover {
   padding-left: 5px;
-  color: #0167F3;
+  color: #F7941D;
 }
 
 .footer .single-footer.f-contact .phone {
@@ -316,7 +316,7 @@ a {
 }
 
 .footer .single-footer.f-contact .mail a:hover {
-  color: #0167F3;
+  color: #F7941D;
 }
 
 .footer .single-footer.our-app .app-btn li {
@@ -373,7 +373,7 @@ a {
 }
 
 .footer .single-footer.our-app .app-btn li a:hover {
-  background-color: #0167F3;
+  background-color: #F7941D;
   color: #fff;
   border-color: transparent;
 }
@@ -445,7 +445,7 @@ a {
 }
 
 .footer .footer-bottom .copyright p a:hover {
-  color: #0167F3;
+  color: #F7941D;
 }
 
 .footer .footer-bottom .socila {
@@ -483,7 +483,7 @@ a {
 }
 
 .footer .footer-bottom .socila li a:hover {
-  background-color: #0167F3;
+  background-color: #F7941D;
   color: #fff;
   border-color: transparent;
 }

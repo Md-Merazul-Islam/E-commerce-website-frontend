@@ -6,6 +6,27 @@
 ========================================*/
 @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap");
 
+/* variables.css */
+:root {
+
+  --primary-color: #F7941D;
+  /* Primary color */
+  --secondary-color: #2ecc71;
+  /* Secondary color */
+  --accent-color: #e74c3c;
+  /* Accent color */
+  --background-color: #f5f5f5;
+  /* Background color */
+  --text-color: #333333;
+  /* Main text color */
+  --heading-color: #2c3e50;
+  /* Heading text color */
+  --border-color: #cccccc;
+  /* Border color */
+
+}
+
+
 html {
   scroll-behavior: smooth;
 }
@@ -49,8 +70,8 @@ button:focus,
 }
 
 .form-check-input:checked {
-  background-color: #0167F3;
-  border-color: #0167F3;
+  background-color: #F7941D;
+  border-color: #F7941D;
 }
 
 select {
@@ -1012,7 +1033,7 @@ ol {
 }
 
 .breadcrumbs .breadcrumb-nav li a:hover {
-  color: #0167F3;
+  color: #F7941D;
 }
 
 .section {
@@ -1062,7 +1083,7 @@ ol {
   left: 50%;
   bottom: 0;
   content: "";
-  background-color: #0167F3;
+  background-color: #F7941D;
   height: 2px;
   width: 50px;
   margin-left: -25px;
@@ -1136,7 +1157,7 @@ ol {
   bottom: -1px;
   height: 2px;
   width: 50px;
-  background: #0167F3;
+  background: #F7941D;
   content: "";
 }
 
@@ -1155,7 +1176,7 @@ ol {
   width: 40px;
   height: 40px;
   line-height: 40px;
-  background: #0167F3;
+  background: #F7941D;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1252,7 +1273,7 @@ ol {
 
 .pagination .pagination-list li.active a,
 .pagination .pagination-list li:hover a {
-  background: #0167F3;
+  background: #F7941D;
   color: #fff;
   border-color: transparent;
 }
@@ -1272,7 +1293,7 @@ ol {
   font-size: 14px;
   font-weight: 600;
   padding: 13px 30px;
-  background-color: #0167F3;
+  background-color: #F7941D;
   color: #fff;
   border: none;
   -webkit-transition: 0.2s;
@@ -1338,7 +1359,7 @@ ol {
 }
 
 .button .btn-alt:hover {
-  background-color: #0167F3 !important;
+  background-color: #F7941D !important;
   color: #fff !important;
 }
 
@@ -1387,7 +1408,7 @@ ol {
   width: 100px;
   height: 100px;
   border-radius: 100%;
-  background: #0167F3;
+  background: #F7941D;
   -webkit-animation: preloader-fx 1.6s linear infinite;
   animation: preloader-fx 1.6s linear infinite;
 }
@@ -1532,7 +1553,7 @@ ol {
 }
 
 .header .topbar .top-middle .useful-links li a:hover {
-  color: #0167F3;
+  color: #F7941D;
 }
 
 .header .topbar .top-end {
@@ -1594,7 +1615,7 @@ ol {
 }
 
 .header .topbar .top-end .user-login li a:hover {
-  color: #0167F3;
+  color: #F7941D;
 }
 
 .header .header-middle {
@@ -1722,7 +1743,7 @@ ol {
 
 .header .navbar-cart .wishlist a:hover {
   color: #fff;
-  background-color: #0167F3;
+  background-color: #F7941D;
   border-color: transparent;
 }
 
@@ -1747,7 +1768,7 @@ ol {
 
 .header .navbar-cart .cart-items:hover .main-btn {
   color: #fff;
-  background-color: #0167F3;
+  background-color: #F7941D;
   border-color: transparent;
 }
 
@@ -1841,7 +1862,7 @@ ol {
 }
 
 .header .navbar-cart .cart-items .shopping-item .dropdown-cart-header a:hover {
-  color: #0167F3;
+  color: #F7941D;
 }
 
 .header .navbar-cart .cart-items .shopping-item .shopping-list li {
@@ -1874,7 +1895,7 @@ ol {
 .header .navbar-cart .cart-items .shopping-item .shopping-list li .remove:hover {
   border-color: transparent;
   color: #fff;
-  background-color: #0167F3;
+  background-color: #F7941D;
 }
 
 .header .navbar-cart .cart-items .shopping-item .shopping-list li .cart-img-head {
@@ -1936,7 +1957,7 @@ ol {
 
 
 .header .navbar-cart .cart-items .shopping-item .shopping-list li .content h4 a:hover {
-  color: #0167F3;
+  color: #F7941D;
 }
 
 .header .navbar-cart .cart-items .shopping-item .shopping-list li .content .quantity {
@@ -2056,7 +2077,7 @@ ol {
 }
 
 .header .main-menu-search .search-btn button {
-  background-color: #0167F3;
+  background-color: #F7941D;
   color: #fff;
   width: 45px;
   height: 45px;
@@ -2106,12 +2127,12 @@ ol {
   }
 
   .header .navbar .navbar-nav .nav-item a:hover {
-    color: #0167F3 !important;
+    color: #F7941D !important;
     text-decoration: none;
   }
 
   .header .navbar .navbar-nav .nav-item a.active {
-    color: #0167F3 !important;
+    color: #F7941D !important;
     text-decoration: none;
   }
 
@@ -2120,7 +2141,7 @@ ol {
   }
 
   .header .navbar-nav .nav-item:hover a {
-    color: #0167F3;
+    color: #F7941D;
   }
 
   .header .navbar-nav .nav-item a {
@@ -2152,7 +2173,7 @@ ol {
   }
 
   .header .navbar-nav .nav-item .sub-menu .nav-item a:hover {
-    color: #0167F3 !important;
+    color: #F7941D !important;
   }
 
   .header .navbar-nav .nav-item a {
@@ -2175,7 +2196,7 @@ ol {
 
   .header .navbar-nav .nav-item .sub-menu li.active {
     background: #fff !important;
-    color: #0167F3 !important;
+    color: #F7941D !important;
     text-decoration: none;
   }
 
@@ -2190,7 +2211,7 @@ ol {
 
   .header .navbar-nav .nav-item .sub-menu li:hover {
     background: #fff !important;
-    color: #0167F3 !important;
+    color: #F7941D !important;
     text-decoration: none;
   }
 
@@ -2199,7 +2220,7 @@ ol {
   }
 
   .header .navbar-nav .nav-item a:hover {
-    color: #0167F3;
+    color: #F7941D;
   }
 }
 
@@ -2234,11 +2255,11 @@ ol {
   }
 
   .header .navbar .navbar-nav .nav-item a:hover {
-    color: #0167F3 !important;
+    color: #F7941D !important;
   }
 
   .header .navbar .navbar-nav .nav-item a.active {
-    color: #0167F3 !important;
+    color: #F7941D !important;
   }
 
   .header .navbar-nav .nav-item {
@@ -2246,7 +2267,7 @@ ol {
   }
 
   .header .navbar-nav .nav-item:hover a {
-    color: #0167F3;
+    color: #F7941D;
   }
 
   .header .navbar-nav .nav-item a {
@@ -2284,7 +2305,7 @@ ol {
   }
 
   .header .navbar-nav .nav-item .sub-menu .nav-item a:hover {
-    color: #0167F3 !important;
+    color: #F7941D !important;
   }
 
   .header .navbar-nav .nav-item a {
@@ -2305,7 +2326,7 @@ ol {
 
   .header .navbar-nav .nav-item .sub-menu li.active {
     background: #fff !important;
-    color: #0167F3 !important;
+    color: #F7941D !important;
   }
 
   .header .navbar-nav .nav-item .sub-menu .nav-item {
@@ -2318,7 +2339,7 @@ ol {
 
   .header .navbar-nav .nav-item .sub-menu li:hover {
     background: #fff !important;
-    color: #0167F3 !important;
+    color: #F7941D !important;
   }
 
   .header .navbar-nav .nav-item a {
@@ -2326,7 +2347,7 @@ ol {
   }
 
   .header .navbar-nav .nav-item a:hover {
-    color: #0167F3;
+    color: #F7941D;
   }
 }
 
@@ -2451,7 +2472,7 @@ ol {
 }
 
 .header .mega-category-menu .sub-category li .inner-sub-category li a:hover {
-  color: #0167F3;
+  color: #F7941D;
 }
 
 .header .mega-category-menu .sub-category li:last-child {
@@ -2475,7 +2496,7 @@ ol {
 }
 
 .header .mega-category-menu .sub-category li a:hover {
-  color: #0167F3;
+  color: #F7941D;
 }
 
 .header .nav-social {
@@ -2532,7 +2553,7 @@ ol {
 
 .header .nav-social ul li a:hover {
   color: #fff;
-  background-color: #0167F3;
+  background-color: #F7941D;
   border-color: transparent;
 }
 
@@ -2575,7 +2596,7 @@ ol {
 }
 
 .header.sticky .button .btn {
-  background-color: #0167F3;
+  background-color: #F7941D;
   color: #fff;
   border-color: transparent;
 }
@@ -2604,11 +2625,11 @@ ol {
 }
 
 .header .navbar .navbar-nav .nav-item a.active {
-  color: #0167F3;
+  color: #F7941D;
 }
 
 .sticky .navbar .navbar-nav .nav-item a.active {
-  color: #0167F3;
+  color: #F7941D;
 }
 
 .sticky .navbar .mobile-menu-btn .toggler-icon {
@@ -2628,7 +2649,7 @@ ol {
 .navbar-area.sticky {
   position: fixed;
   z-index: 99;
-  background: #0167F3;
+  background: #F7941D;
   -webkit-box-shadow: 0px 20px 50px 0px rgba(0, 0, 0, 0.05);
   box-shadow: 0px 20px 50px 0px rgba(0, 0, 0, 0.05);
   -webkit-transition: all 0.3s ease-out 0s;
@@ -2698,11 +2719,11 @@ ol {
 }
 
 .navbar-nav .nav-item:hover a {
-  color: #0167F3;
+  color: #F7941D;
 }
 
 .sticky .navbar-nav .nav-item:hover a {
-  color: #0167F3;
+  color: #F7941D;
 }
 
 .navbar-nav .nav-item a {
@@ -2725,12 +2746,12 @@ ol {
 }
 
 .navbar-nav .nav-item:hover .dd-menu::before {
-  border-bottom-color: #0167F3;
-  border-right-color: #0167F3;
+  border-bottom-color: #F7941D;
+  border-right-color: #F7941D;
 }
 
 .navbar-nav .nav-item a.active {
-  color: #0167F3;
+  color: #F7941D;
 }
 
 .navbar-nav .nav-item a.dd-menu::after {
@@ -2828,7 +2849,7 @@ ol {
 }
 
 .navbar-nav .nav-item .sub-menu .nav-item a:hover {
-  color: #0167F3;
+  color: #F7941D;
 }
 
 .navbar-nav .nav-item .sub-menu.left-menu {
@@ -2856,7 +2877,7 @@ ol {
 }
 
 .navbar-nav .nav-item .sub-menu>li.active>a {
-  color: #0167F3 !important;
+  color: #F7941D !important;
 }
 
 .navbar-nav .nav-item .sub-menu>li>a {
@@ -2937,7 +2958,7 @@ ol {
   z-index: 2;
   color: #fff;
   font-size: 17px;
-  background: #0167F3;
+  background: #F7941D;
   border: none;
   padding: 2px 5px;
   border-radius: 4px;
@@ -3153,7 +3174,7 @@ ol {
 }
 
 .hero-area .hero-small-banner .content h3 {
-  color: #0167F3;
+  color: #F7941D;
   font-size: 20px;
   font-weight: 800;
   display: block;
@@ -3193,12 +3214,12 @@ ol {
 
 .hero-area .hero-small-banner.style2 .content .button .btn {
   background-color: #fff;
-  color: #0167F3;
+  color: #F7941D;
   padding: 10px 25px;
 }
 
 .hero-area .hero-small-banner.style2 .content .button .btn:hover {
-  background-color: #0167F3;
+  background-color: #F7941D;
   color: #fff;
 }
 
@@ -3248,7 +3269,7 @@ ol {
 }
 
 .shipping-info .media-icon i {
-  color: #0167F3;
+  color: #F7941D;
   font-size: 35px;
 }
 
@@ -3304,7 +3325,7 @@ ol {
 }
 
 .single-product .product-image .new-tag {
-  background: #0167F3;
+  background: #F7941D;
   border-radius: 2px;
   font-size: 12px;
   color: #fff;
@@ -3385,7 +3406,7 @@ ol {
 }
 
 .single-product .product-info .title a:hover {
-  color: #0167F3;
+  color: #F7941D;
 }
 
 .single-product .product-info .review {
@@ -3415,7 +3436,7 @@ ol {
 .single-product .product-info .price span {
   font-size: 17px;
   font-weight: 700;
-  color: #0167F3;
+  color: #F7941D;
   display: inline-block;
 }
 
@@ -3542,7 +3563,7 @@ ol {
     Call Action CSS
 ========================================*/
 .call-action {
-  background-color: #0167F3;
+  background-color: #F7941D;
 }
 
 .call-action .content {
@@ -3689,7 +3710,7 @@ ol {
 }
 
 .item-details .product-info .category a:hover {
-  color: #0167F3;
+  color: #F7941D;
 }
 
 .item-details .product-info .price {
@@ -3757,7 +3778,7 @@ ol {
 }
 
 .item-details .product-info .form-group.color-option .single-checkbox input[type="checkbox"]+label span {
-  border-color: #0167F3;
+  border-color: #F7941D;
   width: 18px;
   height: 18px;
   border-radius: 50%;
@@ -3781,7 +3802,7 @@ ol {
   transform: scale(0);
   font-size: 10px;
   line-height: 1.2;
-  background-color: #0167F3;
+  background-color: #F7941D;
   font-family: "Lineicons";
   content: "\ea5b";
   padding-left: 0px;
@@ -3801,11 +3822,11 @@ ol {
 }
 
 .item-details .product-info .form-group.color-option .single-checkbox.checkbox-style-2 input[type="checkbox"]+label span {
-  border: 2px solid #0167F3;
+  border: 2px solid #F7941D;
 }
 
 .item-details .product-info .form-group.color-option .single-checkbox.checkbox-style-2 input[type="checkbox"]+label span::before {
-  background-color: #0167F3;
+  background-color: #F7941D;
 }
 
 .item-details .product-info .form-group.color-option .single-checkbox.checkbox-style-3 input[type="checkbox"]+label span {
@@ -3907,7 +3928,7 @@ ol {
 }
 
 .item-details .product-info .quantity .inner-content input.button:hover {
-  background-color: #0167F3;
+  background-color: #F7941D;
   border-color: transparent;
   color: #fff;
 }
@@ -3950,7 +3971,7 @@ ol {
 
 .item-details .product-info .wish-button .btn:hover {
   color: #fff;
-  background-color: #0167F3;
+  background-color: #F7941D;
   border-color: transparent;
 }
 
@@ -4055,7 +4076,7 @@ ol {
   border-radius: 4px;
   border: 1px solid #eee;
   background-color: #fff;
-  color: #0167F3;
+  color: #F7941D;
   line-height: 30px;
   font-size: 12px;
 }
@@ -4150,7 +4171,7 @@ ol {
   top: 8px;
   height: 6px;
   width: 6px;
-  background-color: #0167F3;
+  background-color: #F7941D;
   border-radius: 6px;
 }
 
@@ -4638,7 +4659,7 @@ ol {
 }
 
 .footer .footer-middle .newsletter-form .button .btn:hover {
-  background-color: #0167F3;
+  background-color: #F7941D;
   color: #fff;
 }
 
@@ -4675,7 +4696,7 @@ ol {
   left: 0;
   width: 40px;
   height: 3px;
-  background-color: #0167F3;
+  background-color: #F7941D;
   content: '';
 }
 
@@ -4705,7 +4726,7 @@ ol {
 
 .footer .single-footer.f-link ul li a:hover {
   padding-left: 5px;
-  color: #0167F3;
+  color: #F7941D;
 }
 
 .footer .single-footer.f-contact .phone {
@@ -4739,7 +4760,7 @@ ol {
 }
 
 .footer .single-footer.f-contact .mail a:hover {
-  color: #0167F3;
+  color: #F7941D;
 }
 
 .footer .single-footer.our-app .app-btn li {
@@ -4796,7 +4817,7 @@ ol {
 }
 
 .footer .single-footer.our-app .app-btn li a:hover {
-  background-color: #0167F3;
+  background-color: #F7941D;
   color: #fff;
   border-color: transparent;
 }
@@ -4868,7 +4889,7 @@ ol {
 }
 
 .footer .footer-bottom .copyright p a:hover {
-  color: #0167F3;
+  color: #F7941D;
 }
 
 .footer .footer-bottom .socila {
@@ -4906,7 +4927,7 @@ ol {
 }
 
 .footer .footer-bottom .socila li a:hover {
-  background-color: #0167F3;
+  background-color: #F7941D;
   color: #fff;
   border-color: transparent;
 }

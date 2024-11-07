@@ -2,7 +2,7 @@ import React from "react";
 import HeroSection from "../HeroSection/HeroSection";
 import Products from "../Products/Products";
 import RecentProducts from "../RecentProducts/RecentProducts";
-import ProductDeliveryBanner from "../Products/ProductDevliaryBanner/ProductDeliveryBanner";
+import ProductDeliveryBanner from "../ProductDevliaryBanner/ProductDeliveryBanner";
 
 const Home = () => {
   return (
