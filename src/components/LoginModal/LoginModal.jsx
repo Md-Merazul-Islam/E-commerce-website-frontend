@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Modal, Button, Form, Alert } from "react-bootstrap";
+import { Modal, Button, Form, Alert, Spinner } from "react-bootstrap"; // Added Spinner
 import { toast } from "react-toastify"; // Correct import
 import api from "../APi/Api";
 import { useNavigate } from "react-router-dom";
@@ -16,6 +16,7 @@ const LoginModal = ({ show, onHide, onSwitchToRegister }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(""); // Clear any existing errors
+    setLoading(true); // Set loading to true to show the spinner
 
     try {
       const response = await api.post("/user/login/", {
@@ -32,13 +33,13 @@ const LoginModal = ({ show, onHide, onSwitchToRegister }) => {
         localStorage.setItem("is_staff", data.is_staff);
         localStorage.setItem("is_superuser", data.is_superuser);
 
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000);
         toast.success("Login Successful");
 
         onHide();
         navigate("/");
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
       } else {
         setError("Invalid username or password");
         toast.error("Invalid username or password");
@@ -48,7 +49,7 @@ const LoginModal = ({ show, onHide, onSwitchToRegister }) => {
       toast.error("Invalid username or password");
       console.log("login error:", error);
     } finally {
-      setLoading(false);
+      setLoading(false); // Set loading to false after request is finished
     }
   };
 
@@ -89,7 +90,18 @@ const LoginModal = ({ show, onHide, onSwitchToRegister }) => {
             className="w-100 mb-3"
             disabled={loading}
           >
-            {loading ? "Logging in..." : "Login"}
+            {loading ? (
+              <Spinner
+                as="span"
+                animation="border"
+                size="sm"
+                role="status"
+                aria-hidden="true"
+              />
+            ) : (
+              "Login"
+            )}
+            {loading && " Logging in..."}
           </Button>
 
           <div className="text-center">

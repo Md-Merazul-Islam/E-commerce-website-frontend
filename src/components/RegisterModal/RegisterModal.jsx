@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Modal, Button, Form } from "react-bootstrap";
+import { Modal, Button, Form, Spinner } from "react-bootstrap";
 import "react-toastify/dist/ReactToastify.css";
 import api from "../APi/Api";
 import { Row, Col } from "react-bootstrap";
@@ -21,6 +21,7 @@ const RegisterModal = ({ show, onHide, onSwitchToLogin }) => {
   const [otp, setOtp] = useState("");
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -34,6 +35,7 @@ const RegisterModal = ({ show, onHide, onSwitchToLogin }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    setLoading(true);
 
     if (formData.password1 !== formData.password2) {
       setError("Passwords do not match.");
@@ -50,13 +52,17 @@ const RegisterModal = ({ show, onHide, onSwitchToLogin }) => {
       if (response.status === 201) {
         setEmail(formData.email);
         setOtpModalShow(true);
-        toast.success("Registration successful. Please check your email for OTP.");
+        toast.success(
+          "Registration successful. Please check your email for OTP."
+        );
         onHide();
       }
     } catch (error) {
       console.error("API error response:", error.response);
       const errorMessage = "Register failed please try again";
       setError(errorMessage);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -220,7 +226,18 @@ const RegisterModal = ({ show, onHide, onSwitchToLogin }) => {
               style={{ backgroundColor: "#F7941D", borderColor: "#F7941D" }}
               className="w-100 mb-3"
             >
-              Register
+              {loading ? (
+                <Spinner
+                  as="span"
+                  animation="border"
+                  size="sm"
+                  role="status"
+                  aria-hidden="true"
+                />
+              ) : (
+                "Register"
+              )}
+              {loading && "Registering..."}
             </Button>
 
             <div className="text-center">
@@ -270,6 +287,18 @@ const RegisterModal = ({ show, onHide, onSwitchToLogin }) => {
               style={{ backgroundColor: "#F7941D", borderColor: "#F7941D" }}
             >
               Verify OTP
+              {loading ? (
+                <Spinner
+                  as="span"
+                  animation="border"
+                  size="sm"
+                  role="status"
+                  aria-hidden="true"
+                />
+              ) : (
+                "Verify OTP"
+              )}
+              {loading && "OTP Checking..."}
             </Button>
           </Form>
         </Modal.Body>
