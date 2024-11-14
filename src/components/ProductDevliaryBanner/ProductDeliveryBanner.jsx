@@ -39,10 +39,10 @@ const ProductDeliveryBanner = () => {
                 </div>
                 <div className="content-content">
                   <h4 className="title">
-                    <Link href={card.link}>{card.title}</Link>
+                    <Link to={card.link}>{card.title}</Link>
                   </h4>
                   <p>{card.description}</p>
-                  <Link href={card.link} className="more">{card.linkText}</Link>
+                  <Link to={card.link} className="more">{card.linkText}</Link>
                 </div>
               </div>
             </div>

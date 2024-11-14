@@ -4,6 +4,7 @@ import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import { Link } from "react-router-dom";
 
 const AllProducts = () => {
   // Sample product data
@@ -55,7 +56,7 @@ const AllProducts = () => {
   };
 
   return (
-    <section className="product-area shop-sidebar shop section">
+    <section className="product-areLink shop-sidebar shop section">
       <div className="container">
         <div className="row">
           {/* Sidebar */}
@@ -75,9 +76,9 @@ const AllProducts = () => {
                     "Accessories",
                   ].map((category) => (
                     <li key={category}>
-                      <a to="#" onClick={(e) => e.preventDefault()}>
+                      <Link to="#" onClick={(e) => e.preventDefault()}>
                         {category}
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>
@@ -138,9 +139,9 @@ const AllProducts = () => {
                     </div>
                     <div className="content">
                       <h5>
-                        <a to="#" onClick={(e) => e.preventDefault()}>
+                        <Link to="#" onClick={(e) => e.preventDefault()}>
                           {post.name}
-                        </a>
+                        </Link>
                       </h5>
                       <p className="price">{post.price}</p>
                       <ul className="reviews">
@@ -170,9 +171,9 @@ const AllProducts = () => {
                     "Zara",
                   ].map((manufacturer) => (
                     <li key={manufacturer}>
-                      <a to="#" onClick={(e) => e.preventDefault()}>
+                      <Link to="#" onClick={(e) => e.preventDefault()}>
                         {manufacturer}
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>
@@ -187,14 +188,14 @@ const AllProducts = () => {
                 <div className="shop-top">
                   <ul className="view-mode">
                     <li className="active">
-                      <a to="shop-grid.html">
+                      <Link to="shop-grid.html">
                         <i className="fas fa-border-all"></i>
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a to="shop-list.html">
+                      <Link to="shop-list.html">
                         <i className="fas fa-list"></i>
-                      </a>
+                      </Link>
                     </li>
                   </ul>
                 </div>
@@ -206,7 +207,7 @@ const AllProducts = () => {
                   <div className="col-lg-4 col-md-6 col-12" key={product.id}>
                     <div className="single-product product-info">
                       <div className="product-img">
-                        <a to="product-details.html">
+                        <Link to="product-details.html">
                           <img
                             className="default-img"
                             src={product.img}
@@ -217,7 +218,7 @@ const AllProducts = () => {
                             src={product.img}
                             alt={product.name}
                           />
-                        </a>
+                        </Link>
                         <div className="button-head">
                           <div className="product-action">
                             <a
@@ -259,7 +260,7 @@ const AllProducts = () => {
                       </div>
                       <div className="product-content">
                         <h3>
-                          <a to="product-details.html">{product.name}</a>
+                          <Link to="product-details.html">{product.name}</Link>
                         </h3>
                         <div className="product-price">
                           <span>${product.price}</span>

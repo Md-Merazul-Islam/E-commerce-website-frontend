@@ -103,15 +103,15 @@ const Products = () => {
                     <span className="new-tag">{product.newTag}</span>
                   )}
                   <div className="button">
-                    <a href="product-details.html" className="btn">
+                    <Link to="product-details.html" className="btn">
                       <i className="lni lni-cart"></i> Add to Cart
-                    </a>
+                    </Link>
                   </div>
                 </div>
                 <div className="product-info">
                   <span className="category">{product.category}</span>
                   <h4 className="title">
-                    <Link href="product-grids.html" className="title">{product.name}</Link>
+                    <Link to="product-grids.html" className="title">{product.name}</Link>
                   </h4>
                   <ul className="review">
                     {[...Array(5)].map((_, index) => (

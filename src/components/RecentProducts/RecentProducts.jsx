@@ -87,7 +87,7 @@ const RecentProducts = () => {
                 <div className="product-content">
                   <ul className="product-meta">
                     <li>
-                      <Link className="add-wishlist " href="javascript:void(0)">
+                      <Link className="add-wishlist " to="javascript:void(0)">
                         <i className="mdi mdi-heart-outline text-5"></i>
                       </Link>
                     </li>
@@ -98,13 +98,13 @@ const RecentProducts = () => {
                     </li>
                   </ul>
                   <h4 className="title">
-                    <Link href="product-details-page.html">
+                    <Link to="product-details-page.html">
                       {product.title}
                     </Link>
                   </h4>
                   <p>Reference {product.reference}</p>
                   <span className="price">{product.price}</span>
-                  <Link href="javascript:void(0)" className="primary-btn">
+                  <Link to="javascript:void(0)" className="primary-btn">
                     <i className="mdi mdi-cart-outline"></i> {/* Cart icon */}
                     Add to Cart
                   </Link>

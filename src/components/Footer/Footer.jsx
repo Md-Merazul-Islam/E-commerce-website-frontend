@@ -24,7 +24,7 @@ const Footer = () => {
                     </li>
                   </ul>
                   <p class="mail">
-                    <Link className="nav-item-link" href="mdmerazul75@gmail.com">
+                    <Link className="nav-item-link" to="mdmerazul75@gmail.com">
                       mdmerazul75@gmail.com
                     </Link>
                   </p>

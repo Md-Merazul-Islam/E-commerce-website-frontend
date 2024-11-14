@@ -13,7 +13,11 @@ const Navbar = ({ onLoginClick, onRegisterClick }) => {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+  const [selectedValue, setSelectedValue] = useState('option1'); // Initialize selectedValue
 
+  const handleSelectChange = (event) => {
+    setSelectedValue(event.target.value); // Update selectedValue on select change
+  };
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("refreshToken");
@@ -37,19 +41,15 @@ const Navbar = ({ onLoginClick, onRegisterClick }) => {
                   <ul className="menu-top-link">
                     <li>
                       <div className="select-position">
-                        <select id="select4">
-                          <option value="0" selected>
-                            $ USD
-                          </option>
+                        <select value={selectedValue}>
+                          <option value="option1">$USE</option>
                         </select>
                       </div>
                     </li>
                     <li>
                       <div className="select-position">
-                        <select id="select5">
-                          <option value="0" selected>
-                            English
-                          </option>
+                        <select value={selectedValue}>
+                          <option value="option1">English</option>
                         </select>
                       </div>
                     </li>
@@ -149,9 +149,8 @@ const Navbar = ({ onLoginClick, onRegisterClick }) => {
                   <div className="navbar-search search-style-5">
                     <div className="search-select">
                       <div className="select-position">
-                        <select id="select1">
-                          <option selected>All</option>
-                          <option value="1">option 01</option>
+                      <select value={selectedValue}>
+                          <option value="option1">ALL</option>
                         </select>
                       </div>
                     </div>

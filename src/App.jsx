@@ -13,6 +13,7 @@ import LoginModal from "./components/LoginModal/LoginModal";
 import RegisterModal from "./components/RegisterModal/RegisterModal";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import PasswordReset from "./components/PasswordReset/PasswordReset";
 
 function App() {
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -56,6 +57,8 @@ function App() {
         <Route path="/about-us" element={<AboutUs />} />
         <Route path="/recent-products" element={<RecentProducts />} />
         <Route path="/contact-us" element={<ContactUs />} />
+        <Route path="/password-change" element={<PasswordReset />} />
+        
       </Routes>
 
       {/* Login and Register Modals */}

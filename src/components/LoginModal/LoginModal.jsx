@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Modal, Button, Form, Alert, Spinner } from "react-bootstrap"; // Added Spinner
 import { toast } from "react-toastify"; // Correct import
 import api from "../APi/Api";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 
 const LoginModal = ({ show, onHide, onSwitchToRegister }) => {
@@ -53,6 +53,9 @@ const LoginModal = ({ show, onHide, onSwitchToRegister }) => {
     }
   };
 
+  const handleResetPassword =()=>{
+    onHide();
+  }
   return (
     <Modal show={show} onHide={onHide} centered>
       <Modal.Header closeButton>
@@ -103,14 +106,30 @@ const LoginModal = ({ show, onHide, onSwitchToRegister }) => {
             )}
             {loading && " Logging in..."}
           </Button>
-
           <div className="text-center">
+            <p className="mb-3 text-muted">
+              <span>Forgot your password?</span>
+              <Link
+                className="text-primary ms-2"
+                to="/password-change"
+                style={{ cursor: "pointer", textDecoration: "underline" }}
+                
+                onClick={handleResetPassword}
+              >
+                Reset Password
+              </Link>
+            </p>
+
             <p>
               Don't have an account?{" "}
               <span
                 className="text-primary"
                 onClick={onSwitchToRegister}
-                style={{ cursor: "pointer" }}
+                style={{
+                  cursor: "pointer",
+                  textDecoration: "none",
+                  fontWeight: "500",
+                }}
               >
                 Register here
               </span>

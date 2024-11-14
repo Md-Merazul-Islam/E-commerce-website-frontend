@@ -1,5 +1,6 @@
 import React from "react";
 import "./HeroSection.css"; // Make sure to create the CSS file for custom styles
+import { Link } from "react-router-dom";
 
 const HeroSection = () => {
   return (
@@ -34,9 +35,9 @@ const HeroSection = () => {
                       <span>Only</span> $320.99
                     </h3>
                     <div className="button">
-                      <a href="product-grids.html" className="btn">
+                      <Link to="product-grids.html" className="btn">
                         Shop Now
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -62,9 +63,9 @@ const HeroSection = () => {
                       <span> Only:</span> $590.00
                     </h3>
                     <div className="button">
-                      <a href="product-grids.html" className="btn">
+                      <Link to="product-grids.html" className="btn">
                         Shop Now
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -124,9 +125,9 @@ const HeroSection = () => {
                       Saving up to 50% off all online store items this week.
                     </p>
                     <div className="button">
-                      <a className="btn" href="product-grids.html">
+                      <Link className="btn" to="product-grids.html">
                         Shop Now
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>
