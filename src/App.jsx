@@ -14,6 +14,7 @@ import RegisterModal from "./components/RegisterModal/RegisterModal";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PasswordReset from "./components/PasswordReset/PasswordReset";
+import Profile from "./components/Profile/Profile";
 
 function App() {
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -58,6 +59,7 @@ function App() {
         <Route path="/recent-products" element={<RecentProducts />} />
         <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/password-change" element={<PasswordReset />} />
+        <Route path="/profile-details" element={<Profile />} />
         
       </Routes>
 

@@ -1,0 +1,132 @@
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f7fc;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+/* Profile Form */
+.profile-container {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  margin-top: 50px;
+}
+
+.profile-container label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 8px;
+  color: #444;
+}
+
+.profile-container input[type="text"],
+.profile-container input[type="email"],
+.profile-container input[type="file"] {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.profile-container input[type="text"]:focus,
+.profile-container input[type="email"]:focus,
+.profile-container input[type="file"]:focus {
+  border-color: #3b8d99;
+  outline: none;
+}
+
+/* Submit Button */
+.profile-container button {
+  background-color: #3b8d99;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.profile-container button:hover {
+  background-color: #2c6b77;
+}
+
+.profile-container button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Image Preview */
+.profile-container img {
+  max-width: 100px;
+  max-height: 100px;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.profile-container .image-preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Loader */
+.profile-container p {
+  text-align: center;
+  font-size: 16px;
+  color: #888;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .profile-container {
+    padding: 20px;
+    margin-top: 30px;
+  }
+
+  .profile-container input[type="text"],
+  .profile-container input[type="email"],
+  .profile-container input[type="file"],
+  .profile-container button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 10px;
+  }
+
+  h2 {
+    font-size: 24px;
+  }
+
+  .profile-container {
+    padding: 15px;
+  }
+
+  .profile-container input[type="text"],
+  .profile-container input[type="email"],
+  .profile-container input[type="file"],
+  .profile-container button {
+    font-size: 14px;
+  }
+}

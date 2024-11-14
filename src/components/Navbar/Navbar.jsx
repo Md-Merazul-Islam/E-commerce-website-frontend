@@ -84,7 +84,7 @@ const Navbar = ({ onLoginClick, onRegisterClick }) => {
                       <>
                         {/* Profile icon and Logout button for logged-in users */}
                         <li>
-                          <Link className="text-decoration-none" to="/profile">
+                          <Link className="text-decoration-none" to="/profile-details">
                             <i className="lni lni-user"></i> Profile
                           </Link>
                         </li>

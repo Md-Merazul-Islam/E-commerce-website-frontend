@@ -46,10 +46,10 @@ const ContactUs = () => {
           <div className="contact-info">
             <h3>Contact Information</h3>
             <p>
-              <FaPhoneAlt /> Phone: +1-123-456-7890
+              <FaPhoneAlt /> Phone: +8801401734625
             </p>
             <p>
-              <FaEnvelope /> Email: contact@ecommerce.com
+              <FaEnvelope /> Email: mamardokan@ecommerce.com
             </p>
             <p>
               <FaMapMarkerAlt /> Location: 123 E-commerce St., Dhaka Gulshan ,
