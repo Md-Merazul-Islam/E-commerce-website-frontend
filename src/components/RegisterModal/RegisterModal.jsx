@@ -33,11 +33,10 @@ const RegisterModal = ({ show, onHide, onSwitchToLogin }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(""); 
+    setError("");
 
     if (formData.password1 !== formData.password2) {
       setError("Passwords do not match.");
-
       return;
     }
 
@@ -55,11 +54,8 @@ const RegisterModal = ({ show, onHide, onSwitchToLogin }) => {
         onHide();
       }
     } catch (error) {
-      // Log the error to see the exact structure
       console.error("API error response:", error.response);
-
       const errorMessage = "Register failed please try again";
-
       setError(errorMessage);
     }
   };
@@ -89,8 +85,6 @@ const RegisterModal = ({ show, onHide, onSwitchToLogin }) => {
 
   return (
     <>
-      
-      {/* Register Modal */}
       <Modal show={show} onHide={onHide} centered>
         <Modal.Header closeButton>
           <Modal.Title>Register</Modal.Title>
@@ -102,7 +96,6 @@ const RegisterModal = ({ show, onHide, onSwitchToLogin }) => {
             <Row className="mb-3">
               <Col sm={6}>
                 <Form.Group controlId="formBasicUsername">
-                  {/* <Form.Label>Username</Form.Label> */}
                   <Form.Control
                     type="text"
                     name="username"
@@ -115,7 +108,6 @@ const RegisterModal = ({ show, onHide, onSwitchToLogin }) => {
               </Col>
               <Col sm={6}>
                 <Form.Group controlId="formBasicFirstName">
-                  {/* <Form.Label>First Name</Form.Label> */}
                   <Form.Control
                     type="text"
                     name="first_name"
@@ -131,7 +123,6 @@ const RegisterModal = ({ show, onHide, onSwitchToLogin }) => {
             <Row className="mb-3">
               <Col sm={6}>
                 <Form.Group controlId="formBasicLastName">
-                  {/* <Form.Label>Last Name</Form.Label> */}
                   <Form.Control
                     type="text"
                     name="last_name"
@@ -144,7 +135,6 @@ const RegisterModal = ({ show, onHide, onSwitchToLogin }) => {
               </Col>
               <Col sm={6}>
                 <Form.Group controlId="formBasicEmail">
-                  {/* <Form.Label>Email</Form.Label> */}
                   <Form.Control
                     type="email"
                     name="email"
@@ -160,7 +150,6 @@ const RegisterModal = ({ show, onHide, onSwitchToLogin }) => {
             <Row className="mb-3">
               <Col sm={6}>
                 <Form.Group controlId="formBasicPhoneNumber">
-                  {/* <Form.Label>Phone Number</Form.Label> */}
                   <Form.Control
                     type="tel"
                     name="phone_number"
@@ -173,7 +162,6 @@ const RegisterModal = ({ show, onHide, onSwitchToLogin }) => {
               </Col>
               <Col sm={6}>
                 <Form.Group controlId="formBasicAddress">
-                  {/* <Form.Label>Address</Form.Label> */}
                   <Form.Control
                     type="text"
                     name="address"
@@ -189,7 +177,6 @@ const RegisterModal = ({ show, onHide, onSwitchToLogin }) => {
             <Row className="mb-3">
               <Col sm={6}>
                 <Form.Group controlId="formBasicPassword1">
-                  {/* <Form.Label>Password</Form.Label> */}
                   <Form.Control
                     type="password"
                     name="password1"
@@ -202,7 +189,6 @@ const RegisterModal = ({ show, onHide, onSwitchToLogin }) => {
               </Col>
               <Col sm={6}>
                 <Form.Group controlId="formBasicPassword2">
-                  {/* <Form.Label>Confirm Password</Form.Label> */}
                   <Form.Control
                     type="password"
                     name="password2"
@@ -218,7 +204,6 @@ const RegisterModal = ({ show, onHide, onSwitchToLogin }) => {
             <Row className="mb-3">
               <Col sm={6}>
                 <Form.Group controlId="formBasicImage">
-                  {/* <Form.Label>Profile Image</Form.Label> */}
                   <Form.Control
                     type="file"
                     name="image"
@@ -254,7 +239,6 @@ const RegisterModal = ({ show, onHide, onSwitchToLogin }) => {
         </Modal.Body>
       </Modal>
 
-      {/* OTP Verification Modal */}
       <Modal show={otpModalShow} onHide={() => setOtpModalShow(false)} centered>
         <Modal.Header closeButton>
           <h6>
