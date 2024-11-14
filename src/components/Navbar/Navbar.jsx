@@ -1,12 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-const Navbar = () => {
+const Navbar = ({ onLoginClick, onRegisterClick }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    setIsLoggedIn(!!token);
+  }, []);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("refreshToken");
+    localStorage.removeItem("user_id");
+    localStorage.removeItem("is_staff");
+    localStorage.removeItem("is_superuser");
+    setIsLoggedIn(false);
+  };
+
   return (
     <div>
       {/* <!-- Start Header AreLink --> */}
@@ -62,21 +78,48 @@ const Navbar = () => {
               </div>
               <div className="col-lg-4 col-md-4 col-12">
                 <div className="top-end">
-                  <div className="user">
-                    <i className="lni lni-user"></i>
-                    Hello
-                  </div>
                   <ul className="user-login">
-                    <li>
-                      <Link className="text-decoration-none" to="login.html">
-                        Sign In
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="text-decoration-none" to="register.html">
-                        Register
-                      </Link>
-                    </li>
+                    {isLoggedIn ? (
+                      <>
+                        {/* Profile icon and Logout button for logged-in users */}
+                        <li>
+                          <Link className="text-decoration-none" to="/profile">
+                            <i className="lni lni-user"></i> Profile
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            className="text-decoration-none"
+                            onClick={handleLogout}
+                            to="/"
+                          >
+                            Logout
+                          </Link>
+                        </li>
+                      </>
+                    ) : (
+                      <>
+                        {/* Sign In and Register links for non-logged-in users */}
+                        <li>
+                          <Link
+                            className="text-decoration-none"
+                            onClick={onLoginClick}
+                            to=""
+                          >
+                            Sign In
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            className="text-decoration-none"
+                            onClick={onRegisterClick}
+                            to=""
+                          >
+                            Register
+                          </Link>
+                        </li>
+                      </>
+                    )}
                   </ul>
                 </div>
               </div>
@@ -94,7 +137,7 @@ const Navbar = () => {
                   className="text-decoration-none navbar-brand"
                   to="index.html"
                 >
-                  <img src="assets/images/logo/logo.svg" alt="Logo" />
+                  <img src="assets/images/logo/logo.png" alt="Logo" />
                 </Link>
                 {/* <!-- End Header Logo --> */}
               </div>
@@ -130,7 +173,7 @@ const Navbar = () => {
                     <i className="lni lni-phone"></i>
                     <h3>
                       Hotline:
-                      <span>(+100) 123 456 7890</span>
+                      <span>+8801401734625</span>
                     </h3>
                   </div>
                   <div className="navbar-cart">

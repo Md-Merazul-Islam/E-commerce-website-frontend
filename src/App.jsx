@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./components/Home/Home";
@@ -9,13 +9,47 @@ import AboutUs from "./components/AboutUs/AboutUs";
 import RecentProducts from "./components/RecentProducts/RecentProducts";
 import Products from "./components/Products/Products";
 import ContactUs from "./components/ContactUs/ContactUs";
+import LoginModal from "./components/LoginModal/LoginModal";
+import RegisterModal from "./components/RegisterModal/RegisterModal";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showRegisterModal, setShowRegisterModal] = useState(false);
+
+  const handleLoginShow = () => setShowLoginModal(true);
+  const handleLoginClose = () => setShowLoginModal(false);
+
+  const handleRegisterShow = () => setShowRegisterModal(true);
+  const handleRegisterClose = () => setShowRegisterModal(false);
+
+  const handleSwitchToRegister = () => {
+    setShowLoginModal(false);
+    setShowRegisterModal(true);
+  };
+
+  const handleSwitchToLogin = () => {
+    setShowRegisterModal(false);
+    setShowLoginModal(true);
+  };
+
+  const handleLoginSuccess = () => {
+    toast.success("Login successful!");
+  };
+
   return (
     <div>
-      <Navbar />
+      {
+        <Navbar
+          onLoginClick={handleLoginShow}
+          onRegisterClick={handleRegisterShow}
+        />
+      }
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/*" element={<Home />} />
         <Route path="/product-details" element={<ProductDetails />} />
         <Route path="/trending-products" element={<Products />} />
         <Route path="/all-products" element={<AllProducts />} />
@@ -23,7 +57,26 @@ function App() {
         <Route path="/recent-products" element={<RecentProducts />} />
         <Route path="/contact-us" element={<ContactUs />} />
       </Routes>
+
+      {/* Login and Register Modals */}
+      <LoginModal
+        show={showLoginModal}
+        onHide={handleLoginClose}
+        onSwitchToRegister={handleSwitchToRegister}
+      />
+      <RegisterModal
+        show={showRegisterModal}
+        onHide={handleRegisterClose}
+        onSwitchToLogin={handleSwitchToLogin}
+      />
       <Footer />
+      <ToastContainer
+        position="bottom-right"
+        autoClose={2000}
+        hideProgressBar
+        newestOnTop
+        closeButton
+      />
     </div>
   );
 }
