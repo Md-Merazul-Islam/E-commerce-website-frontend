@@ -34,7 +34,7 @@ const LoginModal = ({ show, onHide, onSwitchToRegister }) => {
 
         setTimeout(() => {
           window.location.reload();
-        }, 1500);
+        }, 2000);
         toast.success("Login Successful");
 
         onHide();

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
+import { toast } from "react-toastify";
 const Navbar = ({ onLoginClick, onRegisterClick }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -21,6 +21,7 @@ const Navbar = ({ onLoginClick, onRegisterClick }) => {
     localStorage.removeItem("is_staff");
     localStorage.removeItem("is_superuser");
     setIsLoggedIn(false);
+    toast.success("Logged out successfully.");
   };
 
   return (

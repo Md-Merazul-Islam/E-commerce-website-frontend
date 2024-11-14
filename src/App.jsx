@@ -70,12 +70,26 @@ function App() {
         onSwitchToLogin={handleSwitchToLogin}
       />
       <Footer />
-      <ToastContainer
+      {/* <ToastContainer
         position="bottom-right"
         autoClose={2000}
         hideProgressBar
         newestOnTop
         closeButton
+      /> */}
+
+      <ToastContainer
+        position="bottom-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition:Bounce
       />
     </div>
   );
