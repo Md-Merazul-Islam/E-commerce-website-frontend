@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import "./AllProducts.css";
-
+import api from "../APi/Api";
 const AllProducts = () => {
-  
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -12,25 +11,31 @@ const AllProducts = () => {
   const [priceRange, setPriceRange] = useState({ min: "", max: "" });
   const [nameFilter, setNameFilter] = useState("");
 
-  
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/products/categories/")
-      .then((response) => response.json())
-      .then((data) => setCategories(data));
+    api
+      .get("/products/categories/")
+      .then((response) => {
+        setCategories(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching categories:", error);
+      });
 
-    fetch("http://127.0.0.1:8000/products/products-list/")
-      .then((response) => response.json())
-      .then((data) => {
-        setProducts(data);
-        setFilteredProducts(data);
+    // Fetch products
+    api
+      .get("/products/products-list/")
+      .then((response) => {
+        setProducts(response.data);
+        setFilteredProducts(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching products:", error);
       });
   }, []);
 
-  
   useEffect(() => {
     let filtered = products;
 
-    
     if (categoryFilter) {
       filtered = filtered.filter(
         (product) => product.category === parseInt(categoryFilter)
@@ -60,12 +65,11 @@ const AllProducts = () => {
     setFilteredProducts(filtered);
   }, [categoryFilter, nameFilter, priceRange, products]);
 
-  
   useEffect(() => {
     AOS.init({
-      duration: 1000, 
+      duration: 1000,
       easing: "ease-in-out",
-      once: true, 
+      once: true,
     });
   }, []);
 
@@ -165,7 +169,7 @@ const AllProducts = () => {
                   key={product.id}
                   className="col-md-4 mb-4"
                   data-aos="fade-up"
-                  data-aos-delay={index * 100} 
+                  data-aos-delay={index * 100}
                 >
                   <div className="card">
                     <div className="card-img-container">
