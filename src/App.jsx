@@ -15,6 +15,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PasswordReset from "./components/PasswordReset/PasswordReset";
 import Profile from "./components/Profile/Profile";
+import DiscountFilter from "./components/DiscountFIlter/DiscountFIlter";
 
 function App() {
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -60,6 +61,7 @@ function App() {
         <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/password-change" element={<PasswordReset />} />
         <Route path="/profile-details" element={<Profile />} />
+        <Route path="/discount-product" element={<DiscountFilter />} />
         
       </Routes>
 

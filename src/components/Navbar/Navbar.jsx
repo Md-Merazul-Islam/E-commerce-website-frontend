@@ -30,16 +30,14 @@ const Navbar = ({ onLoginClick, onRegisterClick }) => {
     toast.success("Logged out successfully.");
   };
 
-  
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
 
-  
   useEffect(() => {
     api
       .get("/products/categories/")
       .then((response) => {
-        setCategories(response.data); 
+        setCategories(response.data);
       })
       .catch((error) => {
         console.error("Error fetching categories", error);
@@ -338,7 +336,6 @@ const Navbar = ({ onLoginClick, onRegisterClick }) => {
                 </div>
                 {/* <!-- End MegLink Category Menu --> */}
 
-                
                 {/* <!-- Start Navbar --> */}
                 <nav className="navbar navbar-expand-lg">
                   <button
@@ -455,42 +452,12 @@ const Navbar = ({ onLoginClick, onRegisterClick }) => {
                       </li>
                       <li className="nav-item">
                         <Link
-                          className="text-decoration-none dd-menu collapsed"
-                          to="#"
-                          data-bs-toggle="collapse"
-                          data-bs-target="#submenu-1-4"
-                          aria-controls="navbarSupportedContent"
-                          aria-expanded="false"
+                          className="text-decoration-none"
+                          to="/discount-product"
                           aria-label="Toggle navigation"
                         >
-                          Discount
+                          Discount Offer
                         </Link>
-                        <ul className="sub-menu collapse" id="submenu-1-4">
-                          <li className="nav-item">
-                            <Link
-                              className="text-decoration-none"
-                              to="blog-grid-sidebar.html"
-                            >
-                              10%
-                            </Link>
-                          </li>
-                          <li className="nav-item">
-                            <Link
-                              className="text-decoration-none"
-                              to="blog-single.html"
-                            >
-                              20%
-                            </Link>
-                          </li>
-                          <li className="nav-item">
-                            <Link
-                              className="text-decoration-none"
-                              to="blog-single-sidebar.html"
-                            >
-                              30%
-                            </Link>
-                          </li>
-                        </ul>
                       </li>
                       <li className="nav-item">
                         <Link

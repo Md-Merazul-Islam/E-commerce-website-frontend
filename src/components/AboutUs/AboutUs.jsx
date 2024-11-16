@@ -72,47 +72,7 @@ const AboutUs = () => {
           </p>
         </div>
 
-        {/* Our Team Section */}
-        {/* <div className="team-section">
-          <h2>
-            <FaUsers /> Meet Our Team
-          </h2>
-          <div className="team-members">
-            <div className="team-member">
-              <BsFillPersonFill className="team-icon" />
-              <img src="https://via.placeholder.com/150" alt="John Doe" />
-              <h3>John Doe</h3>
-              <p>Founder & CEO</p>
-              <p>
-                John’s vision has been the driving force behind ShopEase’s
-                growth. His leadership and commitment to quality set the
-                standard for our brand.
-              </p>
-            </div>
-            <div className="team-member">
-              <BsFillPersonFill className="team-icon" />
-              <img src="https://via.placeholder.com/150" alt="Jane Smith" />
-              <h3>Jane Smith</h3>
-              <p>Head of Marketing</p>
-              <p>
-                With a knack for digital marketing, Jane helps bring our
-                products to the right audience, ensuring our mission reaches a
-                global scale.
-              </p>
-            </div>
-            <div className="team-member">
-              <BsFillPersonFill className="team-icon" />
-              <img src="https://via.placeholder.com/150" alt="Alice Johnson" />
-              <h3>Alice Johnson</h3>
-              <p>Customer Service Manager</p>
-              <p>
-                Alice leads our customer service team to ensure that every
-                customer feels valued and supported at every step of their
-                journey with us.
-              </p>
-            </div>
-          </div>
-        </div> */}
+    
       </div>
     </section>
   );

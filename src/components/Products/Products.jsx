@@ -1,25 +1,32 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Products.css";
-import AOS from "aos"; 
-import "aos/dist/aos.css"; 
+import AOS from "aos";
+import "aos/dist/aos.css";
+import api from "../Api/Api";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    
+    // Initialize AOS
     AOS.init({
-      duration: 1000, 
-      once: true, 
+      duration: 1000,
+      once: true,
     });
 
-    
-    fetch("http://127.0.0.1:8000/products/trending-products/")
-      .then((response) => response.json())
-      .then((data) => setProducts(data))
-      .catch((error) => console.error("Error fetching data:", error));
-  }, []); 
+    // Fetch products
+    api
+      .get("/products/trending-products/")
+      .then((response) => {
+        setProducts(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+        setError("Failed to load products. Please try again later.");
+      });
+  }, []);
 
   return (
     <section className="trending-product section" style={{ marginTop: "12px" }}>
@@ -36,60 +43,84 @@ const Products = () => {
           </div>
         </div>
         <div className="row">
-          {products.map((product, index) => (
-            <div
-              className="col-lg-3 col-md-6 col-12"
-              key={product.id}
-              data-aos="fade-up" 
-              data-aos-delay={`${index * 300}`} 
-            >
-              <div className="single-product">
-                <div className="product-image">
-                  <img src={product.image} alt={product.name} />
-                  {product.discount && (
-                    <span className="sale-tag">-{product.discount}%</span>
-                  )}
-                  <div className="button">
-                    <Link to={`/product/${product.slug}`} className="btn">
-                      <i className="lni lni-cart"></i> Add to Cart
-                    </Link>
-                  </div>
-                </div>
-                <div className="product-info">
-                  <span className="category">{product.category}</span>
-                  <h4 className="title">
-                    <Link to={`/product/${product.slug}`} className="title">
-                      {product.name}
-                    </Link>
-                  </h4>
-                  <ul className="review">
-                    {[...Array(5)].map((_, index) => (
-                      <li key={index}>
-                        <i
-                          className={
-                            index < product.rating
-                              ? "lni lni-star-filled"
-                              : "lni lni-star"
-                          }
-                        ></i>
-                      </li>
-                    ))}
-                    <li>
-                      <span>{product.reviews} Review(s)</span>
-                    </li>
-                  </ul>
-                  <div className="price">
-                    <span>${product.discount_price}</span>
-                    {product.real_price && (
-                      <span className="discount-price">
-                        ${product.real_price}
-                      </span>
-                    )}
-                  </div>
-                </div>
-              </div>
+          {error ? (
+            <div className="col-12">
+              <p className="error-message">{error}</p>
             </div>
-          ))}
+          ) : products.length > 0 ? (
+            products.map(
+              (
+                {
+                  id,
+                  image,
+                  name,
+                  discount,
+                  slug,
+                  category,
+                  rating,
+                  reviews,
+                  discount_price,
+                  real_price,
+                },
+                index
+              ) => (
+                <div
+                  className="col-lg-3 col-md-6 col-12"
+                  key={id}
+                  data-aos="fade-up"
+                  data-aos-delay={`${index * 100}`}
+                >
+                  <div className="single-product">
+                    <div className="product-image">
+                      <img src={image} alt={name} />
+                      {discount && (
+                        <span className="sale-tag">-{discount}%</span>
+                      )}
+                      <div className="button">
+                        <Link to={`/product/${slug}`} className="btn">
+                          <i className="lni lni-cart"></i> Add to Cart
+                        </Link>
+                      </div>
+                    </div>
+                    <div className="product-info">
+                      <span className="category">{category}</span>
+                      <h4 className="title">
+                        <Link to={`/product/${slug}`}>{name}</Link>
+                      </h4>
+                      <ul className="review">
+                        {[...Array(5)].map((_, index) => (
+                          <li key={index}>
+                            <i
+                              className={
+                                index < rating
+                                  ? "lni lni-star-filled"
+                                  : "lni lni-star"
+                              }
+                            ></i>
+                          </li>
+                        ))}
+                        <li>
+                          <span>{reviews} Review(s)</span>
+                        </li>
+                      </ul>
+                      <div className="price">
+                        <span>${discount_price}</span>
+                        {real_price && (
+                          <span className="discount-price">
+                            ${real_price}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )
+            )
+          ) : (
+            <div className="col-12">
+              <p>Loading products...</p>
+            </div>
+          )}
         </div>
       </div>
     </section>

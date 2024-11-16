@@ -1,0 +1,17 @@
+/* Custom Button Style with Increased Specificity */
+.btn-group-vertical .custom-btn {
+  border: 1px solid #F7941D !important;
+  color: #F7941D !important;
+  background-color: transparent !important;
+}
+
+.btn-group-vertical .custom-btn:hover {
+  background-color: #F7941D !important;
+  color: white !important;
+}
+
+.btn-group-vertical .custom-btn.active {
+  background-color: #F7941D !important;
+  color: white !important;
+  border: none !important;
+}

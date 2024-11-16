@@ -195,8 +195,12 @@ const AllProducts = () => {
                 </div>
               ))
             ) : (
-              <div className="col-12 no-products-container">
-                <p className="no-products-text">No products found</p>
+              <div className="col-12 text-center">
+                <img
+                  className="w-50 mx-auto"
+                  src="https://i.postimg.cc/x8Zvc3Z7/no-document-or-data-found-ui-illustration-design-free-vector.jpg"
+                  alt=""
+                />
               </div>
             )}
           </div>
