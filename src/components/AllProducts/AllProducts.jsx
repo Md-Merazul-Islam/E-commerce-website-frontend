@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import "./AllProducts.css";
 
 const AllProducts = () => {
@@ -58,13 +60,21 @@ const AllProducts = () => {
     setFilteredProducts(filtered);
   }, [categoryFilter, nameFilter, priceRange, products]);
 
+  
+  useEffect(() => {
+    AOS.init({
+      duration: 1000, 
+      easing: "ease-in-out",
+      once: true, 
+    });
+  }, []);
+
   return (
-    <div className="container ">
+    <div className="container mt-5">
       <div className="row test">
         {/* Filter Panel (Left Side) */}
-        <div className="col-md-3">
+        <div className="col-md-3 left-sider">
           <h4>Filters</h4>
-
           <div>
             <div className="category-buttons">
               {/* All Categories Button */}
@@ -150,8 +160,13 @@ const AllProducts = () => {
         <div className="col-md-9">
           <div className="row">
             {filteredProducts.length > 0 ? (
-              filteredProducts.map((product) => (
-                <div key={product.id} className="col-md-4 mb-4">
+              filteredProducts.map((product, index) => (
+                <div
+                  key={product.id}
+                  className="col-md-4 mb-4"
+                  data-aos="fade-up"
+                  data-aos-delay={index * 100} 
+                >
                   <div className="card">
                     <div className="card-img-container">
                       <img
@@ -165,21 +180,23 @@ const AllProducts = () => {
                       {/* Removed description */}
                       <p className="card-text">
                         <h6>Price: ${product.discount_price}</h6>
-                        <small className="text-muted">
+                        <p className="text-muted">
                           <del>
                             {" "}
                             <b>${product.real_price}</b>
                           </del>{" "}
-                          (Discount: {product.discount}% off)
-                        </small>
+                          <span className="discount-class">
+                            <b>( {product.discount}% off)</b>
+                          </span>
+                        </p>
                       </p>
                     </div>
                   </div>
                 </div>
               ))
             ) : (
-              <div className="col-12">
-                <p>No products found</p>
+              <div className="col-12 no-products-container">
+                <p className="no-products-text">No products found</p>
               </div>
             )}
           </div>
