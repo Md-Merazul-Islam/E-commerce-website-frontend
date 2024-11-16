@@ -1,6 +1,8 @@
-import React from 'react';
-import './ProductDeliveryBanner.css';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from "react";
+import "./ProductDeliveryBanner.css";
+import { Link } from "react-router-dom";
+import AOS from "aos"; // Import AOS
+import "aos/dist/aos.css"; // Import AOS CSS
 
 const ProductDeliveryBanner = () => {
   const cards = [
@@ -9,30 +11,45 @@ const ProductDeliveryBanner = () => {
       title: "Two-hour delivery",
       description: "Available in most metros on selected in-stock products",
       linkText: "learn more",
-      link: "javascript:void(0)"
+      link: "#",
+      aosAnimation: "fade-up", // AOS animation for this card
     },
     {
       icon: "mdi-message-text",
       title: "Get help buying",
-      description: "Have Link question? Call Link Specialist or chat online for help",
+      description:
+        "Have Link question? Call Link Specialist or chat online for help",
       linkText: "Contact us",
-      link: "contact-page.html"
+      link: "contact-page.html",
+      aosAnimation: "zoom-in", // AOS animation for this card
     },
     {
       icon: "mdi-ticket-percent",
       title: "Find the card for you",
       description: "Get 3% Daily Cash with special financing offers from us",
       linkText: "learn more",
-      link: "javascript:void(0)"
+      link: "#",
+      aosAnimation: "flip-left", // AOS animation for this card
     },
   ];
+
+  useEffect(() => {
+    AOS.init({
+      duration: 1000, // Animation duration in ms
+      once: true, // Ensures the animation runs only once
+    });
+  }, []);
 
   return (
     <section className="content-card-style-4 pt-70 pb-100">
       <div className="container">
         <div className="row justify-content-center">
           {cards.map((card, index) => (
-            <div className="col-lg-4 col-md-7 col-sm-8" key={index}>
+            <div
+              className="col-lg-4 col-md-7 col-sm-8"
+              key={index}
+              data-aos={card.aosAnimation} // Set the AOS animation here
+            >
               <div className="single-content mt-15 text-center">
                 <div className="content-icon">
                   <i className={`mdi ${card.icon}`}></i>
@@ -42,7 +59,9 @@ const ProductDeliveryBanner = () => {
                     <Link to={card.link}>{card.title}</Link>
                   </h4>
                   <p>{card.description}</p>
-                  <Link to={card.link} className="more">{card.linkText}</Link>
+                  <Link to={card.link} className="more">
+                    {card.linkText}
+                  </Link>
                 </div>
               </div>
             </div>

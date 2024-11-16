@@ -1,8 +1,15 @@
-import React from "react";
-import "./HeroSection.css"; // Make sure to create the CSS file for custom styles
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import AOS from "aos"; // Import AOS
+import "aos/dist/aos.css"; // Import AOS CSS for animations
+import "./HeroSection.css"; // Make sure to create the CSS file for custom styles
 
 const HeroSection = () => {
+  useEffect(() => {
+    // Initialize AOS animations
+    AOS.init({ duration: 1000, once: true });
+  }, []);
+
   return (
     <section className="hero-area">
       <div className="container">
@@ -20,6 +27,7 @@ const HeroSection = () => {
                   style={{
                     backgroundImage: "url(assets/images/hero/slider-bg1.jpg)",
                   }}
+                  data-aos="fade-up"
                 >
                   <div className="content">
                     <h2 className="text-car">
@@ -42,12 +50,15 @@ const HeroSection = () => {
                   </div>
                 </div>
                 {/* End Hero Slider */}
+
                 {/* Start Hero Slider */}
                 <div
                   className="carousel-item"
                   style={{
                     backgroundImage: "url(assets/images/hero/slider-bg2.jpg)",
                   }}
+                  data-aos="fade-up"
+                  data-aos-delay="200"
                 >
                   <div className="content">
                     <h2 className="text-car">
@@ -106,6 +117,7 @@ const HeroSection = () => {
                   style={{
                     backgroundImage: "url(assets/images/hero/slider-bnr.jpg)",
                   }}
+                  data-aos="fade-right"
                 >
                   <div className="content">
                     <h2>
@@ -118,7 +130,11 @@ const HeroSection = () => {
               </div>
               <div className="col-lg-12 col-md-6 col-12">
                 {/* Start Small Banner */}
-                <div className="hero-small-banner style2">
+                <div
+                  className="hero-small-banner style2"
+                  data-aos="fade-left"
+                  data-aos-delay="100"
+                >
                   <div className="content">
                     <h2>Weekly Sale!</h2>
                     <p>

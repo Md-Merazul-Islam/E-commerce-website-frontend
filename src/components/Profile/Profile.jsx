@@ -4,8 +4,6 @@ import api from "../APi/Api";
 import { Modal, Button } from "react-bootstrap"; 
 import { toast } from "react-toastify";
 
-const apiUrl = "https://your-backend-api.com"; 
-
 const profile = () => {
   const [userData, setUserData] = useState({
     first_name: "",

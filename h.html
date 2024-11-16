@@ -1,0 +1,242 @@
+import React, { useState, useEffect } from "react";
+import "./AllProducts.css";
+import Slider from "rc-slider";
+import "rc-slider/assets/index.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import { Link } from "react-router-dom";
+import api from "../APi/Api";
+import { debounce } from "lodash"; // Import debounce for better price range handling
+
+const AllProducts = () => {
+  const [categories, setCategories] = useState([]); // Categories
+  const [selectedCategory, setSelectedCategory] = useState(null); // Selected category
+  const [products, setProducts] = useState([]); // Products
+  const [priceRange, setPriceRange] = useState([0, 100000]); // Price range
+  const [loading, setLoading] = useState(true); // Loading state
+  const [currentPage, setCurrentPage] = useState(1); // Current page for pagination
+  const [totalPages, setTotalPages] = useState(3); // Total pages for pagination
+  const [error, setError] = useState(null); // Error state
+
+  // Fetch categories on mount
+  useEffect(() => {
+    api
+      .get("/products/categories/")
+      .then((response) => {
+        setCategories(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching categories:", error);
+        setError("Failed to load categories.");
+      });
+  }, []);
+
+  // Fetch products on category, price range, or page change
+  useEffect(() => {
+    const fetchProducts = async () => {
+      setLoading(true);
+      setError(null); // Clear previous errors
+      try {
+        const endpoint = selectedCategory
+          ? `/products/products-list/?category_name=${selectedCategory}&page=${currentPage}`
+          : `/products/products-list/?page=${currentPage}`;
+        const response = await api.get(endpoint);
+        setProducts((prevProducts) => [
+          ...prevProducts,
+          ...response.data.results,
+        ]); // Append new products
+        setTotalPages(response.data.total_pages); // Set total pages for pagination
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+        setError("Failed to load products.");
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, [selectedCategory, currentPage]);
+
+  // Debounced price range handler to avoid excessive API calls
+  const debouncedPriceRangeChange = debounce((value) => {
+    setPriceRange(value);
+  }, 300); // 300ms debounce
+
+  // Handle price slider change
+  const handleSliderChange = (value) => {
+    debouncedPriceRangeChange(value);
+  };
+
+  // Filter products by price range
+  const filteredProducts = products.filter(
+    (product) =>
+      parseFloat(product.discount_price) >= priceRange[0] &&
+      parseFloat(product.discount_price) <= priceRange[1]
+  );
+
+  // Load more products on button click
+  const loadMoreProducts = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1); // Increment page number to load more products
+    }
+  };
+
+  return (
+    <section className="product-area shop-sidebar shop section">
+      <div className="container">
+        <div className="row">
+          {/* Sidebar */}
+          <div className="col-lg-3 col-md-4 col-12">
+            <div className="shop-sidebar">
+              {/* Categories */}
+              <div className="single-widget category">
+                <h3 className="title">Categories</h3>
+                <ul className="categor-list">
+                  <li>
+                    <Link
+                      to="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setSelectedCategory(null); // Show all products
+                      }}
+                      className={`text-decoration-none ${
+                        !selectedCategory ? "active" : ""
+                      }`}
+                    >
+                      All Products
+                    </Link>
+                  </li>
+                  {categories.map((category) => (
+                    <li key={category.id}>
+                      <Link
+                        to="#"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setSelectedCategory(category.id);
+                          setCurrentPage(1); // Reset to first page when category changes
+                          setProducts([]); // Clear previous products
+                        }}
+                        className={`text-decoration-none ${
+                          selectedCategory === category.id ? "active" : ""
+                        }`}
+                      >
+                        {category.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Price Filter */}
+        
+            </div>
+          </div>
+
+          {/* Products Section */}
+          <div className="col-lg-9 col-md-8 col-12">
+            <div className="row">
+              {loading ? (
+                <p>Loading products...</p>
+              ) : error ? (
+                <p>{error}</p>
+              ) : filteredProducts.length > 0 ? (
+                filteredProducts.map((product) => (
+                  <div className="col-lg-4 col-md-6 col-12" key={product.id}>
+                    <div className="single-product product-info">
+                      <div className="product-img">
+                        <Link to={`/product-details/${product.slug}`}>
+                          <img
+                            className="default-img"
+                            src={product.image}
+                            alt={product.name}
+                          />
+                        </Link>
+                      </div>
+                      <div className="product-content">
+                        <h3>
+                          <Link
+                            to={`/product-details/${product.slug}`}
+                            className="text-decoration-none"
+                          >
+                            {product.name}
+                          </Link>
+                        </h3>
+                        <div className="product-price">
+                          <h4 className="front-">${product.discount_price}</h4>
+                          {product.discount && (
+                            <span className="old-price">
+                              <del>${product.real_price}</del>
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <p>No products found in this category or price range.</p>
+              )}
+            </div>
+
+        
+
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default AllProducts;
+
+
+map((product, index) => (
+            <div className="col-lg-6" key={index}>
+              <div className="product-style-7 mt-30">
+                <div className="product-image">
+                  {product.discount && (
+                    <span className="icon-text text-style-1 bg-warning">
+                      {product.discount}
+                    </span>
+                  )}
+                  {product.outOfStock && (
+                    <span className="icon-text text-style-1">Out Of Stock</span>
+                  )}
+                  <div className="product-active">
+                    {product.images.map((image, imgIndex) => (
+                      <div
+                        className={`product-item ${
+                          imgIndex === 0 ? "active" : ""
+                        }`}
+                        key={imgIndex}
+                      >
+                        <img src={image} alt="product" />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className="product-content">
+                  <ul className="product-meta">
+                    <li>
+                      <Link className="add-wishlist " to="#">
+                        <i className="mdi mdi-heart-outline text-5"></i>
+                      </Link>
+                    </li>
+                    <li>
+                      <span>
+                        <i className="mdi mdi-star"></i> {product.rating}
+                      </span>
+                    </li>
+                  </ul>
+                  <h4 className="title">
+                    <Link to="product-details-page.html">{product.title}</Link>
+                  </h4>
+                  <p>Reference {product.reference}</p>
+                  <span className="price">{product.price}</span>
+                  <Link to="#" className="primary-btn">
+                    <i className="mdi mdi-cart-outline"></i> {/* Cart icon */}
+                    Add to Cart
+                  </Link>
+                </div>
+              </div>
+            </div>

@@ -1,7 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import "./RecentProducts.css";
 import { Link } from "react-router-dom";
+import api from "../Api/Api";
+import AOS from "aos";
+import "aos/dist/aos.css";
+
 const RecentProducts = () => {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: true,
+    });
+
+    api
+      .get("/products/recent-products/")
+      .then((response) => {
+        setProducts(response.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching products:", error);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <section className="product-wrapper pt-100 pb-100">
       <div className="container">
@@ -13,100 +43,59 @@ const RecentProducts = () => {
           </div>
         </div>
         <div className="row">
-          {/** List of products **/}
-          {[
-            {
-              title: "Metro 38 Date",
-              reference: "1102",
-              price: "$399",
-              rating: "4.5/5",
-              images: ["assets/images/products/product-4.jpg"],
-            },
-            {
-              title: "Man's Shoe",
-              reference: "1102",
-              price: "$399",
-              rating: "4.5/5",
-              images: ["assets/images/products/product-4.jpg"],
-            },
-            {
-              title: "Lotto T Shirt",
-              reference: "1102",
-              price: "$399",
-              rating: "4.5/5",
-              images: ["assets/images/products/product-4.jpg"],
-              discount: "20% off",
-            },
-            {
-              title: "Smart Watch",
-              reference: "1102",
-              price: "$399",
-              rating: "4.5/5",
-              images: ["assets/images/products/product-4.jpg"],
-            },
-            {
-              title: "Smart Gadget",
-              reference: "1102",
-              price: "$399",
-              rating: "4.5/5",
-              images: ["assets/images/products/product-4.jpg"],
-            },
-            {
-              title: "Polo Cap",
-              reference: "1102",
-              price: "$399",
-              rating: "4.5/5",
-              images: ["assets/images/products/product-4.jpg"],
-              outOfStock: true,
-            },
-          ].map((product, index) => (
-            <div className="col-lg-6" key={index}>
+          {products.map((product, index) => (
+            <div
+              className="col-lg-6"
+              key={product.id}
+              data-aos="fade-up"
+              data-aos-delay={`${index * 300}`}
+            >
               <div className="product-style-7 mt-30">
                 <div className="product-image">
                   {product.discount && (
                     <span className="icon-text text-style-1 bg-warning">
-                      {product.discount}
+                      {product.discount}% off
                     </span>
                   )}
-                  {product.outOfStock && (
+                  {product.quantity <= 0 && (
                     <span className="icon-text text-style-1">Out Of Stock</span>
                   )}
                   <div className="product-active">
-                    {product.images.map((image, imgIndex) => (
-                      <div
-                        className={`product-item ${
-                          imgIndex === 0 ? "active" : ""
-                        }`}
-                        key={imgIndex}
-                      >
-                        <img src={image} alt="product" />
-                      </div>
-                    ))}
+                    <div className="product-item active">
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        style={{ width: "100%", height: "auto" }}
+                      />
+                    </div>
                   </div>
                 </div>
                 <div className="product-content">
                   <ul className="product-meta">
                     <li>
-                      <Link className="add-wishlist " to="javascript:void(0)">
+                      <Link className="add-wishlist " to="#">
                         <i className="mdi mdi-heart-outline text-5"></i>
                       </Link>
                     </li>
                     <li>
                       <span>
-                        <i className="mdi mdi-star"></i> {product.rating}
+                        <i className="mdi mdi-star"></i> 4.5/5
                       </span>
                     </li>
                   </ul>
                   <h4 className="title">
-                    <Link to="product-details-page.html">
-                      {product.title}
+                    <Link to={`/product-details/${product.slug}`}>
+                      {product.name}
                     </Link>
                   </h4>
-                  <p>Reference {product.reference}</p>
-                  <span className="price">{product.price}</span>
-                  <Link to="javascript:void(0)" className="primary-btn">
-                    <i className="mdi mdi-cart-outline"></i> {/* Cart icon */}
-                    Add to Cart
+                  <p>Reference {product.id}</p>
+                  <span className="price">
+                    {product.discount_price
+                      ? `$${product.discount_price}`
+                      : `$${product.real_price}`}
+                  </span>
+                  <Link to="#" className="primary-btn">
+                    <i className="mdi mdi-cart-outline"></i> Add to Cart
                   </Link>
                 </div>
               </div>

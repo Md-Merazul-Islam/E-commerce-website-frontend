@@ -1,282 +1,191 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./AllProducts.css";
-import Slider from "rc-slider";
-import "rc-slider/assets/index.css";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "@fortawesome/fontawesome-free/css/all.min.css";
-import { Link } from "react-router-dom";
 
 const AllProducts = () => {
-  // Sample product data
-  const products = [
-    {
-      id: 1,
-      name: "Product 1",
-      price: 10,
-      img: "assets/images/products/product-1.jpg",
-    },
-    {
-      id: 2,
-      name: "Product 2",
-      price: 20,
-      img: "assets/images/products/product-1.jpg",
-    },
-    {
-      id: 3,
-      name: "Product 3",
-      price: 30,
-      img: "assets/images/products/product-1.jpg",
-    },
-    {
-      id: 4,
-      name: "Product 4",
-      price: 40,
-      img: "assets/images/products/product-1.jpg",
-    },
-    {
-      id: 5,
-      name: "Product 5",
-      price: 50,
-      img: "assets/images/products/product-1.jpg",
-    },
-  ];
+  // State variables
+  const [categories, setCategories] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [categoryFilter, setCategoryFilter] = useState("");
+  const [priceRange, setPriceRange] = useState({ min: "", max: "" });
+  const [nameFilter, setNameFilter] = useState("");
 
-  // State for price range
-  const [priceRange, setPriceRange] = useState([0, 50]);
+  // Fetch categories and products from APIs
+  useEffect(() => {
+    fetch("http://127.0.0.1:8000/products/categories/")
+      .then((response) => response.json())
+      .then((data) => setCategories(data));
 
-  // Filter products by price range
-  const filteredProducts = products.filter(
-    (product) =>
-      product.price >= priceRange[0] && product.price <= priceRange[1]
-  );
+    fetch("http://127.0.0.1:8000/products/products-list/")
+      .then((response) => response.json())
+      .then((data) => {
+        setProducts(data);
+        setFilteredProducts(data);
+      });
+  }, []);
 
-  // Handle price slider change
-  const handleSliderChange = (value) => {
-    setPriceRange(value);
-  };
+  // Filter products based on the selected filters
+  useEffect(() => {
+    let filtered = products;
+
+    // Apply filters
+    if (categoryFilter) {
+      filtered = filtered.filter(
+        (product) => product.category === parseInt(categoryFilter)
+      );
+    }
+
+    if (nameFilter) {
+      filtered = filtered.filter((product) =>
+        product.name.toLowerCase().includes(nameFilter.toLowerCase())
+      );
+    }
+
+    if (priceRange.min) {
+      filtered = filtered.filter(
+        (product) =>
+          parseFloat(product.real_price) >= parseFloat(priceRange.min)
+      );
+    }
+
+    if (priceRange.max) {
+      filtered = filtered.filter(
+        (product) =>
+          parseFloat(product.real_price) <= parseFloat(priceRange.max)
+      );
+    }
+
+    setFilteredProducts(filtered);
+  }, [categoryFilter, nameFilter, priceRange, products]);
 
   return (
-    <section className="product-areLink shop-sidebar shop section">
-      <div className="container">
-        <div className="row">
-          {/* Sidebar */}
-          <div className="col-lg-3 col-md-4 col-12">
-            <div className="shop-sidebar">
-              {/* Categories Widget */}
-              <div className="single-widget category">
-                <h3 className="title">Categories</h3>
-                <ul className="categor-list">
-                  {[
-                    "T-shirts",
-                    "Jacket",
-                    "Jeans",
-                    "Sweatshirts",
-                    "Trousers",
-                    "Kitwears",
-                    "Accessories",
-                  ].map((category) => (
-                    <li key={category}>
-                      <Link to="#" onClick={(e) => e.preventDefault()}>
-                        {category}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+    <div className="container ">
+      <div className="row test">
+        {/* Filter Panel (Left Side) */}
+        <div className="col-md-3">
+          <h4>Filters</h4>
 
-              {/* Shop by Price Widget */}
-              <div className="single-widget range">
-                <h3 className="title">Shop by Price</h3>
-                <div className="price-filter">
-                  <div className="price-filter-inner">
-                    <Slider
-                      value={priceRange}
-                      min={0}
-                      max={50}
-                      step={1}
-                      onChange={handleSliderChange}
-                    />
-                    <div className="price_slider_amount">
-                      <div className="label-input">
-                        <span>Range:</span>
-                        <input
-                          type="text"
-                          value={`$${priceRange[0]} - $${priceRange[1]}`}
-                          readOnly
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+          <div>
+            <div className="category-buttons">
+              {/* All Categories Button */}
+              <button
+                className={`btn m-1 ${categoryFilter === "" ? "active" : ""}`}
+                style={{
+                  borderColor: "#F7941D",
+                  color: categoryFilter === "" ? "white" : "#F7941D",
+                  backgroundColor:
+                    categoryFilter === "" ? "#F7941D" : "transparent",
+                }}
+                onClick={() => setCategoryFilter("")}
+              >
+                All Categories
+              </button>
 
-              {/* Recent Posts Widget */}
-              <div className="single-widget recent-post">
-                <h3 className="title">Recent post</h3>
-                {[
-                  {
-                    name: "Girls Dress",
-                    price: "$99.50",
-                    rating: 3,
-                    img: "https://via.placeholder.com/75x75",
-                  },
-                  {
-                    name: "Women Clothings",
-                    price: "$99.50",
-                    rating: 4,
-                    img: "https://via.placeholder.com/75x75",
-                  },
-                  {
-                    name: "Man Tshirt",
-                    price: "$99.50",
-                    rating: 5,
-                    img: "https://via.placeholder.com/75x75",
-                  },
-                ].map((post, index) => (
-                  <div className="single-post first" key={index}>
-                    <div className="image">
-                      <img src={post.img} alt={post.name} />
-                    </div>
-                    <div className="content">
-                      <h5>
-                        <Link to="#" onClick={(e) => e.preventDefault()}>
-                          {post.name}
-                        </Link>
-                      </h5>
-                      <p className="price">{post.price}</p>
-                      <ul className="reviews">
-                        {[...Array(5)].map((_, i) => (
-                          <li
-                            key={i}
-                            className={i < post.rating ? "yellow" : ""}
-                          >
-                            <i className="fas fa-star"></i>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Manufacturers Widget */}
-              <div className="single-widget category">
-                <h3 className="title">Manufacturers</h3>
-                <ul className="categor-list">
-                  {[
-                    "Forever",
-                    "Giordano",
-                    "Abercrombie",
-                    "Ecko United",
-                    "Zara",
-                  ].map((manufacturer) => (
-                    <li key={manufacturer}>
-                      <Link to="#" onClick={(e) => e.preventDefault()}>
-                        {manufacturer}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              {categories.map((category) => (
+                <button
+                  key={category.id}
+                  className={`btn m-1 ${
+                    categoryFilter === category.id ? "active" : ""
+                  }`}
+                  style={{
+                    borderColor: "#F7941D",
+                    color: categoryFilter === category.id ? "white" : "#F7941D",
+                    backgroundColor:
+                      categoryFilter === category.id
+                        ? "#F7941D"
+                        : "transparent",
+                  }}
+                  onClick={() => {
+                    setCategoryFilter(
+                      category.id === categoryFilter ? "" : category.id
+                    );
+                  }}
+                >
+                  {category.name}
+                </button>
+              ))}
             </div>
           </div>
 
-          {/* Products Section */}
-          <div className="col-lg-9 col-md-8 col-12">
-            <div className="row">
-              <div className="col-12">
-                <div className="shop-top">
-                  <ul className="view-mode">
-                    <li className="active">
-                      <Link to="shop-grid.html">
-                        <i className="fas fa-border-all"></i>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="shop-list.html">
-                        <i className="fas fa-list"></i>
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div className="row">
-              {filteredProducts.length > 0 ? (
-                filteredProducts.map((product) => (
-                  <div className="col-lg-4 col-md-6 col-12" key={product.id}>
-                    <div className="single-product product-info">
-                      <div className="product-img">
-                        <Link to="product-details.html">
-                          <img
-                            className="default-img"
-                            src={product.img}
-                            alt={product.name}
-                          />
-                          <img
-                            className="hover-img"
-                            src={product.img}
-                            alt={product.name}
-                          />
-                        </Link>
-                        <div className="button-head">
-                          <div className="product-action">
-                            <a
-                              title="Quick View"
-                              to="#"
-                              onClick={(e) => e.preventDefault()}
-                            >
-                              <i className="fas fa-eye"></i>
-                              <span>Quick Shop</span>
-                            </a>
-                            <a
-                              title="Wishlist"
-                              to="#"
-                              onClick={(e) => e.preventDefault()}
-                            >
-                              <i className="far fa-heart"></i>
-                              <span>Add to Wishlist</span>
-                            </a>
-                            <a
-                              title="Compare"
-                              to="#"
-                              onClick={(e) => e.preventDefault()}
-                            >
-                              <i className="fas fa-chart-bar"></i>
-                              <span>Add to Compare</span>
-                            </a>
-                          </div>
-                          <div className="product-action-2">
-                            <a
-                              title="Add to cart"
-                              to="#"
-                              onClick={(e) => e.preventDefault()}
-                            >
-                              <i className="fas fa-cart-shopping"></i>
-                              Add to cart
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="product-content">
-                        <h3>
-                          <Link to="product-details.html">{product.name}</Link>
-                        </h3>
-                        <div className="product-price">
-                          <span>${product.price}</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))
-              ) : (
-                <p>No products found in this price range.</p>
-              )}
+          {/* Name Filter */}
+          <div className="form-group">
+            <label>Product Name</label>
+            <input
+              type="text"
+              className="form-control"
+              value={nameFilter}
+              onChange={(e) => setNameFilter(e.target.value)}
+              placeholder="Search by name"
+            />
+          </div>
+
+          {/* Price Filter */}
+          <div className="form-group">
+            <label>Price Range</label>
+            <div className="d-flex">
+              <input
+                type="number"
+                className="form-control"
+                placeholder="Min"
+                value={priceRange.min}
+                onChange={(e) =>
+                  setPriceRange({ ...priceRange, min: e.target.value })
+                }
+              />
+              <span className="mx-2">-</span>
+              <input
+                type="number"
+                className="form-control"
+                placeholder="Max"
+                value={priceRange.max}
+                onChange={(e) =>
+                  setPriceRange({ ...priceRange, max: e.target.value })
+                }
+              />
             </div>
           </div>
         </div>
+
+        {/* Product List (Right Side) */}
+        <div className="col-md-9">
+          <div className="row">
+            {filteredProducts.length > 0 ? (
+              filteredProducts.map((product) => (
+                <div key={product.id} className="col-md-4 mb-4">
+                  <div className="card">
+                    <div className="card-img-container">
+                      <img
+                        src={product.image}
+                        className="card-img"
+                        alt={product.name}
+                      />
+                    </div>
+                    <div className="card-body">
+                      <h5 className="card-title">{product.name}</h5>
+                      {/* Removed description */}
+                      <p className="card-text">
+                        <h6>Price: ${product.discount_price}</h6>
+                        <small className="text-muted">
+                          <del>
+                            {" "}
+                            <b>${product.real_price}</b>
+                          </del>{" "}
+                          (Discount: {product.discount}% off)
+                        </small>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="col-12">
+                <p>No products found</p>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
-    </section>
+    </div>
   );
 };
 

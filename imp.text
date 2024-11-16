@@ -33,6 +33,9 @@ user/send-otp/
 user/reset-password/
 user/verified-users/
 
+product :
+products/categories/
+products/products-list/
 
 
 https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp

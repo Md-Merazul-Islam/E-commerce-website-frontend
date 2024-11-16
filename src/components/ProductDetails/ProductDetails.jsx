@@ -57,7 +57,7 @@ const ProductDetails = () => {
                   <h2 className="title">GoPro Karma Camera Drone</h2>
                   <p className="category">
                     <i className="lni lni-tag"></i> Drones:{" "}
-                    <a href="javascript:void(0)">Action cameras</a>
+                    <a href="#">Action cameras</a>
                   </p>
                   <h3 className="price">
                     $850<span>$945</span>

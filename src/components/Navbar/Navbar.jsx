@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import api from "../APi/Api";
+
 const Navbar = ({ onLoginClick, onRegisterClick }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -13,10 +15,10 @@ const Navbar = ({ onLoginClick, onRegisterClick }) => {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-  const [selectedValue, setSelectedValue] = useState('option1'); // Initialize selectedValue
+  const [selectedValue, setSelectedValue] = useState("option1");
 
   const handleSelectChange = (event) => {
-    setSelectedValue(event.target.value); // Update selectedValue on select change
+    setSelectedValue(event.target.value);
   };
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -27,6 +29,22 @@ const Navbar = ({ onLoginClick, onRegisterClick }) => {
     setIsLoggedIn(false);
     toast.success("Logged out successfully.");
   };
+
+  // category ----------------
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+
+  // Fetch categories from API on component mount
+  useEffect(() => {
+    api
+      .get("/products/categories/")
+      .then((response) => {
+        setCategories(response.data); // Set categories from API response
+      })
+      .catch((error) => {
+        console.error("Error fetching categories", error);
+      });
+  }, []);
 
   return (
     <div>
@@ -84,7 +102,10 @@ const Navbar = ({ onLoginClick, onRegisterClick }) => {
                       <>
                         {/* Profile icon and Logout button for logged-in users */}
                         <li>
-                          <Link className="text-decoration-none" to="/profile-details">
+                          <Link
+                            className="text-decoration-none"
+                            to="/profile-details"
+                          >
                             <i className="lni lni-user"></i> Profile
                           </Link>
                         </li>
@@ -149,7 +170,7 @@ const Navbar = ({ onLoginClick, onRegisterClick }) => {
                   <div className="navbar-search search-style-5">
                     <div className="search-select">
                       <div className="select-position">
-                      <select value={selectedValue}>
+                        <select value={selectedValue}>
                           <option value="option1">ALL</option>
                         </select>
                       </div>
@@ -178,19 +199,13 @@ const Navbar = ({ onLoginClick, onRegisterClick }) => {
                   </div>
                   <div className="navbar-cart">
                     <div className="wishlist">
-                      <Link
-                        className="text-decoration-none"
-                        to="javascript:void(0)"
-                      >
+                      <Link className="text-decoration-none" to="#">
                         <i className="lni lni-heart"></i>
                         <span className="total-items">0</span>
                       </Link>
                     </div>
                     <div className="cart-items">
-                      <Link
-                        className="text-decoration-none main-btn"
-                        to="javascript:void(0)"
-                      >
+                      <Link className="text-decoration-none main-btn" to="#">
                         <i className="lni lni-cart"></i>
                         <span className="total-items">2</span>
                       </Link>
@@ -206,7 +221,7 @@ const Navbar = ({ onLoginClick, onRegisterClick }) => {
                           <li>
                             <Link
                               className="text-decoration-none remove"
-                              to="javascript:void(0)"
+                              to="#"
                               title="Remove this item"
                             >
                               <i className="lni lni-close"></i>
@@ -240,7 +255,7 @@ const Navbar = ({ onLoginClick, onRegisterClick }) => {
                           <li>
                             <Link
                               className="remove text-decoration-none"
-                              to="javascript:void(0)"
+                              to="#"
                               title="Remove this item"
                             >
                               <i className="lni lni-close"></i>
@@ -306,67 +321,24 @@ const Navbar = ({ onLoginClick, onRegisterClick }) => {
                     <i className="lni lni-menu"></i>All Categories
                   </span>
                   <ul className="sub-category">
-                    <li className="text-dec">
-                      <Link
-                        to="product-grids.html"
-                        className="text-decoration-none"
-                      >
-                        Electronics <i className="lni lni-chevron-right"></i>
-                      </Link>
-                      <ul className="inner-sub-category">
-                        <li>
-                          <Link
-                            className="text-decoration-none"
-                            to="product-grids.html"
-                          >
-                            Digital Cameras
-                          </Link>
-                        </li>
-                        <li>
-                          <Link
-                            className="text-decoration-none"
-                            to="product-grids.html"
-                          >
-                            Camcorders
-                          </Link>
-                        </li>
-                        <li>
-                          <Link
-                            className="text-decoration-none"
-                            to="product-grids.html"
-                          >
-                            CamerLink Drones
-                          </Link>
-                        </li>
-                      </ul>
-                    </li>
-                    <li>
-                      <Link
-                        className="text-decoration-none"
-                        to="product-grids.html"
-                      >
-                        accessories
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        className="text-decoration-none"
-                        to="product-grids.html"
-                      >
-                        Televisions
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        className="text-decoration-none"
-                        to="product-grids.html"
-                      >
-                        best selling
-                      </Link>
-                    </li>
+                    {categories.map((category) => (
+                      <li key={category.id} className="text-dec">
+                        <Link
+                          to="#"
+                          className="text-decoration-none"
+                          onClick={() => handleCategorySelect(category.id)}
+                        >
+                          {category.name}{" "}
+                          <i className="lni lni-chevron-right"></i>
+                        </Link>
+                        {/* Optional: Sub-category or product links */}
+                      </li>
+                    ))}
                   </ul>
                 </div>
                 {/* <!-- End MegLink Category Menu --> */}
+
+                
                 {/* <!-- Start Navbar --> */}
                 <nav className="navbar navbar-expand-lg">
                   <button
@@ -406,14 +378,14 @@ const Navbar = ({ onLoginClick, onRegisterClick }) => {
                       <li className="nav-item">
                         <Link
                           className="text-decoration-none dd-menu collapsed"
-                          to="javascript:void(0)"
+                          to="#"
                           data-bs-toggle="collapse"
                           data-bs-target="#submenu-1-2"
                           aria-controls="navbarSupportedContent"
                           aria-expanded="false"
                           aria-label="Toggle navigation"
                         >
-                          Pages
+                          Recent Products
                         </Link>
                         <ul className="sub-menu collapse" id="submenu-1-2">
                           <li className="nav-item">
@@ -421,7 +393,7 @@ const Navbar = ({ onLoginClick, onRegisterClick }) => {
                               className="text-decoration-none"
                               to="/about-us"
                             >
-                              About Us
+                              Recent product -1
                             </Link>
                           </li>
                           <li className="nav-item">
@@ -429,7 +401,7 @@ const Navbar = ({ onLoginClick, onRegisterClick }) => {
                               className="text-decoration-none"
                               to="faq.html"
                             >
-                              Faq
+                              Recent product-2
                             </Link>
                           </li>
                         </ul>
@@ -437,38 +409,30 @@ const Navbar = ({ onLoginClick, onRegisterClick }) => {
                       <li className="nav-item">
                         <Link
                           className="text-decoration-none dd-menu collapsed"
-                          to="javascript:void(0)"
+                          to="/all-products"
                           data-bs-toggle="collapse"
                           data-bs-target="#submenu-1-3"
                           aria-controls="navbarSupportedContent"
                           aria-expanded="false"
                           aria-label="Toggle navigation"
                         >
-                          Shop
+                          Shop Now
                         </Link>
                         <ul className="sub-menu collapse" id="submenu-1-3">
                           <li className="nav-item">
                             <Link
                               className="text-decoration-none"
-                              to="product-grids.html"
+                              to="/all-products"
                             >
-                              Shop Grid
+                              All Products
                             </Link>
                           </li>
                           <li className="nav-item">
                             <Link
                               className="text-decoration-none"
-                              to="product-list.html"
+                              to="trending-products"
                             >
-                              Shop List
-                            </Link>
-                          </li>
-                          <li className="nav-item">
-                            <Link
-                              className="text-decoration-none"
-                              to="product-details.html"
-                            >
-                              shop Single
+                              Trading product
                             </Link>
                           </li>
                           <li className="nav-item">
@@ -492,14 +456,14 @@ const Navbar = ({ onLoginClick, onRegisterClick }) => {
                       <li className="nav-item">
                         <Link
                           className="text-decoration-none dd-menu collapsed"
-                          to="javascript:void(0)"
+                          to="#"
                           data-bs-toggle="collapse"
                           data-bs-target="#submenu-1-4"
                           aria-controls="navbarSupportedContent"
                           aria-expanded="false"
                           aria-label="Toggle navigation"
                         >
-                          Blog
+                          Discount
                         </Link>
                         <ul className="sub-menu collapse" id="submenu-1-4">
                           <li className="nav-item">
@@ -507,7 +471,7 @@ const Navbar = ({ onLoginClick, onRegisterClick }) => {
                               className="text-decoration-none"
                               to="blog-grid-sidebar.html"
                             >
-                              Blog Grid Sidebar
+                              10%
                             </Link>
                           </li>
                           <li className="nav-item">
@@ -515,7 +479,7 @@ const Navbar = ({ onLoginClick, onRegisterClick }) => {
                               className="text-decoration-none"
                               to="blog-single.html"
                             >
-                              Blog Single
+                              20%
                             </Link>
                           </li>
                           <li className="nav-item">
@@ -523,7 +487,7 @@ const Navbar = ({ onLoginClick, onRegisterClick }) => {
                               className="text-decoration-none"
                               to="blog-single-sidebar.html"
                             >
-                              Blog Single Sibebar
+                              30%
                             </Link>
                           </li>
                         </ul>
@@ -551,34 +515,22 @@ const Navbar = ({ onLoginClick, onRegisterClick }) => {
                 <h5 className="title">Follow Us:</h5>
                 <ul>
                   <li>
-                    <Link
-                      className="text-decoration-none"
-                      to="javascript:void(0)"
-                    >
+                    <Link className="text-decoration-none" to="#">
                       <i className="lni lni-facebook-filled"></i>
                     </Link>
                   </li>
                   <li>
-                    <Link
-                      className="text-decoration-none"
-                      to="javascript:void(0)"
-                    >
+                    <Link className="text-decoration-none" to="#">
                       <i className="lni lni-twitter-original"></i>
                     </Link>
                   </li>
                   <li>
-                    <Link
-                      className="text-decoration-none"
-                      to="javascript:void(0)"
-                    >
+                    <Link className="text-decoration-none" to="#">
                       <i className="lni lni-instagram"></i>
                     </Link>
                   </li>
                   <li>
-                    <Link
-                      className="text-decoration-none"
-                      to="javascript:void(0)"
-                    >
+                    <Link className="text-decoration-none" to="#">
                       <i className="lni lni-skype"></i>
                     </Link>
                   </li>
