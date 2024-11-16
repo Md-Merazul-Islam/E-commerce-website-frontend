@@ -1,25 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Products.css";
-import AOS from "aos"; // Import AOS
-import "aos/dist/aos.css"; // Import AOS CSS
+import AOS from "aos"; 
+import "aos/dist/aos.css"; 
 
 const Products = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    // Initialize AOS
+    
     AOS.init({
-      duration: 1000, // Animation duration in ms
-      once: true, // Animation will only trigger once when visible
+      duration: 1000, 
+      once: true, 
     });
 
-    // Fetch data from the API
+    
     fetch("http://127.0.0.1:8000/products/trending-products/")
       .then((response) => response.json())
       .then((data) => setProducts(data))
       .catch((error) => console.error("Error fetching data:", error));
-  }, []); // Empty array means this effect runs once after the first render
+  }, []); 
 
   return (
     <section className="trending-product section" style={{ marginTop: "12px" }}>
@@ -40,8 +40,8 @@ const Products = () => {
             <div
               className="col-lg-3 col-md-6 col-12"
               key={product.id}
-              data-aos="fade-up" // Apply the fade-up animation
-              data-aos-delay={`${index * 300}`} // Stagger the animation by index
+              data-aos="fade-up" 
+              data-aos-delay={`${index * 300}`} 
             >
               <div className="single-product">
                 <div className="product-image">

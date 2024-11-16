@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import AOS from "aos"; // Import AOS
-import "aos/dist/aos.css"; // Import AOS CSS for animations
-import "./HeroSection.css"; // Make sure to create the CSS file for custom styles
+import AOS from "aos"; 
+import "aos/dist/aos.css"; 
+import "./HeroSection.css"; 
 
 const HeroSection = () => {
   useEffect(() => {
-    // Initialize AOS animations
+    
     AOS.init({ duration: 1000, once: true });
   }, []);
 

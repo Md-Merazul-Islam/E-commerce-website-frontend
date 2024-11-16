@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
 const ProductDetails = () => {
-  const [selectedValue, setSelectedValue] = useState("option1"); // Initialize selectedValue
+  const [selectedValue, setSelectedValue] = useState("option1"); 
 
   const handleSelectChange = (event) => {
-    setSelectedValue(event.target.value); // Update selectedValue on select change
+    setSelectedValue(event.target.value); 
   };
   return (
     <div>

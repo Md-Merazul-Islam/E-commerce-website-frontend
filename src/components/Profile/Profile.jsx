@@ -57,7 +57,7 @@ const profile = () => {
 
     if (file) {
       const reader = new FileReader();
-      reader.onloadend = () => setImagePreview(reader.result); // 
+      reader.onloadend = () => setImagePreview(reader.result); 
       reader.readAsDataURL(file);
     }
   };

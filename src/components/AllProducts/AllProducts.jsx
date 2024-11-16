@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./AllProducts.css";
 
 const AllProducts = () => {
-  // State variables
+  
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -10,7 +10,7 @@ const AllProducts = () => {
   const [priceRange, setPriceRange] = useState({ min: "", max: "" });
   const [nameFilter, setNameFilter] = useState("");
 
-  // Fetch categories and products from APIs
+  
   useEffect(() => {
     fetch("http://127.0.0.1:8000/products/categories/")
       .then((response) => response.json())
@@ -24,11 +24,11 @@ const AllProducts = () => {
       });
   }, []);
 
-  // Filter products based on the selected filters
+  
   useEffect(() => {
     let filtered = products;
 
-    // Apply filters
+    
     if (categoryFilter) {
       filtered = filtered.filter(
         (product) => product.category === parseInt(categoryFilter)

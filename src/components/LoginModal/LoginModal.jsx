@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Modal, Button, Form, Alert, Spinner } from "react-bootstrap"; // Added Spinner
-import { toast } from "react-toastify"; // Correct import
+import { Modal, Button, Form, Alert, Spinner } from "react-bootstrap"; 
+import { toast } from "react-toastify"; 
 import api from "../APi/Api";
 import { Link, useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
@@ -15,8 +15,8 @@ const LoginModal = ({ show, onHide, onSwitchToRegister }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(""); // Clear any existing errors
-    setLoading(true); // Set loading to true to show the spinner
+    setError(""); 
+    setLoading(true); 
 
     try {
       const response = await api.post("/user/login/", {
@@ -49,7 +49,7 @@ const LoginModal = ({ show, onHide, onSwitchToRegister }) => {
       toast.error("Invalid username or password");
       console.log("login error:", error);
     } finally {
-      setLoading(false); // Set loading to false after request is finished
+      setLoading(false); 
     }
   };
 

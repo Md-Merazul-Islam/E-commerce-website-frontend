@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import "./ProductDeliveryBanner.css";
 import { Link } from "react-router-dom";
-import AOS from "aos"; // Import AOS
-import "aos/dist/aos.css"; // Import AOS CSS
+import AOS from "aos"; 
+import "aos/dist/aos.css"; 
 
 const ProductDeliveryBanner = () => {
   const cards = [
@@ -12,7 +12,7 @@ const ProductDeliveryBanner = () => {
       description: "Available in most metros on selected in-stock products",
       linkText: "learn more",
       link: "#",
-      aosAnimation: "fade-up", // AOS animation for this card
+      aosAnimation: "fade-up", 
     },
     {
       icon: "mdi-message-text",
@@ -21,7 +21,7 @@ const ProductDeliveryBanner = () => {
         "Have Link question? Call Link Specialist or chat online for help",
       linkText: "Contact us",
       link: "contact-page.html",
-      aosAnimation: "zoom-in", // AOS animation for this card
+      aosAnimation: "zoom-in", 
     },
     {
       icon: "mdi-ticket-percent",
@@ -29,14 +29,14 @@ const ProductDeliveryBanner = () => {
       description: "Get 3% Daily Cash with special financing offers from us",
       linkText: "learn more",
       link: "#",
-      aosAnimation: "flip-left", // AOS animation for this card
+      aosAnimation: "flip-left", 
     },
   ];
 
   useEffect(() => {
     AOS.init({
-      duration: 1000, // Animation duration in ms
-      once: true, // Ensures the animation runs only once
+      duration: 1000, 
+      once: true, 
     });
   }, []);
 
@@ -48,7 +48,7 @@ const ProductDeliveryBanner = () => {
             <div
               className="col-lg-4 col-md-7 col-sm-8"
               key={index}
-              data-aos={card.aosAnimation} // Set the AOS animation here
+              data-aos={card.aosAnimation} 
             >
               <div className="single-content mt-15 text-center">
                 <div className="content-icon">

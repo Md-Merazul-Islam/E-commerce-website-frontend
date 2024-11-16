@@ -30,16 +30,16 @@ const Navbar = ({ onLoginClick, onRegisterClick }) => {
     toast.success("Logged out successfully.");
   };
 
-  // category ----------------
+  
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
 
-  // Fetch categories from API on component mount
+  
   useEffect(() => {
     api
       .get("/products/categories/")
       .then((response) => {
-        setCategories(response.data); // Set categories from API response
+        setCategories(response.data); 
       })
       .catch((error) => {
         console.error("Error fetching categories", error);
