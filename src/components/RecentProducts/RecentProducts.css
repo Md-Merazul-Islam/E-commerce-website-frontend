@@ -12,9 +12,15 @@
   text-decoration: none;
   transition: background-color 0.3s ease;
 }
-
+.b-bt {
+  border-bottom: 2px  solid  #F7941D;;
+  padding-bottom: 5px; 
+  max-width: 200px;
+  
+}
 .primary-btn:hover {
-  background-color: #2980b9;
+  background-color: #02263d;
+  color: white;
 }
 
 .primary-btn img {

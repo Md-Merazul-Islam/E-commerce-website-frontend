@@ -38,7 +38,8 @@ const RecentProducts = () => {
         <div className="row">
           <div className="col-lg-12">
             <div className="mb-50">
-              <h1 className="heading-1 font-weight-700">Recent Items</h1>
+              <h2 className="heading-1 font-weight-700 b-bt">Recent Items</h2>
+            
             </div>
           </div>
         </div>

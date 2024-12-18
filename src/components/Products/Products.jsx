@@ -35,10 +35,10 @@ const Products = () => {
           <div className="col-12">
             <div className="section-title">
               <h2>Trending Products</h2>
-              <p>
+              {/* <p>
                 There are many variations of passages of Lorem Ipsum available,
                 but the majority have suffered alteration in some form.
-              </p>
+              </p> */}
             </div>
           </div>
         </div>
