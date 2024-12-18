@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import "./Products.css";
+import { toast } from "react-toastify";
+import { Link, useNavigate } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
+import api from "../Api/Api";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import api from "../Api/Api";
+import "./Products.css";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Initialize AOS
@@ -28,6 +32,37 @@ const Products = () => {
       });
   }, []);
 
+  const handleAddToCart = async (productId) => {
+    const token = localStorage.getItem("token"); 
+
+    if (!token) {
+      toast.info("Please log in to add items to the cart.");
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const response = await api.post(
+        "/cart/add-to-cart/",
+        {
+          product_id: productId,
+          quantity: 1, 
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      toast.success("Item added to cart successfully!");
+    } catch (error) {
+      toast.error("Failed to add item to cart. Please try again.");
+      console.error("Error adding to cart:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <section className="trending-product section" style={{ marginTop: "12px" }}>
       <div className="container">
@@ -35,10 +70,6 @@ const Products = () => {
           <div className="col-12">
             <div className="section-title">
               <h2>Trending Products</h2>
-              {/* <p>
-                There are many variations of passages of Lorem Ipsum available,
-                but the majority have suffered alteration in some form.
-              </p> */}
             </div>
           </div>
         </div>
@@ -77,9 +108,12 @@ const Products = () => {
                         <span className="sale-tag">-{discount}%</span>
                       )}
                       <div className="button">
-                        <Link to={`/product/${slug}`} className="btn">
+                        <button
+                          onClick={() => handleAddToCart(id)}
+                          className="btn"
+                        >
                           <i className="lni lni-cart"></i> Add to Cart
-                        </Link>
+                        </button>
                       </div>
                     </div>
                     <div className="product-info">
@@ -106,9 +140,7 @@ const Products = () => {
                       <div className="price">
                         <span>${discount_price}</span>
                         {real_price && (
-                          <span className="discount-price">
-                            ${real_price}
-                          </span>
+                          <span className="discount-price">${real_price}</span>
                         )}
                       </div>
                     </div>
