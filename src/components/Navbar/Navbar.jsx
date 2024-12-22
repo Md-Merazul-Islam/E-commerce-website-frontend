@@ -203,7 +203,10 @@ const Navbar = ({ onLoginClick, onRegisterClick }) => {
                       </Link>
                     </div>
                     <div className="cart-items">
-                      <Link className="text-decoration-none main-btn" to="#">
+                      <Link
+                        className="text-decoration-none main-btn"
+                        to="/my-cart"
+                      >
                         <i className="lni lni-cart"></i>
                         <span className="total-items">2</span>
                       </Link>
@@ -322,7 +325,7 @@ const Navbar = ({ onLoginClick, onRegisterClick }) => {
                     {categories.map((category) => (
                       <li key={category.id} className="text-dec">
                         <Link
-                          to="#"
+                          to=""
                           className="text-decoration-none"
                           onClick={() => handleCategorySelect(category.id)}
                         >
