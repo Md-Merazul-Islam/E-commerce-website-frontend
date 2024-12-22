@@ -3,27 +3,25 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import api from "../APi/Api";
 import "./DiscountFilter.css";
+import { useLocation, useNavigate } from "react-router-dom";
+
 const DiscountFilter = () => {
-  const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [discountRange, setDiscountRange] = useState("");
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     api
       .get("/products/trending-products/")
-      .then((response) => {
-        setProducts(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching products:", error);
-      });
-  }, []);
+      .then((response) => setProducts(response.data))
+      .catch((error) => console.error("Error fetching products:", error));
+  }, [location.search]);
 
   useEffect(() => {
     let filtered = products;
 
-    // Apply discount range filter
     if (discountRange) {
       const [minDiscount, maxDiscount] = discountRange.split("-").map(Number);
       filtered = filtered.filter((product) => {
@@ -48,6 +46,11 @@ const DiscountFilter = () => {
     });
   }, []);
 
+  const handleCategorySelect = (category) => {
+    setDiscountRange(category);
+    navigate(`/discount-product?category=${category}`);
+  };
+
   return (
     <div className="container mt-5 min-vh-100">
       <div className="row">
@@ -59,54 +62,17 @@ const DiscountFilter = () => {
           <div className="form-group">
             <label className="my-2">Discount Range</label>
             <div className="btn-group-vertical w-100">
-              <button
-                className={`btn btn-outline-primary custom-btn w-100 mb-2 ${
-                  discountRange === "0-10" ? "active" : ""
-                }`}
-                onClick={() => setDiscountRange("0-10")}
-              >
-                0%-10%
-              </button>
-              <button
-                className={`btn btn-outline-primary custom-btn w-100 mb-2 ${
-                  discountRange === "10-20" ? "active" : ""
-                }`}
-                onClick={() => setDiscountRange("10-20")}
-              >
-                10%-20%
-              </button>
-              <button
-                className={`btn btn-outline-primary custom-btn w-100 mb-2 ${
-                  discountRange === "20-30" ? "active" : ""
-                }`}
-                onClick={() => setDiscountRange("20-30")}
-              >
-                20%-30%
-              </button>
-              <button
-                className={`btn btn-outline-primary custom-btn w-100 mb-2 ${
-                  discountRange === "30-40" ? "active" : ""
-                }`}
-                onClick={() => setDiscountRange("30-40")}
-              >
-                30%-40%
-              </button>
-              <button
-                className={`btn btn-outline-primary custom-btn w-100 mb-2 ${
-                  discountRange === "40-50" ? "active" : ""
-                }`}
-                onClick={() => setDiscountRange("40-50")}
-              >
-                40%-50%
-              </button>
-              <button
-                className={`btn btn-outline-primary custom-btn w-100 mb-2 ${
-                  discountRange === "50+" ? "active" : ""
-                }`}
-                onClick={() => setDiscountRange("50+")}
-              >
-                50%+
-              </button>
+              {["0-10", "10-20", "20-30", "30-40", "40-50", "50+"].map((range) => (
+                <button
+                  key={range}
+                  className={`btn btn-outline-primary custom-btn w-100 mb-2 ${
+                    discountRange === range ? "active" : ""
+                  }`}
+                  onClick={() => handleCategorySelect(range)}
+                >
+                  {range === "50+" ? "50%+" : `${range}%`}
+                </button>
+              ))}
             </div>
           </div>
         </div>
@@ -139,7 +105,7 @@ const DiscountFilter = () => {
                             <b>${product.real_price}</b>
                           </del>
                           <span className="discount-class">
-                            <b>( {product.discount}% off)</b>
+                            <b> ({product.discount}% off)</b>
                           </span>
                         </p>
                       </p>
@@ -152,7 +118,7 @@ const DiscountFilter = () => {
                 <img
                   className="w-50 mx-auto"
                   src="https://i.postimg.cc/x8Zvc3Z7/no-document-or-data-found-ui-illustration-design-free-vector.jpg"
-                  alt=""
+                  alt="No data found"
                 />
               </div>
             )}
