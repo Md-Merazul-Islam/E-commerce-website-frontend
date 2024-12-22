@@ -325,7 +325,7 @@ const Navbar = ({ onLoginClick, onRegisterClick }) => {
                     {categories.map((category) => (
                       <li key={category.id} className="text-dec">
                         <Link
-                          to=""
+                          to="/all-products"
                           className="text-decoration-none"
                           onClick={() => handleCategorySelect(category.id)}
                         >
@@ -377,35 +377,14 @@ const Navbar = ({ onLoginClick, onRegisterClick }) => {
                       </li>
                       <li className="nav-item">
                         <Link
-                          className="text-decoration-none dd-menu collapsed"
-                          to="#"
-                          data-bs-toggle="collapse"
-                          data-bs-target="#submenu-1-2"
-                          aria-controls="navbarSupportedContent"
-                          aria-expanded="false"
+                          className="text-decoration-none "
+                          to="/all-products"
                           aria-label="Toggle navigation"
                         >
-                          Recent Products
+                          All Products
                         </Link>
-                        <ul className="sub-menu collapse" id="submenu-1-2">
-                          <li className="nav-item">
-                            <Link
-                              className="text-decoration-none"
-                              to="/about-us"
-                            >
-                              Recent product -1
-                            </Link>
-                          </li>
-                          <li className="nav-item">
-                            <Link
-                              className="text-decoration-none"
-                              to="faq.html"
-                            >
-                              Recent product-2
-                            </Link>
-                          </li>
-                        </ul>
                       </li>
+
                       <li className="nav-item">
                         <Link
                           className="text-decoration-none dd-menu collapsed"

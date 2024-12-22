@@ -84,9 +84,9 @@ const AllProducts = () => {
   const handleFilterChange = (key, value) => {
     const newParams = new URLSearchParams(searchParams);
     if (value) {
-      newParams.set(key, value); // Update or add key
+      newParams.set(key, value); 
     } else {
-      newParams.delete(key); // Remove key if value is empty
+      newParams.delete(key);
     }
     setSearchParams(newParams);
   };
