@@ -1,79 +1,84 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../Api/Api";
 import "./Cart.css";
 
 const Cart = () => {
-  const [cartItems, setCartItems] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [cartData, setCartData] = useState([]); // Default to an empty array
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchCartItems = async () => {
-      setLoading(true);
-      const token = localStorage.getItem("accessToken"); // Retrieve token for authentication
-      try {
-        const response = await axios.get(
-          "http://127.0.0.1:8000/cart/my-cart/",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        setCartItems(response.data);
-      } catch (error) {
-        console.error("Error fetching cart items:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+    // Get JWT token from localStorage
+    const token = localStorage.getItem("token");
 
-    fetchCartItems();
+    // If there's no token, show an error
+    if (!token) {
+      setError("You are not authenticated");
+      return;
+    }
+
+    // Fetch cart data with Bearer token using the imported api
+    api
+      .get("cart/my-cart/", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        setCartData(response.data); // Update state with the correct array from response
+      })
+      .catch((err) => setError(err.message));
   }, []);
 
-  if (loading) {
-    return <p>Loading cart items...</p>;
+  if (error) {
+    return <div className="text-center text-danger">Error: {error}</div>;
   }
 
-  if (cartItems.length === 0) {
-    return <p>Your cart is empty.</p>;
+  // If cart data is not loaded yet, show a loading message
+  if (!cartData.length) {
+    return <div className="text-center">Loading...</div>;
   }
 
   return (
-    <div className="container">
-      <h2 className="my-4">Your Cart</h2>
-      <div className="row">
-        {cartItems.map((item) => (
-          <div className="col-md-4 mb-4" key={item.id}>
-            <div className="card">
-              <img
-                src={item.product.image}
-                className="card-img-top"
-                alt={item.product.name}
-                style={{ height: "200px", objectFit: "cover" }}
-              />
-              <div className="card-body">
-                <h5 className="card-title">{item.product.name}</h5>
-                <p className="card-text">{item.product.description}</p>
-                <p className="card-text">
-                  Price: <strong>${item.product.discount_price}</strong>
-                </p>
-                <p className="card-text">
-                  Quantity: <strong>{item.quantity}</strong>
-                </p>
-                <p className="card-text">
-                  Subtotal:{" "}
-                  <strong>
-                    $
-                    {parseFloat(
-                      item.product.discount_price * item.quantity
-                    ).toFixed(2)}
-                  </strong>
-                </p>
-              </div>
+    <div className="container mt-5">
+      <h1 className="text-center mb-4">My Cart</h1>
+      {cartData.map((cart) => (
+        <div key={cart.id} className="mb-4">
+          <div className="card">
+            <div className="card-header">
+              {/* <h2 className="h4">Cart ID: {cart.id}</h2> */}
+              <h3 className="text-muted">
+                Created At: {new Date(cart.created_at).toLocaleString()}
+              </h3>
+            </div>
+            <div className="card-body">
+              <ul className="list-unstyled">
+                {cart.items.map((item) => (
+                  <li
+                    key={item.id}
+                    className="d-flex flex-column flex-sm-row mb-4 border p-3 rounded shadow-sm"
+                  >
+                    <img
+                      src={item.product.image}
+                      alt={item.product.name}
+                      className="img-fluid w-25 mb-3 mb-sm-0 mr-sm-3"
+                    />
+                    <div className="flex-grow-1">
+                      <h4 className="h5">{item.product.name}</h4>
+                      <p>{item.product.description}</p>
+                      <p className="text-success">
+                        Price: ${item.product.discount_price} (Discounted from $
+                        {item.product.real_price})
+                      </p>
+                      <p>Quantity: {item.quantity}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
     </div>
   );
 };

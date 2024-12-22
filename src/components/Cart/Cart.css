@@ -1,68 +1,60 @@
-/* Global container styling */
-.container {
-    max-width: 1200px;
-    margin: auto;
-    padding: 20px;
+/* Custom CSS for Cart */
+.card {
+  border: 1px solid #f1f1f1;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  background-color: #f8f9fa;
+  padding: 1.5rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+.card-body img {
+  max-height: 150px;
+  object-fit: cover;
+}
+
+.card-body h5 {
+  font-size: 1.25rem;
+}
+
+.text-muted {
+  color: #6c757d !important;
+}
+
+.text-success {
+  color: #28a745 !important;
+}
+
+/* Flexbox for cart items */
+.card-body .d-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-body .d-flex img {
+  max-width: 100px;
+  margin-right: 20px;
+}
+
+.card-body .d-flex .flex-grow-1 {
+  flex-grow: 1;
+}
+
+@media (max-width: 576px) {
+  .card-body .d-flex {
+    flex-direction: column;
+    align-items: flex-start;
   }
-  
-  /* Heading style */
-  h2 {
-    text-align: center;
-    font-size: 2rem;
-    color: #333;
-    margin-bottom: 1rem;
+
+  .card-body .d-flex img {
+    margin-right: 0;
+    margin-bottom: 10px;
   }
-  
-  /* Card styling */
-  .card {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s, box-shadow 0.3s;
-  }
-  
-  .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-  }
-  
-  /* Card image */
-  .card-img-top {
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-  }
-  
-  /* Card body */
-  .card-body {
-    padding: 15px;
-  }
-  
-  .card-title {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: #333;
-  }
-  
-  .card-text {
-    margin: 5px 0;
-    color: #555;
-  }
-  
-  .card-text strong {
-    color: #000;
-  }
-  
-  /* Responsive grid */
-  @media (max-width: 768px) {
-    .row {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-  
-    .col-md-4 {
-      width: 100%;
-      margin-bottom: 1rem;
-    }
-  }
-  
+}
