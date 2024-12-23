@@ -33,7 +33,7 @@ const Products = () => {
   }, []);
 
   const handleAddToCart = async (productId) => {
-    const token = localStorage.getItem("token"); 
+    const token = localStorage.getItem("token");
 
     if (!token) {
       toast.info("Please log in to add items to the cart.");
@@ -46,7 +46,7 @@ const Products = () => {
         "/cart/add-to-cart/",
         {
           product_id: productId,
-          quantity: 1, 
+          quantity: 1,
         },
         {
           headers: {
@@ -117,10 +117,13 @@ const Products = () => {
                       </div>
                     </div>
                     <div className="product-info">
-                      <span className="category">{category}</span>
+                      {/* <span className="category">{category}</span> */}
                       <h4 className="title">
-                        <Link to={`/product/${slug}`}>{name}</Link>
-                      </h4>
+                            <Link to={`/product/${slug}`} className="no-underline">
+                              {name}
+                            </Link>
+                          </h4>
+
                       <ul className="review">
                         {[...Array(5)].map((_, index) => (
                           <li key={index}>
