@@ -1,60 +1,115 @@
-/* Custom CSS for Cart */
-.card {
-  border: 1px solid #f1f1f1;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+/* .cart-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.card-header {
-  background-color: #f8f9fa;
-  padding: 1.5rem;
-  border-bottom: 1px solid #ddd;
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
 }
 
-.card-body {
-  padding: 1.5rem;
+.cart-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
 }
 
-.card-body img {
-  max-height: 150px;
-  object-fit: cover;
+.cart-item-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
 }
 
-.card-body h5 {
+.cart-item-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.cart-item-details {
+  margin-top: 15px;
+}
+
+h3 {
   font-size: 1.25rem;
+  color: #333;
 }
 
-.text-muted {
-  color: #6c757d !important;
+p {
+  color: #666;
+  font-size: 0.875rem;
 }
 
-.text-success {
-  color: #28a745 !important;
-}
-
-/* Flexbox for cart items */
-.card-body .d-flex {
+.price {
+  margin-top: 10px;
   display: flex;
+  justify-content: center;
   align-items: center;
+  gap: 10px;
+}
+
+.original-price {
+  text-decoration: line-through;
+  color: #888;
+}
+
+.discounted-price {
+  font-weight: bold;
+  color: #f47c25;
+}
+
+.quantity-container {
+  margin-top: 10px;
+}
+
+label {
+  font-size: 1rem;
+  color: #333;
+}
+
+input[type="number"] {
+  width: 50px;
+  padding: 5px;
+  margin-left: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.actions {
+  margin-top: 20px;
+  display: flex;
   justify-content: space-between;
 }
 
-.card-body .d-flex img {
-  max-width: 100px;
-  margin-right: 20px;
+.update-button, .delete-button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  color: white;
 }
 
-.card-body .d-flex .flex-grow-1 {
-  flex-grow: 1;
+.update-button {
+  background-color: #28a745;
 }
 
-@media (max-width: 576px) {
-  .card-body .d-flex {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .card-body .d-flex img {
-    margin-right: 0;
-    margin-bottom: 10px;
-  }
+.delete-button {
+  background-color: #dc3545;
 }
+
+.update-button:hover {
+  background-color: #218838;
+}
+
+.delete-button:hover {
+  background-color: #c82333;
+} */
+
+
+
