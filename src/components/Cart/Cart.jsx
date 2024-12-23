@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import api from "../Api/Api";
 import "./Cart.css";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
   const [cartData, setCartData] = useState([]); // Default to an empty array
@@ -39,8 +40,6 @@ const Cart = () => {
     return <div className="text-center">Loading...</div>;
   }
 
-
-  
   return (
     <div className="container mt-5">
       <h1 className="text-center mb-4">My Cart</h1>
@@ -77,6 +76,15 @@ const Cart = () => {
                   </li>
                 ))}
               </ul>
+
+              <div className="button">
+                <Link
+                  className="text-decoration-none btn animate"
+                  to=""
+                >
+                  Checkout
+                </Link>
+              </div>
             </div>
           </div>
         </div>

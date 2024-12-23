@@ -6,14 +6,21 @@ import api from "../APi/Api";
 const Navbar = ({ onLoginClick, onRegisterClick }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  const [cartLength, setCartLength] = useState(0);
-  const [totalAmount, setTotalAmount] = useState(0);
-
+  const [cartData, setCartData] = useState(null);
+  const [error, setError] = useState(null);
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedValue, setSelectedValue] = useState("");
+  const handleChange = (event) => {
+    setSelectedValue(event.target.value);
+  };
+  // Handle login state change
   useEffect(() => {
     const token = localStorage.getItem("token");
     setIsLoggedIn(!!token);
-if (token) {
+
+    // Fetch cart data if logged in
+    if (token) {
       api
         .get("cart/my-cart/", {
           headers: {
@@ -22,28 +29,46 @@ if (token) {
           },
         })
         .then((response) => {
-          const items = response.data.items || [];
-          setCartLength(items.length);
-
-          // Calculate total amount by summing up the product price * quantity
-          const total = items.reduce((acc, item) => {
-            return acc + item.product.discount_price * item.quantity;
-          }, 0);
-          setTotalAmount(total);
+          setCartData(response.data[0]); // Assume response contains the cart data
         })
-        .catch((err) => console.error("Error fetching cart data:", err));
+        .catch((err) => setError(err.message));
     }
+  }, []); // Empty array ensures this runs only once
 
-  }, []);
+  // Fetch categories for the dropdown
+  useEffect(() => {
+    api
+      .get("/products/categories/")
+      .then((response) => {
+        setCategories(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching categories", error);
+      });
+  }, []); // Empty array ensures this runs only once
+
+  if (error) {
+    return <div className="text-center text-danger">Error: {error}</div>;
+  }
+
+  // If cart data is not loaded yet, show a loading message
+  if (!cartData) {
+    return <div className="text-center">Loading...</div>;
+  }
+
+  // Calculate cart length and total amount
+  const cartLength = cartData.items ? cartData.items.length : 0;
+  const totalAmount = cartData.items
+    ? cartData.items.reduce(
+        (total, item) => total + item.product.discount_price * item.quantity,
+        0
+      )
+    : 0;
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-  const [selectedValue, setSelectedValue] = useState("option1");
 
-  const handleSelectChange = (event) => {
-    setSelectedValue(event.target.value);
-  };
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("refreshToken");
@@ -54,19 +79,9 @@ if (token) {
     toast.success("Logged out successfully.");
   };
 
-  const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState(null);
-
-  useEffect(() => {
-    api
-      .get("/products/categories/")
-      .then((response) => {
-        setCategories(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching categories", error);
-      });
-  }, []);
+  const handleSelectChange = (event) => {
+    setSelectedCategory(event.target.value);
+  };
 
   return (
     <div>
@@ -232,91 +247,33 @@ if (token) {
                         to="/my-cart"
                       >
                         <i className="lni lni-cart"></i>
-                        <span className="total-items">2</span>
+                        <span className="total-items">{cartLength}</span>
                       </Link>
                       {/* <!-- Shopping Item --> */}
                       <div className="shopping-item">
                         <div className="dropdown-cart-header">
-                          <span>2 Items</span>
+                          <span>{cartLength} Items</span>
                           <Link className="text-decoration-none" to="/my-cart">
                             View Cart
                           </Link>
                         </div>
-                        {/* <ul className="shopping-list">
-                          <li>
-                            <Link
-                              className="text-decoration-none remove"
-                              to="#"
-                              title="Remove this item"
-                            >
-                              <i className="lni lni-close"></i>
-                            </Link>
-                            <div className="cart-img-head">
-                              <Link
-                                className="cart-img text-decoration-none"
-                                to="product-details.html"
-                              >
-                                <img
-                                  src="assets/images/header/cart-items/item1.jpg"
-                                  alt="#"
-                                />
-                              </Link>
-                            </div>
-
-                            <div className="content">
-                              <h4>
-                                <Link
-                                  className="text-decoration-none"
-                                  to="product-details.html"
-                                >
-                                  Apple Watch Series 6
-                                </Link>
-                              </h4>
-                              <p className="quantity">
-                                1x - <span className="amount">$99.00</span>
-                              </p>
-                            </div>
-                          </li>
-                          <li>
-                            <Link
-                              className="remove text-decoration-none"
-                              to="#"
-                              title="Remove this item"
-                            >
-                              <i className="lni lni-close"></i>
-                            </Link>
-                            <div className="cart-img cart-img-head">
-                              <Link
-                                className="text-decoration-none"
-                                to="product-details.html"
-                              >
-                                <img
-                                  src="assets/images/header/cart-items/item2.jpg"
-                                  alt="#"
-                                />
-                              </Link>
-                            </div>
-                            <div className="content">
-                              <h4>
-                                <Link
-                                  className="text-decoration-none"
-                                  to="product-details.html"
-                                >
-                                  Wi-Fi Smart Camera
-                                </Link>
-                              </h4>
-                              <p className="quantity">
-                                1x - <span className="amount">$35.00</span>
-                              </p>
-                            </div>
-                          </li>
-                        </ul> */}
                         <div className="bottom">
                           <div className="total">
                             <span>Total</span>
-                            <span className="total-amount">$134.00</span>
+                            <span className="total-amount">
+                              ${totalAmount.toFixed(2)}
+                            </span>
                           </div>
-                         
+                        </div>
+
+                        <div className="button pt-5 d-flex justify-content-center">
+                          <Link
+                            className="text-decoration-none btn animate"
+                            to="/my-cart"
+                          >
+                            <i class="fas fa-dollar-sign    "></i>
+                            Checkout
+                          </Link>
                         </div>
                       </div>
                       {/* <!--/ End Shopping Item --> */}
@@ -426,7 +383,7 @@ if (token) {
                           <li className="nav-item">
                             <Link
                               className="text-decoration-none"
-                              to="trending-products"
+                              to="/trending-products"
                             >
                               Trading product
                             </Link>
@@ -434,7 +391,7 @@ if (token) {
                           <li className="nav-item">
                             <Link
                               className="text-decoration-none"
-                              to="cart.html"
+                              to="/my-cart"
                             >
                               Cart
                             </Link>
@@ -442,7 +399,7 @@ if (token) {
                           <li className="nav-item">
                             <Link
                               className="text-decoration-none"
-                              to="checkout.html"
+                              to="/my-cart"
                             >
                               Checkout
                             </Link>
