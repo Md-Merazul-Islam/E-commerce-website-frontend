@@ -11,9 +11,11 @@ const Navbar = ({ onLoginClick, onRegisterClick }) => {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedValue, setSelectedValue] = useState("");
+
   const handleChange = (event) => {
     setSelectedValue(event.target.value);
   };
+
   // Handle login state change
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -31,7 +33,12 @@ const Navbar = ({ onLoginClick, onRegisterClick }) => {
         .then((response) => {
           setCartData(response.data[0]); // Assume response contains the cart data
         })
-        .catch((err) => setError(err.message));
+        .catch((err) => {
+          setError(err.message);
+          setCartData(null); // Set cart data to null in case of error
+        });
+    } else {
+      setCartData(null); // No cart data if not logged in
     }
   }, []); // Empty array ensures this runs only once
 
@@ -47,18 +54,9 @@ const Navbar = ({ onLoginClick, onRegisterClick }) => {
       });
   }, []); // Empty array ensures this runs only once
 
-  if (error) {
-    return <div className="text-center text-danger">Error: {error}</div>;
-  }
-
-  // If cart data is not loaded yet, show a loading message
-  if (!cartData) {
-    return <div className="text-center">Loading...</div>;
-  }
-
   // Calculate cart length and total amount
-  const cartLength = cartData.items ? cartData.items.length : 0;
-  const totalAmount = cartData.items
+  const cartLength = cartData ? cartData.items.length : 0;
+  const totalAmount = cartData
     ? cartData.items.reduce(
         (total, item) => total + item.product.discount_price * item.quantity,
         0

@@ -46,6 +46,9 @@ const Cart = () => {
 
     fetchCartItems();
   }, []);
+  const totalPrice = cartItems.reduce((total, item) => {
+    return total + item.product.discount_price * item.quantity;
+  }, 0);
 
   // Handle quantity update
   const handleQuantityChange = async (id, quantity) => {
@@ -112,7 +115,7 @@ const Cart = () => {
           <div className="col-md-8">
             <div className="card mb-4">
               <div className="card-header py-3">
-                <h5 className="mb-0">Cart - 2 items</h5>
+                <h5 className="mb-0">Cart items</h5>
               </div>
               <div className="card-body">
                 {/* Map through cart items */}
@@ -125,7 +128,7 @@ const Cart = () => {
                       >
                         <img
                           src={item.product.image}
-                          className="w-100"
+                          className="w-75"
                           alt={item.product.name}
                         />
                         <Link to="#">
@@ -140,34 +143,62 @@ const Cart = () => {
                     </div>
 
                     <div className="col-lg-5 col-md-6 mb-4 mb-lg-0">
-                      <p>
-                        <strong>{item.product.name}</strong>
-                      </p>
-                      <p>{item.product.description}</p>
-                      <button
-                        type="button"
-                        className="btn btn-primary btn-sm me-1 mb-2"
-                        title="Remove item"
-                        onClick={() => handleDelete(item.id)}
-                      >
-                        <i className="fas fa-trash"></i> Remove
-                      </button>
-                      <button
-                        type="button"
-                        className="btn btn-danger btn-sm mb-2"
-                        title="Move to wish list"
-                      >
-                        <i className="fas fa-heart"></i> Wishlist
-                      </button>
+                      <div className="p-3 ">
+                        {/* Product Name */}
+                        <h5 className="text-primary mb-2">
+                          {item.product.name}
+                        </h5>
+
+                        {/* Product Price Section */}
+                        <div className="mb-3">
+                          <h6 className="text-success mb-1">
+                            ${item.product.discount_price}
+                            <small className="text-muted">
+                              {" "}
+                              ({item.product.discount}% off)
+                            </small>
+                          </h6>
+                          <span className="text-muted">
+                            <del>${item.product.real_price}</del>
+                          </span>
+                        </div>
+
+                        {/* Buttons */}
+                        <div className="d-flex gap-2">
+                          <button
+                            type="button"
+                            className="btn btn-danger btn-sm d-flex align-items-center gap-2"
+                            title="Remove item"
+                            onClick={() => handleDelete(item.id)}
+                          >
+                            <i className="fas fa-trash"></i>
+                            <span>Remove</span>
+                          </button>
+
+                          <button
+                            type="button"
+                            className="btn btn-primary btn-sm d-flex align-items-center gap-2"
+                            title="Move to wishlist"
+                          >
+                            <i className="fas fa-heart"></i>
+                            <span>Wishlist</span>
+                          </button>
+                        </div>
+                      </div>
                     </div>
 
                     <div className="col-lg-4 col-md-6 mb-4 mb-lg-0">
                       <div
-                        className="d-flex flex-column flex-md-row align-items-center mb-4"
-                        style={{ maxWidth: "300px" }}
+                        className="d-flex flex-row flex-md-row align-items-center justify-content-around gap-3 mb-4"
+                        style={{
+                          maxWidth: "300px",
+                          margin: "0 auto", // Center container horizontally within its parent
+                        }}
                       >
+                        {/* Decrease Button */}
                         <button
-                          className="btn-my btn-orange me-2 mb-2 mb-md-0"
+                          className="btn-my btn-orange me-md-2 mb-2 mb-md-0"
+                          style={{ width: "100%", maxWidth: "48px" }}
                           onClick={() =>
                             handleQuantityChange(
                               item.id,
@@ -178,6 +209,7 @@ const Cart = () => {
                           <i className="fa fa-minus" aria-hidden="true"></i>
                         </button>
 
+                        {/* Quantity Input */}
                         <div className="form-outline w-100">
                           <input
                             id={`quantity-${item.id}`}
@@ -186,7 +218,7 @@ const Cart = () => {
                             name="quantity"
                             value={item.quantity}
                             type="number"
-                            className="form-control"
+                            className="form-control text-center"
                             onChange={(e) =>
                               handleQuantityChange(
                                 item.id,
@@ -195,13 +227,17 @@ const Cart = () => {
                             }
                           />
                           <label
-                            className="form-label"
+                            className="form-label text-center d-flex align-center justify-content-center"
                             htmlFor={`quantity-${item.id}`}
-                          ></label>
+                          >
+                            quantity
+                          </label>
                         </div>
 
+                        {/* Increase Button */}
                         <button
-                          className="btn-my btn-orange ms-2 mt-2 mt-md-0"
+                          className="btn-my btn-orange ms-md-2 mt-2 mt-md-0"
+                          style={{ width: "100%", maxWidth: "48px" }}
                           onClick={() =>
                             handleQuantityChange(
                               item.id,
@@ -213,9 +249,10 @@ const Cart = () => {
                         </button>
                       </div>
                     </div>
+
+                    <hr className="my-4" />
                   </div>
                 ))}
-                <hr className="my-4" />
               </div>
             </div>
 
@@ -225,7 +262,8 @@ const Cart = () => {
                   <strong>Expected shipping delivery</strong>
                 </p>
                 <h5 className="text-danger">
-                  {formatDate(today)} - {formatDate(sevenDaysFromNow)}
+                  You will receive your order between {formatDate(today)} -{" "}
+                  {formatDate(sevenDaysFromNow)}
                 </h5>
               </div>
             </div>
@@ -254,11 +292,11 @@ const Cart = () => {
                 <ul className="list-group list-group-flush">
                   <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
                     Products
-                    <span>$53.98</span>
+                    <span>${totalPrice.toFixed(2)}</span>
                   </li>
                   <li className="list-group-item d-flex justify-content-between align-items-center px-0">
                     Shipping
-                    <span>Gratis</span>
+                    <span>Home Delivery</span>
                   </li>
                   <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
                     <div>
@@ -266,7 +304,7 @@ const Cart = () => {
                       <p className="mb-0">(including VAT)</p>
                     </div>
                     <span>
-                      <strong>$53.98</strong>
+                      <strong>$${totalPrice.toFixed(2)}</strong>
                     </span>
                   </li>
                 </ul>

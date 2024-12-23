@@ -84,7 +84,7 @@ const AllProducts = () => {
   const handleFilterChange = (key, value) => {
     const newParams = new URLSearchParams(searchParams);
     if (value) {
-      newParams.set(key, value); 
+      newParams.set(key, value);
     } else {
       newParams.delete(key);
     }
@@ -96,9 +96,20 @@ const AllProducts = () => {
       <div className="row">
         {/* Filter Panel (Left Side) */}
         <div className="col-md-3 left-sider">
-          <h4>Filters</h4>
+          {/* Name Filter */}
+          <div className="form-group">
+            <label>Product Name</label>
+            <input
+              type="text"
+              className="form-control"
+              value={nameFilter}
+              onChange={(e) => handleFilterChange("name", e.target.value)}
+              placeholder="Search by name"
+            />
+          </div>
 
           {/* Category Filter */}
+          <h4>Filters</h4>
           <div className="category-buttons">
             <button
               className={`btn m-1 ${!categoryFilter ? "active" : ""}`}
@@ -120,7 +131,9 @@ const AllProducts = () => {
                 style={{
                   borderColor: "#F7941D",
                   color:
-                    categoryFilter === String(category.id) ? "white" : "#F7941D",
+                    categoryFilter === String(category.id)
+                      ? "white"
+                      : "#F7941D",
                   backgroundColor:
                     categoryFilter === String(category.id)
                       ? "#F7941D"
@@ -136,18 +149,6 @@ const AllProducts = () => {
                 {category.name}
               </button>
             ))}
-          </div>
-
-          {/* Name Filter */}
-          <div className="form-group">
-            <label>Product Name</label>
-            <input
-              type="text"
-              className="form-control"
-              value={nameFilter}
-              onChange={(e) => handleFilterChange("name", e.target.value)}
-              placeholder="Search by name"
-            />
           </div>
 
           {/* Price Range */}
