@@ -7,9 +7,33 @@ const Navbar = ({ onLoginClick, onRegisterClick }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  const [cartLength, setCartLength] = useState(0);
+  const [totalAmount, setTotalAmount] = useState(0);
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     setIsLoggedIn(!!token);
+if (token) {
+      api
+        .get("cart/my-cart/", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        })
+        .then((response) => {
+          const items = response.data.items || [];
+          setCartLength(items.length);
+
+          // Calculate total amount by summing up the product price * quantity
+          const total = items.reduce((acc, item) => {
+            return acc + item.product.discount_price * item.quantity;
+          }, 0);
+          setTotalAmount(total);
+        })
+        .catch((err) => console.error("Error fetching cart data:", err));
+    }
+
   }, []);
 
   const toggleMenu = () => {
@@ -214,11 +238,11 @@ const Navbar = ({ onLoginClick, onRegisterClick }) => {
                       <div className="shopping-item">
                         <div className="dropdown-cart-header">
                           <span>2 Items</span>
-                          <Link className="text-decoration-none" to="cart.html">
+                          <Link className="text-decoration-none" to="/my-cart">
                             View Cart
                           </Link>
                         </div>
-                        <ul className="shopping-list">
+                        {/* <ul className="shopping-list">
                           <li>
                             <Link
                               className="text-decoration-none remove"
@@ -286,20 +310,13 @@ const Navbar = ({ onLoginClick, onRegisterClick }) => {
                               </p>
                             </div>
                           </li>
-                        </ul>
+                        </ul> */}
                         <div className="bottom">
                           <div className="total">
                             <span>Total</span>
                             <span className="total-amount">$134.00</span>
                           </div>
-                          <div className="button">
-                            <Link
-                              className="text-decoration-none btn animate"
-                              to="checkout.html"
-                            >
-                              Checkout
-                            </Link>
-                          </div>
+                         
                         </div>
                       </div>
                       {/* <!--/ End Shopping Item --> */}

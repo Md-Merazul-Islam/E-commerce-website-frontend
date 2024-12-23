@@ -17,6 +17,8 @@ import PasswordReset from "./components/PasswordReset/PasswordReset";
 import Profile from "./components/Profile/Profile";
 import DiscountFilter from "./components/DiscountFIlter/DiscountFIlter";
 import Cart from "./components/Cart/Cart";
+import Test from "./components/test/Test";
+
 
 function App() {
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -64,6 +66,7 @@ function App() {
         <Route path="/profile-details" element={<Profile />} />
         <Route path="/discount-product" element={<DiscountFilter />} />
         <Route path="/my-cart" element={<Cart />} />
+        <Route path="/test" element={<Test />} />
 
       </Routes>
 
