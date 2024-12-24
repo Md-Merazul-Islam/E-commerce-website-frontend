@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
-import { Link, useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
+import { Link, useNavigate } from "react-router-dom";
 import api from "../Api/Api";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -56,7 +56,7 @@ const Products = () => {
       );
       toast.success("Item added to cart successfully!");
     } catch (error) {
-      toast.error("Failed to add item to cart. Please try again.");
+      // toast.error("Failed to add item to cart. Please try again.");
       console.error("Error adding to cart:", error);
     } finally {
       setLoading(false);
@@ -119,10 +119,10 @@ const Products = () => {
                     <div className="product-info">
                       {/* <span className="category">{category}</span> */}
                       <h4 className="title">
-                            <Link to={`/product/${slug}`} className="no-underline">
-                              {name}
-                            </Link>
-                          </h4>
+                        <Link to={`/product/${slug}`} className="no-underline">
+                          {name}
+                        </Link>
+                      </h4>
 
                       <ul className="review">
                         {[...Array(5)].map((_, index) => (

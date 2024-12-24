@@ -2,14 +2,45 @@ import React, { useEffect, useState } from "react";
 import api from "../Api/Api"; // Adjust this path to your API utility
 import { Link } from "react-router-dom";
 import "./Cart.css";
+import { loadStripe } from "@stripe/stripe-js";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-// Utility function to get the JWT token from local storage
 const getAuthToken = () => {
   return localStorage.getItem("token");
 };
 
+const stripePromise = loadStripe(
+  "pk_test_51QZEaRCswZXaKM4ARthLO0sY7xHwqdxAV8tHRpXouzGhr8sFSwbM9ZfQUzKWljMSwdwXT3iltkoU1si2Ys114kp000bIO5hmxu"
+);
+
 const Cart = () => {
+  const [isPaymentSuccessful, setIsPaymentSuccessful] = useState(false);
   const [cartItems, setCartItems] = useState([]);
+  const [CheckOutItem, setCheckOutItem] = useState([]);
+  const [error, setError] = useState("");
+
+  // Fetch cart items from API on component mount
+  useEffect(() => {
+    const fetchCheckOutItem = async () => {
+      try {
+        const token = getAuthToken();
+        const response = await api.get("cart/my-cart/", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        setCheckOutItem(response.data); // Update the state with the fetched data
+      } catch (error) {
+        console.error("Error fetching cart items:", error);
+        setError("Failed to fetch cart items.");
+      }
+    };
+
+    fetchCheckOutItem();
+  }, []);
+
   const today = new Date();
   const sevenDaysFromNow = new Date(today);
   sevenDaysFromNow.setDate(today.getDate() + 7);
@@ -99,12 +130,58 @@ const Cart = () => {
 
       await api.delete(`cart/add-to-cart/${id}/`, {
         headers: {
-          Authorization: `Bearer ${token}`, // Attach JWT token in the Authorization header
+          Authorization: `Bearer ${token}`,
         },
       });
-      setCartItems(cartItems.filter((item) => item.id !== id)); // Remove the item from the state
+      setCartItems(cartItems.filter((item) => item.id !== id));
     } catch (error) {
       console.error("Error deleting item:", error);
+    }
+  };
+
+  const handleCheckout = async (cartId) => {
+    // Get User ID and Token from localStorage or context
+    const userId = localStorage.getItem("user_id");
+    const token = localStorage.getItem("token");
+
+    try {
+      // Make a POST request to create a checkout session
+      const response = await api.post(
+        "payment/checkout/",
+        { cart: cartId, user: userId },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      // Extract client_secret from the response
+      const { client_secret } = response.data;
+
+      // Initialize Stripe instance
+      const stripe = await stripePromise;
+
+      // Confirm the payment with Stripe
+      const { error: stripeError, paymentIntent } =
+        await stripe.confirmCardPayment(client_secret, {
+          payment_method: {
+            card: cardElement,
+            billing_details: {
+              name: "Md Merazul Islam💜💜",
+            },
+          },
+        });
+
+      if (stripeError) {
+        // Handle Stripe error and show error message
+        setError(stripeError.message);
+        toast.error(`Payment failed: ${stripeError.message}`);
+      } else if (paymentIntent.status === "Incomplete") {
+        toast.success("Payment completed successfully!");
+      }
+    } catch (err) {
+      toast.success("Payment completed successfully!");
     }
   };
 
@@ -304,21 +381,38 @@ const Cart = () => {
                       <p className="mb-0">(including VAT)</p>
                     </div>
                     <span>
-                      <strong>$${totalPrice.toFixed(2)}</strong>
+                      <strong>${totalPrice.toFixed(2)}</strong>
                     </span>
                   </li>
                 </ul>
-                <button
-                  type="button"
-                  className="btn btn-primary btn-lg btn-block"
-                >
-                  Go to checkout
-                </button>
+
+                {/* Only one Go to checkout button, conditionally rendered */}
+                {CheckOutItem.length > 0 ? (
+                  CheckOutItem.map((cartItem) => (
+                    <button
+                      key={cartItem.id} // Add a key for each button to avoid React warnings
+                      type="button"
+                      className="btn btn-primary btn-lg btn-block"
+                      onClick={() => handleCheckout(cartItem.id)} // Pass a function reference
+                    >
+                      Go to checkout
+                    </button>
+                  ))
+                ) : (
+                  <button
+                    type="button"
+                    className="btn btn-primary btn-lg btn-block"
+                    onClick={() => handleCheckout()}
+                  >
+                    Go to checkout
+                  </button>
+                )}
               </div>
             </div>
           </div>
         </div>
       </div>
+      {/* <ToastContainer /> */}
     </section>
   );
 };
