@@ -72,3 +72,89 @@
       /* border: 1px solid #ddd; */
       border-radius: 8px;
     }
+
+
+
+
+
+    .chat-app {
+        display: flex;
+        height: 100vh;
+      }
+      
+      .user-list {
+        width: 25%;
+        border-right: 1px solid #ddd;
+        padding: 10px;
+        overflow-y: auto;
+      }
+      
+      .user-item {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      
+      .user-item.active {
+        background-color: #f0f0f0;
+      }
+      
+      .user-item:hover {
+        background-color: #e9ecef;
+      }
+      
+      .user-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 10px;
+      }
+      
+      .messenger {
+        width: 75%;
+        display: flex;
+        flex-direction: column;
+      }
+      
+      .messages {
+        flex: 1;
+        background-color: #f8f9fa;
+        padding: 15px;
+        overflow-y: auto;
+      }
+      
+      .message-content {
+        padding: 10px;
+        border-radius: 15px;
+        margin: 5px 0;
+      }
+      
+      .input-container {
+        display: flex;
+        border-top: 1px solid #ddd;
+        padding: 10px;
+      }
+      
+      .input-container input {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin-right: 10px;
+      }
+      
+      .input-container button {
+        padding: 10px 20px;
+        border: none;
+        background-color: #28a745;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      
+      .input-container button:hover {
+        background-color: #218838;
+      }
+      
