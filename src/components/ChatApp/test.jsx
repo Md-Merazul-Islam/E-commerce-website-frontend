@@ -1,104 +1,207 @@
-// import React, { useState, useEffect } from "react";
-// import axios from "axios";
+import React, { useEffect, useState } from "react";
+import "./ChatApp.css";
 
-// function ChatApp() {
-//   const [users, setUsers] = useState([]);
-//   const [selectedUser, setSelectedUser] = useState(null);
-//   const [messages, setMessages] = useState([]);
-//   const [message, setMessage] = useState("");
-//   const userId = localStorage.getItem("user_id"); // Get user_id from localStorage
+const ChatApp = () => {
+  const [contacts, setContacts] = useState([]);
+  const [messages, setMessages] = useState([]);
+  const [selectedContact, setSelectedContact] = useState(null);
+  const [loggedInUserId] = useState(localStorage.getItem("user_id")); // Assume logged-in user's ID is stored in local storage
+  const [newMessage, setNewMessage] = useState("");
 
-//   // Fetch all users
-//   useEffect(() => {
-//     axios
-//       .get("http://127.0.0.1:8000/user/all-users/")
-//       .then((response) => setUsers(response.data))
-//       .catch((error) => console.log(error));
-//   }, []);
+  useEffect(() => {
+    // Fetch contacts from the API
+    fetch("http://127.0.0.1:8000/user/all-users/")
+      .then((response) => response.json())
+      .then((data) => {
+        // Transform the API data into the required format
+        const transformedContacts = data.map((user) => ({
+          id: user.id,
+          name: `${user.first_name} ${user.last_name}`.trim() || "Admin",
+          status: "Online", // Default status
+          avatar:
+            user.image || "https://bootdey.com/img/Content/avatar/avatar3.png", // Default avatar
+          unreadMessages: Math.floor(Math.random() * 10), // Random unread messages
+        }));
+        setContacts(transformedContacts);
+      })
+      .catch((error) => console.error("Error fetching contacts:", error));
+  }, []);
 
-//   // Fetch messages for selected user
-//   const fetchMessages = (receiverId) => {
-//     axios
-//       .get(`http://127.0.0.1:8000/chat/messages/${userId}/${receiverId}/`) // Use userId here for sender
-//       .then((response) => setMessages(response.data))
-//       .catch((error) => console.log(error));
-//   };
+  const handleContactClick = (contact) => {
+    setSelectedContact(contact);
 
-//   // Send a new message
-//   const sendMessage = () => {
-//     const data = {
-//       sender: userId, // Use userId here for sender
-//       receiver: selectedUser.id,
-//       message: message,
-//       is_read: false,
-//     };
+    // Fetch messages between the logged-in user and the selected contact
+    // fetch(`http://127.0.0.1:8000/messages/${loggedInUserId}/${contact.id}/`)
+    fetch(`http://127.0.0.1:8000/chat/messages/9/34/`)
+      .then((response) => response.json())
+      .then((data) => {
+        setMessages(data);
+      })
+      .catch((error) => console.error("Error fetching messages:", error));
+  };
 
-//     axios
-//       .post("http://127.0.0.1:8000/chat/send/", data)
-//       .then((response) => {
-//         setMessages([...messages, response.data]);
-//         setMessage("");
-//       })
-//       .catch((error) => console.log(error));
-//   };
+  const handleSendMessage = () => {
+    // Post a new message to the API
+    const messageData = {
+      sender: loggedInUserId,
+      receiver: selectedContact.id,
+      text: newMessage,
+    };
 
-//   return (
-//     <div className="flex">
-//       {/* Sidebar - List of users */}
-//       <div className="w-1/3 p-4 border-r">
-//         <h2 className="font-bold text-lg">Users</h2>
-//         <ul className="m-2">
-//           {users
-//             .filter((user) => user.id !== parseInt(userId)) // Filter out the logged-in user
-//             .map((user) => (
-//               <li
-//                 key={user.id}
-//                 className="cursor-pointer py-2 bg-primary m-2"
-//                 onClick={() => {
-//                   setSelectedUser(user);
-//                   fetchMessages(user.id);
-//                 }}
-//               >
-//                 {user.first_name} {user.last_name}
-//               </li>
-//             ))}
-//         </ul>
-//       </div>
+    fetch("http://127.0.0.1:8000/messages/send/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(messageData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setMessages((prevMessages) => [...prevMessages, data]);
+        setNewMessage("");
+      })
+      .catch((error) => console.error("Error sending message:", error));
+  };
 
-//       {/* Chat Section */}
-//       {selectedUser && (
-//         <div className="w-2/3 p-4">
-//           <h2 className="font-bold text-lg">
-//             Chat with {selectedUser.first_name}
-//           </h2>
-//           <div className="h-96 overflow-auto border p-4">
-//             {messages.map((msg, index) => (
-//               <div key={index} className="my-2">
-//                 <p>
-//                   <strong>{msg.sender_profile.first_name}:</strong>{" "}
-//                   {msg.message}
-//                 </p>
-//               </div>
-//             ))}
-//           </div>
-//           <div className="mt-4">
-//             <textarea
-//               className="w-full p-2 border"
-//               value={message}
-//               onChange={(e) => setMessage(e.target.value)}
-//               placeholder="Type a message..."
-//             />
-//             <button
-//               className="mt-2 bg-blue-500 text-white p-2 w-full"
-//               onClick={sendMessage}
-//             >
-//               Send Message
-//             </button>
-//           </div>
-//         </div>
-//       )}
-//     </div>
-//   );
-// }
+  return (
+    <div className="h-min-screen pb-100">
+      <main className="content" style={{ marginTop: "150px" }}>
+        <div className="container p-0">
+          <h1 className="h3 mb-3">Messages</h1>
+          <div className="card">
+            <div className="row g-0">
+              {/* Contact List */}
+              <div className="col-12 col-lg-5 col-xl-3 border-right">
+                <div className="px-4 d-none d-md-block">
+                  <div className="d-flex align-items-center">
+                    <div className="flex-grow-1">
+                      <input
+                        type="text"
+                        className="form-control my-3"
+                        placeholder="Search..."
+                      />
+                    </div>
+                  </div>
+                </div>
+                {contacts.map((contact) => (
+                  <a
+                    href="#"
+                    key={contact.id}
+                    className="list-group-item list-group-item-action border-0"
+                    onClick={() => handleContactClick(contact)}
+                  >
+                    <div className="badge bg-success float-right">
+                      {contact.unreadMessages}
+                    </div>
+                    <div className="d-flex align-items-start">
+                      <img
+                        src={contact.avatar}
+                        className="rounded-circle mr-1"
+                        alt={contact.name}
+                        width={40}
+                        height={40}
+                      />
+                      <div className="flex-grow-1 ml-3">
+                        {contact.name}
+                        <div className="small">
+                          <span className="fas fa-circle chat-online" />{" "}
+                          {contact.status}
+                        </div>
+                      </div>
+                    </div>
+                    <hr />
+                  </a>
+                ))}
+                <hr className="d-block d-lg-none mt-1 mb-0" />
+              </div>
 
-// export default ChatApp;
+              {/* Chat Section */}
+              <div className="col-12 col-lg-7 col-xl-9">
+                {selectedContact && (
+                  <div className="py-2 px-4 border-bottom d-none d-lg-block">
+                    <div className="d-flex align-items-center py-1">
+                      <div className="position-relative">
+                        <img
+                          src={selectedContact.avatar}
+                          className="rounded-circle mr-1"
+                          alt={selectedContact.name}
+                          width={40}
+                          height={40}
+                        />
+                      </div>
+                      <div className="flex-grow-1 pl-3">
+                        <strong>{selectedContact.name}</strong>
+                        <div className="text-muted small">
+                          <em>Online</em>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Messages Display */}
+                <div
+                  className="border rounded p-3"
+                  style={{
+                    height: "400px",
+                    overflowY: "scroll",
+                    backgroundColor: "#f8f9fa",
+                  }}
+                >
+                  {messages.map((message) => (
+                    <div
+                      key={message.id}
+                      className={`d-flex mb-3 ${
+                        message.sender === loggedInUserId
+                          ? "justify-content-end"
+                          : "justify-content-start"
+                      }`}
+                    >
+                      <div
+                        className={`p-3 rounded ${
+                          message.sender === loggedInUserId
+                            ? "bg-primary text-white"
+                            : "bg-light text-dark"
+                        }`}
+                        style={{ maxWidth: "70%" }}
+                      >
+                        {message.text}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Message Input */}
+                <div className="flex-grow-0 py-3 px-4 border-top">
+                  <div className="input-group">
+                    <input
+                      type="text"
+                      className="form-control"
+                      value={newMessage}
+                      onChange={(e) => setNewMessage(e.target.value)}
+                      placeholder="Type your message"
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" && newMessage.trim()) {
+                          handleSendMessage();
+                        }
+                      }}
+                    />
+                    <button
+                      className="btn btn-primary"
+                      onClick={handleSendMessage}
+                      disabled={!newMessage.trim()}
+                    >
+                      Send
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  );
+};
+
+export default ChatApp;

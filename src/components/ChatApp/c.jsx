@@ -1,510 +1,257 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<div class="container app">
-  <div class="row app-one">
-    <div class="col-sm-4 side">
-      <div class="side-one">
-        <div class="row heading">
-          <div class="col-sm-3 col-xs-3 heading-avatar">
-            <div class="heading-avatar-icon">
-              <img src="https://bootdey.com/img/Content/avatar/avatar1.png">
-            </div>
-          </div>
-          <div class="col-sm-1 col-xs-1  heading-dot  pull-right">
-            <i class="fa fa-ellipsis-v fa-2x  pull-right" aria-hidden="true"></i>
-          </div>
-          <div class="col-sm-2 col-xs-2 heading-compose  pull-right">
-            <i class="fa fa-comments fa-2x  pull-right" aria-hidden="true"></i>
-          </div>
-        </div>
+import React, { useEffect, useState } from "react";
+import "./ChatApp.css";
 
-        <div class="row searchBox">
-          <div class="col-sm-12 searchBox-inner">
-            <div class="form-group has-feedback">
-              <input id="searchText" type="text" class="form-control" name="searchText" placeholder="Search">
-              <span class="glyphicon glyphicon-search form-control-feedback"></span>
-            </div>
-          </div>
-        </div>
+const ChatApp = () => {
+  const [contacts, setContacts] = useState([]);
+  const [messages, setMessages] = useState([]);
+  const [selectedContact, setSelectedContact] = useState(null);
+  const [loggedInUserId] = useState(localStorage.getItem("user_id")); // Assume logged-in user's ID is stored in local storage
+  const [newMessage, setNewMessage] = useState("");
 
-        <div class="row sideBar">
-          <div class="row sideBar-body">
-            <div class="col-sm-3 col-xs-3 sideBar-avatar">
-              <div class="avatar-icon">
-                <img src="https://bootdey.com/img/Content/avatar/avatar1.png">
-              </div>
-            </div>
-            <div class="col-sm-9 col-xs-9 sideBar-main">
-              <div class="row">
-                <div class="col-sm-8 col-xs-8 sideBar-name">
-                  <span class="name-meta">John Doe
-                </span>
-                </div>
-                <div class="col-sm-4 col-xs-4 pull-right sideBar-time">
-                  <span class="time-meta pull-right">18:18
-                </span>
-                </div>
-              </div>
-            </div>
-          </div>
+  useEffect(() => {
+    // Fetch contacts from the API
+    fetch("http://127.0.0.1:8000/user/all-users/")
+      .then((response) => response.json())
+      .then((data) => {
+        // Transform the API data into the required format
+        const transformedContacts = data.map((user) => ({
+          id: user.id,
+          name: `${user.first_name} ${user.last_name}`.trim() || "Admin",
+          status: "Online", // Default status
+          avatar:
+            user.image || "https://bootdey.com/img/Content/avatar/avatar3.png", // Default avatar
+          unreadMessages: Math.floor(Math.random() * 10), // Random unread messages
+        }));
+        setContacts(transformedContacts);
+      })
+      .catch((error) => console.error("Error fetching contacts:", error));
+  }, []);
 
-          <div class="row sideBar-body">
-            <div class="col-sm-3 col-xs-3 sideBar-avatar">
-              <div class="avatar-icon">
-                <img src="https://bootdey.com/img/Content/avatar/avatar2.png">
-              </div>
-            </div>
-            <div class="col-sm-9 col-xs-9 sideBar-main">
-              <div class="row">
-                <div class="col-sm-8 col-xs-8 sideBar-name">
-                  <span class="name-meta">John Doe
-                </span>
-                </div>
-                <div class="col-sm-4 col-xs-4 pull-right sideBar-time">
-                  <span class="time-meta pull-right">18:18
-                </span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row sideBar-body">
-            <div class="col-sm-3 col-xs-3 sideBar-avatar">
-              <div class="avatar-icon">
-                <img src="https://bootdey.com/img/Content/avatar/avatar3.png">
-              </div>
-            </div>
-            <div class="col-sm-9 col-xs-9 sideBar-main">
-              <div class="row">
-                <div class="col-sm-8 col-xs-8 sideBar-name">
-                  <span class="name-meta">John Doe
-                </span>
-                </div>
-                <div class="col-sm-4 col-xs-4 pull-right sideBar-time">
-                  <span class="time-meta pull-right">18:18
-                </span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row sideBar-body">
-            <div class="col-sm-3 col-xs-3 sideBar-avatar">
-              <div class="avatar-icon">
-                <img src="https://bootdey.com/img/Content/avatar/avatar4.png">
-              </div>
-            </div>
-            <div class="col-sm-9 col-xs-9 sideBar-main">
-              <div class="row">
-                <div class="col-sm-8 col-xs-8 sideBar-name">
-                  <span class="name-meta">John Doe
-                </span>
-                </div>
-                <div class="col-sm-4 col-xs-4 pull-right sideBar-time">
-                  <span class="time-meta pull-right">18:18
-                </span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row sideBar-body">
-            <div class="col-sm-3 col-xs-3 sideBar-avatar">
-              <div class="avatar-icon">
-                <img src="https://bootdey.com/img/Content/avatar/avatar5.png">
-              </div>
-            </div>
-            <div class="col-sm-9 col-xs-9 sideBar-main">
-              <div class="row">
-                <div class="col-sm-8 col-xs-8 sideBar-name">
-                  <span class="name-meta">John Doe
-                </span>
-                </div>
-                <div class="col-sm-4 col-xs-4 pull-right sideBar-time">
-                  <span class="time-meta pull-right">18:18
-                </span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row sideBar-body">
-            <div class="col-sm-3 col-xs-3 sideBar-avatar">
-              <div class="avatar-icon">
-                <img src="https://bootdey.com/img/Content/avatar/avatar6.png">
-              </div>
-            </div>
-            <div class="col-sm-9 col-xs-9 sideBar-main">
-              <div class="row">
-                <div class="col-sm-8 col-xs-8 sideBar-name">
-                  <span class="name-meta">John Doe
-                </span>
-                </div>
-                <div class="col-sm-4 col-xs-4 pull-right sideBar-time">
-                  <span class="time-meta pull-right">18:18
-                </span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row sideBar-body">
-            <div class="col-sm-3 col-xs-3 sideBar-avatar">
-              <div class="avatar-icon">
-                <img src="https://bootdey.com/img/Content/avatar/avatar1.png">
-              </div>
-            </div>
-            <div class="col-sm-9 col-xs-9 sideBar-main">
-              <div class="row">
-                <div class="col-sm-8 col-xs-8 sideBar-name">
-                  <span class="name-meta">John Doe
-                </span>
-                </div>
-                <div class="col-sm-4 col-xs-4 pull-right sideBar-time">
-                  <span class="time-meta pull-right">18:18
-                </span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row sideBar-body">
-            <div class="col-sm-3 col-xs-3 sideBar-avatar">
-              <div class="avatar-icon">
-                <img src="https://bootdey.com/img/Content/avatar/avatar2.png">
-              </div>
-            </div>
-            <div class="col-sm-9 col-xs-9 sideBar-main">
-              <div class="row">
-                <div class="col-sm-8 col-xs-8 sideBar-name">
-                  <span class="name-meta">John Doe
-                </span>
-                </div>
-                <div class="col-sm-4 col-xs-4 pull-right sideBar-time">
-                  <span class="time-meta pull-right">18:18
-                </span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row sideBar-body">
-            <div class="col-sm-3 col-xs-3 sideBar-avatar">
-              <div class="avatar-icon">
-                <img src="https://bootdey.com/img/Content/avatar/avatar3.png">
-              </div>
-            </div>
-            <div class="col-sm-9 col-xs-9 sideBar-main">
-              <div class="row">
-                <div class="col-sm-8 col-xs-8 sideBar-name">
-                  <span class="name-meta">John Doe
-                </span>
-                </div>
-                <div class="col-sm-4 col-xs-4 pull-right sideBar-time">
-                  <span class="time-meta pull-right">18:18
-                </span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row sideBar-body">
-            <div class="col-sm-3 col-xs-3 sideBar-avatar">
-              <div class="avatar-icon">
-                <img src="https://bootdey.com/img/Content/avatar/avatar4.png">
-              </div>
-            </div>
-            <div class="col-sm-9 col-xs-9 sideBar-main">
-              <div class="row">
-                <div class="col-sm-8 col-xs-8 sideBar-name">
-                  <span class="name-meta">John Doe
-                </span>
-                </div>
-                <div class="col-sm-4 col-xs-4 pull-right sideBar-time">
-                  <span class="time-meta pull-right">18:18
-                </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+  const handleContactClick = (contact) => {
+    setSelectedContact(contact);
 
-      <div class="side-two">
-        <div class="row newMessage-heading">
-          <div class="row newMessage-main">
-            <div class="col-sm-2 col-xs-2 newMessage-back">
-              <i class="fa fa-arrow-left" aria-hidden="true"></i>
-            </div>
-            <div class="col-sm-10 col-xs-10 newMessage-title">
-              New Chat
-            </div>
-          </div>
-        </div>
+    // Fetch messages between the logged-in user and the selected contact
+    fetch(`http://127.0.0.1:8000/messages/${loggedInUserId}/${contact.id}/`)
+      .then((response) => response.json())
+      .then((data) => {
+        setMessages(data);
+      })
+      .catch((error) => console.error("Error fetching messages:", error));
+  };
 
-        <div class="row composeBox">
-          <div class="col-sm-12 composeBox-inner">
-            <div class="form-group has-feedback">
-              <input id="composeText" type="text" class="form-control" name="searchText" placeholder="Search People">
-              <span class="glyphicon glyphicon-search form-control-feedback"></span>
-            </div>
-          </div>
-        </div>
+  const handleSendMessage = () => {
+    // Post a new message to the API
+    const messageData = {
+      sender: loggedInUserId,
+      receiver: selectedContact.id,
+      text: newMessage,
+    };
 
-        <div class="row compose-sideBar">
-          <div class="row sideBar-body">
-            <div class="col-sm-3 col-xs-3 sideBar-avatar">
-              <div class="avatar-icon">
-                <img src="https://bootdey.com/img/Content/avatar/avatar1.png">
-              </div>
-            </div>
-            <div class="col-sm-9 col-xs-9 sideBar-main">
-              <div class="row">
-                <div class="col-sm-8 col-xs-8 sideBar-name">
-                  <span class="name-meta">John Doe
-                </span>
-                </div>
-                <div class="col-sm-4 col-xs-4 pull-right sideBar-time">
-                  <span class="time-meta pull-right">18:18
-                </span>
-                </div>
-              </div>
-            </div>
-          </div>
+    fetch("http://127.0.0.1:8000/messages/send/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(messageData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setMessages((prevMessages) => [...prevMessages, data]);
+        setNewMessage("");
+      })
+      .catch((error) => console.error("Error sending message:", error));
+  };
 
-          <div class="row sideBar-body">
-            <div class="col-sm-3 col-xs-3 sideBar-avatar">
-              <div class="avatar-icon">
-                <img src="https://bootdey.com/img/Content/avatar/avatar2.png">
-              </div>
-            </div>
-            <div class="col-sm-9 col-xs-9 sideBar-main">
-              <div class="row">
-                <div class="col-sm-8 col-xs-8 sideBar-name">
-                  <span class="name-meta">John Doe
-                </span>
+  // const [messages, setMessages] = useState([]);
+
+  useEffect(() => {
+    fetch("http://127.0.0.1:8000/chat/messages/9/34/")
+      .then((response) => response.json())
+      .then((data) => {
+        setMessages(data);
+      })
+      .catch((error) => console.error("Error fetching messages:", error));
+  }, []);
+
+  return (
+    <div className="h-min-screen pb-100">
+      <main className="content" style={{ marginTop: "150px" }}>
+        <div className="container p-0">
+          <h1 className="h3 mb-3">Messages</h1>
+          <div className="card">
+            <div className="row g-0">
+              {/* Contact List */}
+              <div className="col-12 col-lg-5 col-xl-3 border-right">
+                <div className="px-4 d-none d-md-block">
+                  <div className="d-flex align-items-center">
+                    <div className="flex-grow-1">
+                      <input
+                        type="text"
+                        className="form-control my-3"
+                        placeholder="Search..."
+                      />
+                    </div>
+                  </div>
                 </div>
-                <div class="col-sm-4 col-xs-4 pull-right sideBar-time">
-                  <span class="time-meta pull-right">18:18
-                </span>
-                </div>
+                {contacts.map((contact) => (
+                  <a
+                    href="#"
+                    key={contact.id}
+                    className="list-group-item list-group-item-action border-0"
+                    onClick={() => handleContactClick(contact)}
+                  >
+                    <div className="badge bg-success float-right">
+                      {contact.unreadMessages}
+                    </div>
+                    <div className="d-flex align-items-start">
+                      <img
+                        src={contact.avatar}
+                        className="rounded-circle mr-1"
+                        alt={contact.name}
+                        width={40}
+                        height={40}
+                      />
+                      <div className="flex-grow-1 ml-3">
+                        {contact.name}
+                        <div className="small">
+                          <span className="fas fa-circle chat-online" />{" "}
+                          {contact.status}
+                        </div>
+                      </div>
+                    </div>
+                    <hr />
+                  </a>
+                ))}
+                <hr className="d-block d-lg-none mt-1 mb-0" />
               </div>
-            </div>
-          </div>
-          <div class="row sideBar-body">
-            <div class="col-sm-3 col-xs-3 sideBar-avatar">
-              <div class="avatar-icon">
-                <img src="https://bootdey.com/img/Content/avatar/avatar3.png">
-              </div>
-            </div>
-            <div class="col-sm-9 col-xs-9 sideBar-main">
-              <div class="row">
-                <div class="col-sm-8 col-xs-8 sideBar-name">
-                  <span class="name-meta">John Doe
-                </span>
+
+              {/* Chat Section */}
+              <div className="col-12 col-lg-7 col-xl-9">
+                {selectedContact && (
+                  <div className="py-2 px-4 border-bottom d-none d-lg-block">
+                    <div className="d-flex align-items-center py-1">
+                      <div className="position-relative">
+                        <img
+                          src={selectedContact.avatar}
+                          className="rounded-circle mr-1"
+                          alt={selectedContact.name}
+                          width={40}
+                          height={40}
+                        />
+                      </div>
+                      <div className="flex-grow-1 pl-3">
+                        <strong>{selectedContact.name}</strong>
+                        <div className="text-muted small">
+                          <em>Online</em>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                <div className="position-relative">
+                  <div className="chat-messages p-4">
+                    {messages.length > 0 ? (
+                      [...messages]
+                        .sort((a, b) => new Date(a.date) - new Date(b.date)) // Sort messages by time
+                        .map((message, index, arr) => {
+                          const sender_id = message.sender;
+                          const sender_chk = localStorage.getItem("user_id");
+                          const isSentByLoggedInUser = sender_id == sender_chk;
+                          const messageBg = isSentByLoggedInUser
+                            ? "bg-primary text-white"
+                            : "bg-secondary text-white";
+
+                          // Determine profile image to display
+                          const profileImage =
+                            message.receiver_profile?.image ||
+                            message.sender_profile?.image ||
+                            "https://bootdey.com/img/Content/avatar/avatar3.png";
+
+                          // Check if the previous message was from a different sender
+                          const showProfileImage =
+                            index === 0 ||
+                            arr[index - 1].sender !== message.sender;
+
+                          return (
+                            <div
+                              key={message.id}
+                              className={`chat-message-${
+                                isSentByLoggedInUser ? "right" : "left"
+                              } pb-4`}
+                            >
+                              <div className="d-flex align-items-start">
+                                {/* Profile Image */}
+                                {showProfileImage && !isSentByLoggedInUser && (
+                                  <img
+                                    src={profileImage}
+                                    className="rounded-circle mr-1"
+                                    alt={message.sender_name || "Profile"}
+                                    width={40}
+                                    height={40}
+                                  />
+                                )}
+                                <div className="text-muted small text-nowrap mt-2">
+                                  {/* {new Date(message.date).toLocaleString()}{" "} */}
+                                </div>
+                              </div>
+                              <div
+                                className={`flex-shrink-1 rounded py-2 px-3 ml-3 mr-3 ${messageBg}`}
+                              >
+                                <div className="font-weight-bold mb-1">
+                                  {message.sender_name}
+                                </div>
+                                <div>{message.message}</div>{" "}
+                              </div>
+                              {/* Profile Image for Sent Messages */}
+                              {showProfileImage && isSentByLoggedInUser && (
+                                <img
+                                  src={profileImage}
+                                  className="rounded-circle ml-1"
+                                  alt={message.sender_name || "Profile"}
+                                  width={40}
+                                  height={40}
+                                />
+                              )}
+                            </div>
+                          );
+                        })
+                    ) : (
+                      <div className="text-center text-muted">
+                        No messages yet.
+                      </div>
+                    )}
+                  </div>
                 </div>
-                <div class="col-sm-4 col-xs-4 pull-right sideBar-time">
-                  <span class="time-meta pull-right">18:18
-                </span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row sideBar-body">
-            <div class="col-sm-3 col-xs-3 sideBar-avatar">
-              <div class="avatar-icon">
-                <img src="https://bootdey.com/img/Content/avatar/avatar4.png">
-              </div>
-            </div>
-            <div class="col-sm-9 col-xs-9 sideBar-main">
-              <div class="row">
-                <div class="col-sm-8 col-xs-8 sideBar-name">
-                  <span class="name-meta">John Doe
-                </span>
-                </div>
-                <div class="col-sm-4 col-xs-4 pull-right sideBar-time">
-                  <span class="time-meta pull-right">18:18
-                </span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row sideBar-body">
-            <div class="col-sm-3 col-xs-3 sideBar-avatar">
-              <div class="avatar-icon">
-                <img src="https://bootdey.com/img/Content/avatar/avatar5.png">
-              </div>
-            </div>
-            <div class="col-sm-9 col-xs-9 sideBar-main">
-              <div class="row">
-                <div class="col-sm-8 col-xs-8 sideBar-name">
-                  <span class="name-meta">John Doe
-                </span>
-                </div>
-                <div class="col-sm-4 col-xs-4 pull-right sideBar-time">
-                  <span class="time-meta pull-right">18:18
-                </span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row sideBar-body">
-            <div class="col-sm-3 col-xs-3 sideBar-avatar">
-              <div class="avatar-icon">
-                <img src="https://bootdey.com/img/Content/avatar/avatar6.png">
-              </div>
-            </div>
-            <div class="col-sm-9 col-xs-9 sideBar-main">
-              <div class="row">
-                <div class="col-sm-8 col-xs-8 sideBar-name">
-                  <span class="name-meta">John Doe
-                </span>
-                </div>
-                <div class="col-sm-4 col-xs-4 pull-right sideBar-time">
-                  <span class="time-meta pull-right">18:18
-                </span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row sideBar-body">
-            <div class="col-sm-3 col-xs-3 sideBar-avatar">
-              <div class="avatar-icon">
-                <img src="https://bootdey.com/img/Content/avatar/avatar2.png">
-              </div>
-            </div>
-            <div class="col-sm-9 col-xs-9 sideBar-main">
-              <div class="row">
-                <div class="col-sm-8 col-xs-8 sideBar-name">
-                  <span class="name-meta">John Doe
-                </span>
-                </div>
-                <div class="col-sm-4 col-xs-4 pull-right sideBar-time">
-                  <span class="time-meta pull-right">18:18
-                </span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row sideBar-body">
-            <div class="col-sm-3 col-xs-3 sideBar-avatar">
-              <div class="avatar-icon">
-                <img src="https://bootdey.com/img/Content/avatar/avatar3.png">
-              </div>
-            </div>
-            <div class="col-sm-9 col-xs-9 sideBar-main">
-              <div class="row">
-                <div class="col-sm-8 col-xs-8 sideBar-name">
-                  <span class="name-meta">John Doe
-                </span>
-                </div>
-                <div class="col-sm-4 col-xs-4 pull-right sideBar-time">
-                  <span class="time-meta pull-right">18:18
-                </span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row sideBar-body">
-            <div class="col-sm-3 col-xs-3 sideBar-avatar">
-              <div class="avatar-icon">
-                <img src="https://bootdey.com/img/Content/avatar/avatar4.png">
-              </div>
-            </div>
-            <div class="col-sm-9 col-xs-9 sideBar-main">
-              <div class="row">
-                <div class="col-sm-8 col-xs-8 sideBar-name">
-                  <span class="name-meta">John Doe
-                </span>
-                </div>
-                <div class="col-sm-4 col-xs-4 pull-right sideBar-time">
-                  <span class="time-meta pull-right">18:18
-                </span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row sideBar-body">
-            <div class="col-sm-3 col-xs-3 sideBar-avatar">
-              <div class="avatar-icon">
-                <img src="https://bootdey.com/img/Content/avatar/avatar5.png">
-              </div>
-            </div>
-            <div class="col-sm-9 col-xs-9 sideBar-main">
-              <div class="row">
-                <div class="col-sm-8 col-xs-8 sideBar-name">
-                  <span class="name-meta">John Doe
-                </span>
-                </div>
-                <div class="col-sm-4 col-xs-4 pull-right sideBar-time">
-                  <span class="time-meta pull-right">18:18
-                </span>
+                <div className="flex-grow-0 py-3 px-4 border-top">
+                  <div className="input-group">
+                    <input
+                      type="text"
+                      className="form-control"
+                      value={newMessage}
+                      onChange={(e) => setNewMessage(e.target.value)}
+                      placeholder="Type your message"
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" && newMessage.trim()) {
+                          handleSendMessage();
+                        }
+                      }}
+                    />
+                    <button
+                      className="btn btn-primary"
+                      onClick={handleSendMessage}
+                      disabled={!newMessage.trim()} // Disable if the input is empty
+                    >
+                      Send
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </main>
     </div>
+  );
+};
 
-    <div class="col-sm-8 conversation">
-      <div class="row heading">
-        <div class="col-sm-2 col-md-1 col-xs-3 heading-avatar">
-          <div class="heading-avatar-icon">
-            <img src="https://bootdey.com/img/Content/avatar/avatar6.png">
-          </div>
-        </div>
-        <div class="col-sm-8 col-xs-7 heading-name">
-          <a class="heading-name-meta">John Doe
-          </a>
-          <span class="heading-online">Online</span>
-        </div>
-        <div class="col-sm-1 col-xs-1  heading-dot pull-right">
-          <i class="fa fa-ellipsis-v fa-2x  pull-right" aria-hidden="true"></i>
-        </div>
-      </div>
-
-      <div class="row message" id="conversation">
-        <div class="row message-previous">
-          <div class="col-sm-12 previous">
-            <a onclick="previous(this)" id="ankitjain28" name="20">
-            Show Previous Message!
-            </a>
-          </div>
-        </div>
-
-        <div class="row message-body">
-          <div class="col-sm-12 message-main-receiver">
-            <div class="receiver">
-              <div class="message-text">
-               Hi, what are you doing?!
-              </div>
-              <span class="message-time pull-right">
-                Sun
-              </span>
-            </div>
-          </div>
-        </div>
-
-        <div class="row message-body">
-          <div class="col-sm-12 message-main-sender">
-            <div class="sender">
-              <div class="message-text">
-                I am doing nothing man!
-              </div>
-              <span class="message-time pull-right">
-                Sun
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="row reply">
-        <div class="col-sm-1 col-xs-1 reply-emojis">
-          <i class="fa fa-smile-o fa-2x"></i>
-        </div>
-        <div class="col-sm-9 col-xs-9 reply-main">
-          <textarea class="form-control" rows="1" id="comment"></textarea>
-        </div>
-        <div class="col-sm-1 col-xs-1 reply-recording">
-          <i class="fa fa-microphone fa-2x" aria-hidden="true"></i>
-        </div>
-        <div class="col-sm-1 col-xs-1 reply-send">
-          <i class="fa fa-send fa-2x" aria-hidden="true"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+export default ChatApp;

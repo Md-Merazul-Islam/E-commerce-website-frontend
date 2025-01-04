@@ -1,60 +1,113 @@
-import React, { useEffect, useState } from "react";
-import api from "../Api/Api";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "./Test.css"
 
+const Test = ({ currentUserId=34, receiverId=9}) => {
+  const [messages, setMessages] = useState([]);
+  const [newMessage, setNewMessage] = useState("");
+  const [loading, setLoading] = useState(true);
+  // const receiverId =9, setReceiverId =34;
+  // Fetch messages from the API
+  const fetchMessages = async () => {
+    try {
+      const response = await axios.get(
+        
+        `http://127.0.0.1:8000/chat/messages/${currentUserId}/${receiverId}/`
+        // `http://127.0.0.1:8000/chat/messages/9/34/`
+      );
+      setMessages(response.data);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching messages:", error);
+      setLoading(false);
+    }
+  };
 
-const Test = () => {
-  const [cartData, setCartData] = useState(null); 
-  const [error, setError] = useState(null);
+  // Send a new message
+  const sendMessage = async () => {
+    if (!newMessage.trim()) return;
+
+    try {
+      const response = await axios.post(`http://127.0.0.1:8000/chat/messages/`, {
+        sender: currentUserId,
+        receiver: receiverId,
+        message: newMessage,
+      });
+      setMessages((prev) => [...prev, response.data]); 
+      setNewMessage("");
+    } catch (error) {
+      console.error("Error sending message:", error);
+    }
+  };
 
   useEffect(() => {
-    // Get JWT token from localStorage
-    const token = localStorage.getItem("token");
+    fetchMessages();
+  }, [receiverId]);
 
-    // If there's no token, show an error
-    if (!token) {
-      setError("You are not authenticated");
-      return;
-    }
-
-    // Fetch cart data with Bearer token
-    api
-      .get("cart/my-cart/", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        setCartData(response.data[0]); // Assume response contains the cart data
-      })
-      .catch((err) => setError(err.message));
-  }, []);
-
-  if (error) {
-    return <div className="text-center text-danger">Error: {error}</div>;
-  }
-
-  // If cart data is not loaded yet, show a loading message
-  if (!cartData) {
-    return <div className="text-center">Loading...</div>;
-  }
-
-  // Calculate cart length and total amount
-  const cartLength = cartData.items ? cartData.items.length : 0;
-  const totalAmount = cartData.items
-    ? cartData.items.reduce(
-        (total, item) => total + item.product.discount_price * item.quantity,
-        0
-      )
-    : 0;
+  if (loading) return <div>Loading...</div>;
 
   return (
-    <div className="container mt-5">
-      <h1 className="text-center mb-4">My Cart</h1>
-      <div className="text-center">
-        <h3>
-          Cart ({cartLength} items) - ${totalAmount.toFixed(2)}
-        </h3>
+    <div className="messenger">
+
+      {/* <div className="messages">
+        {messages.map((msg) => (
+          <div
+            key={msg.id}
+            className={`message ${
+              msg.sender === currentUserId ? "sent" : "received"
+            }`}
+          >
+            <div className="message-content">
+              <p>{msg.message}</p>
+              <span>{new Date(msg.date).toLocaleTimeString()}</span>
+            </div>
+          </div>
+        ))}
+      </div> */}
+
+
+
+<div className="messages p-3" style={{ height: "70vh", overflowY: "auto" }}>
+  {messages.map((msg) => (
+    <div
+      key={msg.id}
+      className={`d-flex mb-3 wwwww ${
+        msg.sender === currentUserId ? "justify-content-end" : "justify-content-start"
+      }`}
+    >
+      {/* Message Bubble */}
+      <div
+        className={`message-content p-3 rounded ${
+          msg.sender === currentUserId ? "bg-success text-white" : "bg-light text-dark"
+        }`}
+        style={{ maxWidth: "70%", wordBreak: "break-word" }}
+      >
+        <p className="mb-1">{msg.message}</p>
+        <span
+          className="small text-muted"
+          style={{ display: "block", textAlign: "right" }}
+        >
+          {new Date(msg.date).toLocaleTimeString()}
+        </span>
+      </div>
+    </div>
+  ))}
+</div>
+
+
+
+
+
+
+
+      <div className="input-container">
+        <input
+          type="text"
+          placeholder="Type a message..."
+          value={newMessage}
+          onChange={(e) => setNewMessage(e.target.value)}
+        />
+        <button onClick={sendMessage}>Send</button>
       </div>
     </div>
   );
