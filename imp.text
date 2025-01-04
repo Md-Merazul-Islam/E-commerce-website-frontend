@@ -39,3 +39,7 @@ products/products-list/
 
 
 https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp
+
+
+http://127.0.0.1:8000/chat/send/
+http://127.0.0.1:8000/chat/messages/9/34/

@@ -18,6 +18,7 @@ import Profile from "./components/Profile/Profile";
 import DiscountFilter from "./components/DiscountFIlter/DiscountFIlter";
 import Cart from "./components/Cart/Cart";
 import Test from "./components/test/Test";
+import ChatApp from "./components/ChatApp/ChatApp";
 
 
 function App() {
@@ -67,6 +68,7 @@ function App() {
         <Route path="/discount-product" element={<DiscountFilter />} />
         <Route path="/my-cart" element={<Cart />} />
         <Route path="/test" element={<Test />} />
+        <Route path="/chat" element={<ChatApp />} />
 
       </Routes>
 
