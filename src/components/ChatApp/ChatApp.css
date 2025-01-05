@@ -185,7 +185,7 @@ html, body {
 }
 
 .messages {
-  height: calc(100vh - 120px); /* Adjust based on header and input heights */
+  height: calc(100vh - 120px);
   overflow-y: auto;
 }
 

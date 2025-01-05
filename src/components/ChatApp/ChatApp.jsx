@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./ChatApp.css";
+import api from "../APi/Api";
 
 const ChatApp = () => {
   const [contacts, setContacts] = useState([]);
@@ -7,12 +8,17 @@ const ChatApp = () => {
   const [selectedContact, setSelectedContact] = useState();
   const [loggedInUserId] = useState(Number(localStorage.getItem("user_id")));
   const [newMessage, setNewMessage] = useState("");
+  const token = localStorage.getItem("token");
 
   // Fetch Contacts
   useEffect(() => {
     const fetchContacts = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:8000/user/all-users/");
+        const response = await fetch("http://127.0.0.1:8000/user/all-users/", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         const data = await response.json();
         const transformedContacts = data.map((user) => ({
           id: user.id,
@@ -31,7 +37,7 @@ const ChatApp = () => {
     };
 
     fetchContacts();
-  }, []);
+  }, [token]);
 
   // Fetch Messages for Selected Contact
   const handleContactClick = async (contact) => {
@@ -40,7 +46,12 @@ const ChatApp = () => {
 
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/chat/messages/${loggedInUserId}/${receiverId}/`
+        `http://127.0.0.1:8000/chat/messages/${loggedInUserId}/${receiverId}/`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       const data = await response.json();
       setMessages(data);
@@ -67,6 +78,10 @@ const ChatApp = () => {
       const response = await fetch("http://127.0.0.1:8000/chat/send/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify(messageData),
       });
       const data = await response.json();
@@ -79,7 +94,7 @@ const ChatApp = () => {
 
   return (
     <div className="chat-app h-min-screen pb-100">
-      <main className="content mt-5 h-min-screen">
+      <main className="content  h-min-screen">
         <div className="container p-0 h-min-screen">
           <div className="card ">
             <div className="row g-0 ">
