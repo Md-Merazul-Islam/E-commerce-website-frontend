@@ -103,10 +103,15 @@ const Products = () => {
                 >
                   <div className="single-product">
                     <div className="product-image">
-                      <img src={image} alt={name} />
-                      {discount && (
-                        <span className="sale-tag">-{discount}%</span>
-                      )}
+                      <Link
+                        to={`/product-details/${id}`}
+                        className="text-decoration-none"
+                      >
+                        <img src={image} alt={name} />
+                        {discount && (
+                          <span className="sale-tag">-{discount}%</span>
+                        )}
+                      </Link>
                       <div className="button">
                         <button
                           onClick={() => handleAddToCart(id)}
@@ -116,6 +121,11 @@ const Products = () => {
                         </button>
                       </div>
                     </div>
+                    <Link
+                      to={`/product-details/${id}`}
+                      className="text-decoration-none"
+                    >
+
                     <div className="product-info">
                       {/* <span className="category">{category}</span> */}
                       <h4 className="title">
@@ -147,6 +157,7 @@ const Products = () => {
                         )}
                       </div>
                     </div>
+                    </Link>
                   </div>
                 </div>
               )
