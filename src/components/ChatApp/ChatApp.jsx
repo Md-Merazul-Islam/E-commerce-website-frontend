@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./ChatApp.css";
-import api from "../APi/Api";
+
 
 const ChatApp = () => {
   const [contacts, setContacts] = useState([]);
