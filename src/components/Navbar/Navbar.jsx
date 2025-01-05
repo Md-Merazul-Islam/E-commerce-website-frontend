@@ -127,6 +127,11 @@ const Navbar = ({ onLoginClick, onRegisterClick }) => {
                         Contact Us
                       </Link>
                     </li>
+                    <li>
+                      <Link className="text-decoration-none" to="/chat">
+                        Message
+                      </Link>
+                    </li>
                   </ul>
                 </div>
               </div>

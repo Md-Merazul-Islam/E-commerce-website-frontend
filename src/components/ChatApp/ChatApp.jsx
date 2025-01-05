@@ -16,7 +16,10 @@ const ChatApp = () => {
         const data = await response.json();
         const transformedContacts = data.map((user) => ({
           id: user.id,
-          name: `${user.first_name} ${user.last_name}`.trim() || "Admin",
+          name:
+            user.id === Number(localStorage.getItem("user_id")) - 2
+              ? "ME"
+              : `${user.first_name} ${user.last_name}`.trim() || "Admin",
           status: "Online",
           avatar:
             user.image || "https://bootdey.com/img/Content/avatar/avatar3.png",
@@ -58,7 +61,7 @@ const ChatApp = () => {
       is_read: false,
     };
     console.log(messageData);
-    alert("Message sent successfully");
+    // alert("Message sent successfully");
 
     try {
       const response = await fetch("http://127.0.0.1:8000/chat/send/", {
@@ -121,17 +124,30 @@ const ChatApp = () => {
                   <>
                     {/* Header */}
                     <div className="py-2 px-4 border-bottom">
-                      <div className="d-flex align-items-center">
-                        <img
-                          src={selectedContact.avatar}
-                          alt={selectedContact.name}
-                          className="rounded-circle me-2"
-                          width="40"
-                          height="40"
-                        />
-                        <div>
-                          <strong>{selectedContact.name}</strong>
-                          <div className="text-muted small">Online</div>
+                      <div className="d-flex align-items-center justify-content-between">
+                        <div className="d-flex align-items-center">
+                          <img
+                            src={selectedContact.avatar}
+                            alt={selectedContact.name}
+                            className="rounded-circle me-2"
+                            width="40"
+                            height="40"
+                          />
+                          <div>
+                            <strong>{selectedContact.name}</strong>
+                            <div className="text-muted small">Online</div>
+                          </div>
+                        </div>
+                        <div className="header-icons d-flex align-items-center">
+                          <button className="btn btn-link text-muted me-3 p-0">
+                            <i className="fas fa-phone"></i>
+                          </button>
+                          <button className="btn btn-link text-muted me-3 p-0">
+                            <i className="fas fa-microphone"></i>
+                          </button>
+                          <button className="btn btn-link text-muted p-0">
+                            <i className="fas fa-info-circle"></i>
+                          </button>
                         </div>
                       </div>
                     </div>
