@@ -39,7 +39,6 @@ const RecentProducts = () => {
           <div className="col-lg-12">
             <div className="mb-50">
               <h2 className="heading-1 font-weight-700 b-bt">Recent Items</h2>
-            
             </div>
           </div>
         </div>
@@ -51,6 +50,10 @@ const RecentProducts = () => {
               data-aos="fade-up"
               data-aos-delay={`${index * 300}`}
             >
+              <Link
+                to={`/product-details/${product.id}`}
+                className="text-decoration-none"
+              >
               <div className="product-style-7 mt-30">
                 <div className="product-image">
                   {product.discount && (
@@ -100,6 +103,9 @@ const RecentProducts = () => {
                   </Link>
                 </div>
               </div>
+
+              </Link>
+
             </div>
           ))}
         </div>

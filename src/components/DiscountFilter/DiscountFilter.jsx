@@ -3,7 +3,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import api from "../APi/Api";
 import "./DiscountFilter.css";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const DiscountFilter = () => {
   const [products, setProducts] = useState([]);
@@ -62,17 +62,19 @@ const DiscountFilter = () => {
           <div className="form-group">
             <label className="my-2">Discount Range</label>
             <div className="btn-group-vertical w-100">
-              {["0-10", "10-20", "20-30", "30-40", "40-50", "50+"].map((range) => (
-                <button
-                  key={range}
-                  className={`btn btn-outline-primary custom-btn w-100 mb-2 ${
-                    discountRange === range ? "active" : ""
-                  }`}
-                  onClick={() => handleCategorySelect(range)}
-                >
-                  {range === "50+" ? "50%+" : `${range}%`}
-                </button>
-              ))}
+              {["0-10", "10-20", "20-30", "30-40", "40-50", "50+"].map(
+                (range) => (
+                  <button
+                    key={range}
+                    className={`btn btn-outline-primary custom-btn w-100 mb-2 ${
+                      discountRange === range ? "active" : ""
+                    }`}
+                    onClick={() => handleCategorySelect(range)}
+                  >
+                    {range === "50+" ? "50%+" : `${range}%`}
+                  </button>
+                )
+              )}
             </div>
           </div>
         </div>
@@ -88,29 +90,34 @@ const DiscountFilter = () => {
                   data-aos="fade-up"
                   data-aos-delay={index * 100}
                 >
-                  <div className="card">
-                    <div className="card-img-container">
-                      <img
-                        src={product.image}
-                        className="card-img"
-                        alt={product.name}
-                      />
-                    </div>
-                    <div className="card-body">
-                      <h5 className="card-title">{product.name}</h5>
-                      <p className="card-text">
-                        <h6>Price: ${product.discount_price}</h6>
-                        <p className="text-muted">
-                          <del>
-                            <b>${product.real_price}</b>
-                          </del>
-                          <span className="discount-class">
-                            <b> ({product.discount}% off)</b>
-                          </span>
+                  <Link
+                    to={`/product-details/${product.id}`}
+                    className="text-decoration-none"
+                  >
+                    <div className="card">
+                      <div className="card-img-container">
+                        <img
+                          src={product.image}
+                          className="card-img"
+                          alt={product.name}
+                        />
+                      </div>
+                      <div className="card-body">
+                        <h5 className="card-title">{product.name}</h5>
+                        <p className="card-text">
+                          <h6>Price: ${product.discount_price}</h6>
+                          <p className="text-muted">
+                            <del>
+                              <b>${product.real_price}</b>
+                            </del>
+                            <span className="discount-class">
+                              <b> ({product.discount}% off)</b>
+                            </span>
+                          </p>
                         </p>
-                      </p>
+                      </div>
                     </div>
-                  </div>
+                  </Link>
                 </div>
               ))
             ) : (

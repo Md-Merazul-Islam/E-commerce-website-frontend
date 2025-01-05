@@ -203,11 +203,16 @@ const Cart = () => {
                         className="bg-image hover-overlay hover-zoom ripple rounded"
                         data-mdb-ripple-color="light"
                       >
-                        <img
-                          src={item.product.image}
-                          className="w-75"
-                          alt={item.product.name}
-                        />
+                        <Link
+                          to={`/product-details/${item.product.id}`}
+                          className="text-decoration-none"
+                        >
+                          <img
+                            src={item.product.image}
+                            className="w-75"
+                            alt={item.product.name}
+                          />
+                        </Link>
                         <Link to="#">
                           <div
                             className="mask"
@@ -223,7 +228,12 @@ const Cart = () => {
                       <div className="p-3 ">
                         {/* Product Name */}
                         <h5 className="text-primary mb-2">
-                          {item.product.name}
+                          <Link
+                            to={`/product-details/${item.product.id}`}
+                            className="text-decoration-none"
+                          >
+                            {item.product.name}
+                          </Link>
                         </h5>
 
                         {/* Product Price Section */}

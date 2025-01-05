@@ -125,38 +125,35 @@ const Products = () => {
                       to={`/product-details/${id}`}
                       className="text-decoration-none"
                     >
+                      <div className="product-info">
+                        {/* <span className="category">{category}</span> */}
+                        <h4 className="title">{name}</h4>
 
-                    <div className="product-info">
-                      {/* <span className="category">{category}</span> */}
-                      <h4 className="title">
-                        <Link to={`/product/${slug}`} className="no-underline">
-                          {name}
-                        </Link>
-                      </h4>
-
-                      <ul className="review">
-                        {[...Array(5)].map((_, index) => (
-                          <li key={index}>
-                            <i
-                              className={
-                                index < rating
-                                  ? "lni lni-star-filled"
-                                  : "lni lni-star"
-                              }
-                            ></i>
+                        <ul className="review">
+                          {[...Array(5)].map((_, index) => (
+                            <li key={index}>
+                              <i
+                                className={
+                                  index < rating
+                                    ? "lni lni-star-filled"
+                                    : "lni lni-star"
+                                }
+                              ></i>
+                            </li>
+                          ))}
+                          <li>
+                            <span>{reviews} Review(s)</span>
                           </li>
-                        ))}
-                        <li>
-                          <span>{reviews} Review(s)</span>
-                        </li>
-                      </ul>
-                      <div className="price">
-                        <span>${discount_price}</span>
-                        {real_price && (
-                          <span className="discount-price">${real_price}</span>
-                        )}
+                        </ul>
+                        <div className="price">
+                          <span>${discount_price}</span>
+                          {real_price && (
+                            <span className="discount-price">
+                              ${real_price}
+                            </span>
+                          )}
+                        </div>
                       </div>
-                    </div>
                     </Link>
                   </div>
                 </div>
