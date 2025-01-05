@@ -4,7 +4,7 @@ import "./ChatApp.css";
 const ChatApp = () => {
   const [contacts, setContacts] = useState([]);
   const [messages, setMessages] = useState([]);
-  const [selectedContact, setSelectedContact] = useState(null);
+  const [selectedContact, setSelectedContact] = useState();
   const [loggedInUserId] = useState(Number(localStorage.getItem("user_id")));
   const [newMessage, setNewMessage] = useState("");
 
@@ -32,8 +32,8 @@ const ChatApp = () => {
 
   // Fetch Messages for Selected Contact
   const handleContactClick = async (contact) => {
-    setSelectedContact(contact);
     const receiverId = Number(contact.id) + 2;
+    setSelectedContact(receiverId);
 
     try {
       const response = await fetch(
@@ -49,15 +49,19 @@ const ChatApp = () => {
   // Send Message
   const handleSendMessage = async () => {
     if (!newMessage.trim()) return;
+    console.log("rev id:", selectedContact);
 
     const messageData = {
       sender: loggedInUserId,
-      receiver: selectedContact.id,
-      text: newMessage,
+      receiver: selectedContact,
+      message: newMessage,
+      is_read: false,
     };
+    console.log(messageData);
+    alert("Message sent successfully");
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/messages/send/", {
+      const response = await fetch("http://127.0.0.1:8000/chat/send/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(messageData),
@@ -73,13 +77,12 @@ const ChatApp = () => {
   return (
     <div className="chat-app h-min-screen pb-100">
       <main className="content mt-5 h-min-screen">
-        <div className="container p-0">
-          <h1 className="h3 mb-3">Messages</h1>
+        <div className="container p-0 h-min-screen">
           <div className="card ">
-            <div className="row g-0">
+            <div className="row g-0 ">
               {/* Contacts List */}
-              <div className="col-12 col-lg-5 col-xl-3 border-right">
-                <div className="px-4">
+              <div className="col-12 col-lg-5 col-xl-3 border-right h-min-screen">
+                <div className="px-4 ">
                   <input
                     type="text"
                     className="form-control my-3"
@@ -89,7 +92,7 @@ const ChatApp = () => {
                 {contacts.map((contact) => (
                   <div
                     key={contact.id}
-                    className="list-group-item list-group-item-action border-0 contact-item bg-light"
+                    className="list-group-item list-group-item-action border-0 contact-item text-white "
                     onClick={() => handleContactClick(contact)}
                   >
                     <div className="d-flex align-items-center">
@@ -102,7 +105,9 @@ const ChatApp = () => {
                       />
                       <div className="flex-grow-1">
                         <strong>{contact.name}</strong>
-                        <div className="text-muted small">{contact.status}</div>
+                        <div className="text-white small ">
+                          {contact.status}
+                        </div>
                       </div>
                     </div>
                     <hr />
@@ -189,7 +194,7 @@ const ChatApp = () => {
                           onClick={handleSendMessage}
                           disabled={!newMessage.trim()}
                         >
-                          Send
+                          <i className="fas fa-paper-plane">Send</i>
                         </button>
                       </div>
                     </div>
