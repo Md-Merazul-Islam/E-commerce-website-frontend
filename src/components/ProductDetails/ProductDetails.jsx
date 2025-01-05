@@ -1,197 +1,110 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import api from "../APi/Api";
+// import "./ProductDetails.css";
+// import "./te.css";
 
 const ProductDetails = () => {
-  const [selectedValue, setSelectedValue] = useState("option1"); 
+  const [selectedValue, setSelectedValue] = useState("option1");
+  const { productId } = useParams();
+  const [product, setProduct] = useState(null);
 
-  const handleSelectChange = (event) => {
-    setSelectedValue(event.target.value); 
-  };
+  useEffect(() => {
+    api
+      .get(`/products/products-list/${productId}/`)
+      .then((response) => setProduct(response.data)) 
+      .catch((error) =>
+        console.error("Error fetching product details:", error)
+      );
+  }, [productId]);
+
+  if (!product) {
+    return <h3>Loading...</h3>; 
+  }
+
   return (
     <div>
-      <section className="item-details section">
+      <section className="item-details">
         <div className="container">
           <div className="top-area">
             <div className="row align-items-center">
+              {/* Product Images */}
               <div className="col-lg-6 col-md-12 col-12">
                 <div className="product-images">
                   <main id="gallery">
                     <div className="main-img">
                       <img
-                        src="assets/images/product-details/01.jpg"
+                        src={product.image || "default.jpg"}
+                        alt={product.name || "Product"}
                         id="current"
-                        alt="#"
                       />
                     </div>
                     <div className="images">
-                      <img
-                        src="assets/images/product-details/01.jpg"
-                        className="img"
-                        alt="#"
-                      />
-                      <img
-                        src="assets/images/product-details/02.jpg"
-                        className="img"
-                        alt="#"
-                      />
-                      <img
-                        src="assets/images/product-details/03.jpg"
-                        className="img"
-                        alt="#"
-                      />
-                      <img
-                        src="assets/images/product-details/04.jpg"
-                        className="img"
-                        alt="#"
-                      />
-                      <img
-                        src="assets/images/product-details/05.jpg"
-                        className="img"
-                        alt="#"
-                      />
+                      {/* Example placeholder images */}
+                      {[...Array(4)].map((_, i) => (
+                        <img
+                          key={i}
+                          src="https://st5.depositphotos.com/23435058/65001/v/380/depositphotos_650014444-stock-illustration-vector-icon-web-mobile.jpg"
+                          className="img"
+                          alt={`Preview ${i + 1}`}
+                        />
+                      ))}
                     </div>
                   </main>
                 </div>
               </div>
+
+              {/* Product Info */}
               <div className="col-lg-6 col-md-12 col-12">
                 <div className="product-info">
-                  <h2 className="title">GoPro Karma Camera Drone</h2>
+                  <h2 className="title">{product.name}</h2>
                   <p className="category">
-                    <i className="lni lni-tag"></i> Drones:{" "}
-                    <a href="#">Action cameras</a>
+                    <i className="lni lni-tag"></i> Category:{" "}
+                    <span>{product.category}</span>
                   </p>
                   <h3 className="price">
-                    $850<span>$945</span>
+                    ${product.discount_price}
+                    <span>${product.real_price}</span>
                   </h3>
-                  <p className="info-text">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua.
+                  <p>
+                    <strong>Discount:</strong> {product.discount}% off
                   </p>
+                  <p className="info-text">{product.description}</p>
                   <div className="row">
+                    {/* Color Options */}
+
                     <div className="col-lg-4 col-md-4 col-12">
-                      <div className="form-group color-option">
-                        <label className="title-label" htmlFor="size">
-                          Choose color
-                        </label>
-                        {[...Array(4)].map((_, i) => (
-                          <div
-                            className={`single-checkbox checkbox-style-${
-                              i + 1
-                            }`}
-                            key={i}
-                          >
-                            <input type="checkbox" id={`checkbox-${i + 1}`} />
-                            <label htmlFor={`checkbox-${i + 1}`}>
-                              <span></span>
-                            </label>
-                          </div>
-                        ))}
-                      </div>
+                      <p>
+                        <strong>Quantity:</strong> {product.quantity}
+                      </p>
                     </div>
                     <div className="col-lg-4 col-md-4 col-12">
-                      <div className="form-group">
-                        <label htmlFor="color">Battery capacity</label>
-                        <select value={selectedValue}>
-                          <option value="option1">option 1</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div className="col-lg-4 col-md-4 col-12">
-                      <div className="form-group quantity">
-                        <label htmlFor="color">Quantity</label>
-                        <select className="form-control">
-                          {[1, 2, 3, 4, 5].map((num) => (
-                            <option key={num}>{num}</option>
-                          ))}
-                        </select>
-                      </div>
+                      <p>
+                        <strong>Category:</strong> {product.category}
+                      </p>
                     </div>
                   </div>
                   <div className="bottom-content">
                     <div className="row align-items-end">
                       <div className="col-lg-4 col-md-4 col-12">
-                        <div className="button cart-button">
-                          <button className="btn" style={{ width: "100%" }}>
-                            Add to Cart
-                          </button>
-                        </div>
+                        <button
+                          className="btn btn-primary"
+                          style={{ width: "100%" }}
+                        >
+                          Add to Cart
+                        </button>
                       </div>
                       <div className="col-lg-4 col-md-4 col-12">
-                        <div className="wish-button">
-                          <button className="btn">
-                            <i className="lni lni-reload"></i> Compare
-                          </button>
-                        </div>
+                        <button className="btn">
+                          <i className="lni lni-reload"></i> Compare
+                        </button>
                       </div>
                       <div className="col-lg-4 col-md-4 col-12">
-                        <div className="wish-button">
-                          <button className="btn">
-                            <i className="lni lni-heart"></i> To Wishlist
-                          </button>
-                        </div>
+                        <button className="btn">
+                          <i className="lni lni-heart"></i> To Wishlist
+                        </button>
                       </div>
                     </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="product-details-info">
-            <div className="single-block">
-              <div className="row">
-                <div className="col-lg-6 col-12">
-                  <div className="info-body custom-responsive-margin">
-                    <h4>Details</h4>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua.
-                    </p>
-                    <h4>Features</h4>
-                    <ul className="features">
-                      <li>Capture 4K30 Video and 12MP Photos</li>
-                      <li>Game-Style Controller with Touchscreen</li>
-                      <li>View Live Camera Feed</li>
-                      <li>Full Control of HERO6 Black</li>
-                      <li>Use App for Dedicated Camera Operation</li>
-                    </ul>
-                  </div>
-                </div>
-                <div className="col-lg-6 col-12">
-                  <div className="info-body">
-                    <h4>Specifications</h4>
-                    <ul className="normal-list">
-                      <li>
-                        <span>Weight:</span> 35.5oz (1006g)
-                      </li>
-                      <li>
-                        <span>Maximum Speed:</span> 35 mph (15 m/s)
-                      </li>
-                      <li>
-                        <span>Maximum Distance:</span> Up to 9,840ft (3,000m)
-                      </li>
-                      <li>
-                        <span>Operating Frequency:</span> 2.4GHz
-                      </li>
-                      <li>
-                        <span>Manufacturer:</span> GoPro, USA
-                      </li>
-                    </ul>
-                    <h4>Shipping Options:</h4>
-                    <ul className="normal-list">
-                      <li>
-                        <span>Courier:</span> 2 - 4 days, $22.50
-                      </li>
-                      <li>
-                        <span>Local Shipping:</span> up to one week, $10.00
-                      </li>
-                      <li>
-                        <span>UPS Ground Shipping:</span> 4 - 6 days, $18.00
-                      </li>
-                      <li>
-                        <span>Unishop Global Export:</span> 3 - 4 days, $25.00
-                      </li>
-                    </ul>
                   </div>
                 </div>
               </div>

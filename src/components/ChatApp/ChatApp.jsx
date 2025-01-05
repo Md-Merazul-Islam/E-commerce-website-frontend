@@ -73,11 +73,9 @@ const ChatApp = () => {
     };
     console.log(messageData);
     // alert("Message sent successfully");
-
     try {
       const response = await fetch("http://127.0.0.1:8000/chat/send/", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
