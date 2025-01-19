@@ -2,23 +2,21 @@ import React, { useEffect, useState } from "react";
 import api from "../Api/Api"; // Adjust this path to your API utility
 import { Link } from "react-router-dom";
 import "./Cart.css";
-import { loadStripe } from "@stripe/stripe-js";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 
 const getAuthToken = () => {
   return localStorage.getItem("token");
 };
 
-const stripePromise = loadStripe(
-  "pk_test_51QZEaRCswZXaKM4ARthLO0sY7xHwqdxAV8tHRpXouzGhr8sFSwbM9ZfQUzKWljMSwdwXT3iltkoU1si2Ys114kp000bIO5hmxu"
-);
 
 const Cart = () => {
-  const [isPaymentSuccessful, setIsPaymentSuccessful] = useState(false);
-  const [cartItems, setCartItems] = useState([]);
+    const [cartItems, setCartItems] = useState([]);
   const [CheckOutItem, setCheckOutItem] = useState([]);
   const [error, setError] = useState("");
+  const [paymentUrl, setPaymentUrl] = useState('');
+  const [loading, setLoading] = useState('');
 
   // Fetch cart items from API on component mount
   useEffect(() => {
@@ -139,13 +137,18 @@ const Cart = () => {
     }
   };
 
+
   const handleCheckout = async (cartId) => {
     // Get User ID and Token from localStorage or context
     const userId = localStorage.getItem("user_id");
     const token = localStorage.getItem("token");
-
+  
+    setLoading(true); 
+    setError(''); 
+  
     try {
-      // Make a POST request to create a checkout session
+      // Make a POST request to create a checkout 
+      
       const response = await api.post(
         "payment/checkout/",
         { cart: cartId, user: userId },
@@ -155,35 +158,28 @@ const Cart = () => {
           },
         }
       );
-
-      // Extract client_secret from the response
-      const { client_secret } = response.data;
-
-      // Initialize Stripe instance
-      const stripe = await stripePromise;
-
-      // Confirm the payment with Stripe
-      const { error: stripeError, paymentIntent } =
-        await stripe.confirmCardPayment(client_secret, {
-          payment_method: {
-            card: cardElement,
-            billing_details: {
-              name: "Md Merazul Islam💜💜",
-            },
-          },
-        });
-
-      if (stripeError) {
-        // Handle Stripe error and show error message
-        setError(stripeError.message);
-        toast.error(`Payment failed: ${stripeError.message}`);
-      } else if (paymentIntent.status === "Incomplete") {
-        toast.success("Payment completed successfully!");
+  
+      if (response.data.payment_url) {
+        // If payment URL is returned, redirect to the payment page
+        console.log("Redirecting to payment page");
+        
+        setPaymentUrl(response.data.payment_url);
+        window.location.href = response.data.payment_url;
+      } else {
+        setError('Payment URL not received from server');
+        toast.error('Payment failed: Payment URL not received');
       }
     } catch (err) {
-      toast.success("Payment completed successfully!");
+      // Handle errors that occur during the API request
+      setError(err.message);
+      toast.error(`Payment failed: ${err.message}`);
+    } finally {
+      setLoading(false); 
     }
   };
+  
+
+
 
   return (
     <section className="h-100 gradient-custom">
